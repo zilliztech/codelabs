@@ -1,0 +1,53 @@
+.tutorial-cara-wrapper {
+  border-bottom: 2px solid #4fc4f9;
+  border-radius: 3px;
+  background: #fff;
+  display: inline-block;
+  padding: 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    color: #212121;
+    font-family: Inter;
+  }
+
+  .card-duration {
+    display: flex;
+    align-items: center;
+    color: #aaaaaa;
+    font-size: 11px;
+    mix-blend-mode: initial;
+    justify-content: space-between;
+
+    & .MuiTypography-root {
+      font-size: 12px;
+      line-height: 24px;
+      font-family: Inter;
+    }
+
+    img {
+      opacity: 0.24;
+    }
+  }
+
+  .card-footer {
+    padding: 8px 0;
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+
+    & > .MuiButton-root {
+      background-color: #4fc4f9;
+      text-transform: capitalize;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hello": "hello",
+  "home": {
+    "tab": {
+      "recent": "RECENT",
+      "duration": "DURATION"
+    },
+    "welcome": {
+      "title": "Welcome to Milvus Tutorials!",
+      "content": {
+        "lineOne": "Milvus tutorials provide a guided, tutorial, hands-on milvus integration experience.\n Most tutorials will step you through the process of installation, building a milvus application, or integrate milvus with your existing application.",
+        "lineThree": "You are welcome to file a pull request to the",
+        "lineFour": "More senarios can be found in",
+        "repo": "tutorials repository",
+        "bootcamp": "Milvus bootcamp"
+      }
+    }
+  },
+  "card": {
+    "minute": "min",
+    "start": "Start"
+  },
+  "header": {
+    "start": "Get Started"
+  }
+}

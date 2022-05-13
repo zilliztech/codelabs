@@ -1,0 +1,95 @@
+@import (reference) "../../assets/styles/variables.less";
+
+.header {
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #ededed;
+
+  .inner {
+    width: 90vw;
+    margin: 0 auto;
+    max-width: 1600px;
+    display: flex;
+    justify-content: space-between;
+
+    .leftPart {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 42px;
+
+      @media (max-width: 1100px) {
+        gap: 16px;
+      }
+
+      .logoSection {
+        display: flex;
+        gap: 16px;
+        @media (max-width: 1100px) {
+          gap: 8px;
+        }
+
+        a {
+          display: inline-block;
+          line-height: 0;
+
+          img {
+            height: 30px;
+            width: auto;
+          }
+        }
+      }
+
+      .menuSection {
+        display: flex;
+        gap: 16px;
+        color: #fff;
+
+        @media (max-width: 1100px) {
+          gap: 8px;
+        }
+
+        @media (max-width: 1000px) {
+          display: none;
+        }
+      }
+    }
+
+    .rightPart {
+      .desktopHeader {
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 1000px) {
+          display: none;
+        }
+      }
+      .mobileHeader {
+        display: none;
+
+        @media (max-width: 1000px) {
+          display: block;
+        }
+      }
+
+      .githubBtnsWrapper {
+        display: flex;
+      }
+
+      button {
+        font-size: 14px;
+        line-height: 18px;
+        background-color: #00a1ea;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 21px;
+        text-transform: capitalize;
+      }
+    }
+  }
+}

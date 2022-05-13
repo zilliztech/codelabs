@@ -1,0 +1,3 @@
+[submodule "milvus-tutorials"]
+	path = milvus-tutorials
+	url = https://github.com/milvus-io/milvus-tutorials

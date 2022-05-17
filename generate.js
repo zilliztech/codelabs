@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const args = require("yargs").argv;
 const glob = require("glob");
-const CODELABS_DIR = "./codelabs";
+const CODELABS_DIR = "./public";
 const DEFAULT_CATEGORY = "Default";
 const CODELABS_NAMESPACE = (args.codelabsNamespace || "").replace(
   /^\/|\/$/g,

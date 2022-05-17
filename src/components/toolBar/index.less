@@ -1,4 +1,5 @@
-@import "../../assets//styles/responsive.less";
+@import "../../assets/styles/responsive.less";
+
 .toolbar-wrapper {
   display: flex;
   align-items: center;
@@ -18,10 +19,18 @@
       width: 20px;
       height: 20px;
     }
+
+    @media @tablet {
+      max-width: 180px;
+    }
   }
 
   .selector-wrapper {
     width: 180px;
+
+    @media @tablet {
+      max-width: 130px;
+    }
 
     .MuiOutlinedInput-root {
       width: 100%;

@@ -31,7 +31,6 @@ if (project === "milvus") {
     .filter(v => !v.includes(".DS_Store"));
 
   paths.forEach(path => {
-    console.log("path---", path);
     child_process.spawn("cp", [
       "-r",
       path,

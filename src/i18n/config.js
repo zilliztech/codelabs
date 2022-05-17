@@ -14,9 +14,7 @@ export const defaultNS = "common";
 
 i18n.use(initReactI18next).init({
   lng: "en",
-  ns: [
-    "common",
-  ],
+  ns: ["common"],
   keySeparator: ".",
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default

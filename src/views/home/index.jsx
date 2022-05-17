@@ -5,7 +5,6 @@ import TabList from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TutorialCard from "../../components/card";
 import { useTranslation } from "react-i18next";
@@ -91,26 +90,7 @@ export default function HomePage() {
               <Typography component="p">
                 {t("home.welcome.content.lineOne")}
               </Typography>
-              <Typography component="p">
-                {t("home.welcome.content.lineThree")}{" "}
-                <Link
-                  href="https://github.com/milvus-io/milvus-tutorials"
-                  target="_blank"
-                >
-                  {t("home.welcome.content.repo")}
-                </Link>
-                .
-              </Typography>
-              <Typography component="p">
-                {t("home.welcome.content.lineFour")}{" "}
-                <Link
-                  href="https://github.com/milvus-io/bootcamp"
-                  target="_blank"
-                >
-                  {t("home.welcome.content.bootcamp")}
-                </Link>
-                .
-              </Typography>
+              
             </Box>
           </Box>
         </Box>

@@ -6,9 +6,9 @@
       "duration": "DURATION"
     },
     "welcome": {
-      "title": "Welcome to Milvus Tutorials!",
+      "title": "Welcome to Milvus Codelabs!",
       "content": {
-        "lineOne": "Milvus tutorials provide a guided, tutorial, hands-on milvus integration experience.\n Most tutorials will step you through the process of installation, building a milvus application, or integrate milvus with your existing application.",
+        "lineOne": "Milvus Codelabs provide a guided, tutorial, hands-on milvus integration experience.\n Most tutorials will step you through the process of installation, building a milvus application, or integrate milvus with your existing application.",
         "lineThree": "You are welcome to file a pull request to the",
         "lineFour": "More senarios can be found in",
         "repo": "tutorials repository",

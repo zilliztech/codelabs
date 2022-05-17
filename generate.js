@@ -4,6 +4,8 @@ const args = require("yargs").argv;
 const glob = require("glob");
 const { Remarkable } = require("remarkable");
 const hljs = require("highlight.js"); // https://highlightjs.org/
+const ejs = require("ejs");
+const child_process = require("child_process");
 
 // Basic config
 const CODELABS_DIR = "./public";
@@ -13,8 +15,50 @@ const CODELABS_NAMESPACE = (args.codelabsNamespace || "").replace(
   /^\/|\/$/g,
   ""
 );
+const TEMPLAT_DIR = "./template.html";
 const codelabs = [];
 const categories = {};
+
+// get project name via args.env
+const project = args.env;
+
+// copy milvus header and footer to components
+// new folder path is src/component/commonComponents
+if (project === "milvus") {
+  const paths = fs
+    .readdirSync("./src/commonComponents/milvus")
+    .map(path => `./src/commonComponents/milvus/${path}`)
+    .filter(v => !v.includes(".DS_Store"));
+
+  paths.forEach(path => {
+    child_process.spawn("cp", [
+      "-r",
+      path,
+      "./src/components/commonComponents",
+    ]);
+  });
+}
+
+// insert html to article-template via ejs
+const decorateArticle = article => {
+  let articleString = article;
+  articleString = articleString.split("</h1>")[1];
+
+  const paragraphArr = articleString.split("\n").map(paragrap => {
+    if (paragrap.includes("Duration:")) return "";
+    return paragrap;
+  });
+  // console.log("paragraphArr---", paragraphArr);
+
+  const tmp = fs.readFileSync(TEMPLAT_DIR, "utf-8", err => {
+    console.log(err);
+  });
+
+  const html = ejs.render(tmp, {
+    content: paragraphArr.join("\n"),
+  });
+  return html;
+};
 
 // get category
 const categoryClass = (codelab, level) => {
@@ -54,6 +98,7 @@ const metaFiles = glob.sync(`${CODELABS_DIR}/*/codelab.json`);
 // // load markdown files
 // init remarkable
 const md = new Remarkable({
+  html: true,
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
@@ -82,7 +127,7 @@ for (let i = 0; i < metaFiles.length; i++) {
   // markdown -> html
   const article = md.render(originMD.toString());
   // save article to disk
-  fs.writeFile(meta.articleUrl, article, err => {
+  fs.writeFile(meta.articleUrl, decorateArticle(article), err => {
     if (err) {
       throw err;
     }

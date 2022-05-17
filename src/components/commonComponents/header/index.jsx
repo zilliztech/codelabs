@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-import milvusLogo from "../../../images/milvus_logo.svg";
-import GitHubButton from "../../githubButton";
-import MilvusCookieConsent from "../../milvusCookieConsent";
-import { getGithubStatis } from "../../../http";
+import milvusLogo from "../../images/milvus_logo.svg";
+import GitHubButton from "../githubButton";
+import { getGithubStatis } from "../../http";
 import * as styles from "./index.module.less";
 
 import { Navigator, MobileNavigator } from "./navigator";
@@ -91,7 +90,7 @@ const Header = ({ darkMode = false, className = "" }) => {
 
   const logoSection = (
     <div className={styles.logoSection}>
-      <Link href={isDev ? "/" : "https://milvus.io"} underline="none">
+      <Link href="https://milvus.io" underline="none">
         <img src={milvusLogo} alt="milvus-logo" />
       </Link>
       <Divider
@@ -160,7 +159,7 @@ const Header = ({ darkMode = false, className = "" }) => {
           <div className={styles.rightSection}>
             {isDesktop && actionBar}
             <Link
-              href="/docs/example_code.md"
+              href="https://milvus.io/docs/example_code.md"
               className={styles.startBtn}
               underline="none"
             >
@@ -188,7 +187,10 @@ const Header = ({ darkMode = false, className = "" }) => {
               variant="fullwidth"
               sx={{ position: "absolute", bottom: "78px", width: "100%" }}
             />
-            <Link href="/docs/install_standalone-docker.md" underline="none">
+            <Link
+              href="https://milvus.io/docs/install_standalone-docker.md"
+              underline="none"
+            >
               <button className={styles.startBtn}>Get Started</button>
             </Link>
           </nav>
@@ -197,12 +199,7 @@ const Header = ({ darkMode = false, className = "" }) => {
     </header>
   );
 
-  return (
-    <>
-      {header}
-      {<MilvusCookieConsent />}
-    </>
-  );
+  return header;
 };
 
 export default Header;

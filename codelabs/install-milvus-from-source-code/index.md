@@ -9,9 +9,11 @@ Feedback Link: https://milvus.io
 # Install Milvus from Source Code
 
 ## Requirements
+
 Duration: 2
 
 - Operating system
+
   - Ubuntu 18.04 or higher
   - CentOS 7
 
@@ -21,17 +23,20 @@ Duration: 2
 
 For GPU-enabled version, you will also need:
 
--   [CUDA 10.0 or higher](https://developer.nvidia.com/cuda-downloads)
+- [CUDA 10.0 or higher](https://developer.nvidia.com/cuda-downloads)
 
--   [NVIDIA driver 418 or higher](https://www.nvidia.com/Download/index.aspx)
+- [NVIDIA driver 418 or higher](https://www.nvidia.com/Download/index.aspx)
 
 ## Download milvus source from GitHub
+
 Duration: 3
+
 ```shell
 git clone https://github.com/milvus-io/milvus
 ```
 
 ## Install dependencies
+
 Duration: 3
 
 ### Install in Ubuntu
@@ -49,6 +54,7 @@ $ ./centos7_build_deps.sh
 ```
 
 ## Build from source
+
 Duration: 20
 
 ```shell
@@ -77,6 +83,7 @@ $./build.sh -h
 When the build is completed, everything that you need in order to run Milvus will be installed under `[Milvus root path]/core/milvus`.
 
 ## Launch Milvus server
+
 Duration: 3
 
 ```shell
@@ -102,9 +109,10 @@ To stop Milvus server, run:
 $ ./stop_server.sh
 ```
 
-
 ## Troubleshooting
+
 Duration: 10
+
 #### Error message: `protocol https not supported or disabled in libcurl`
 
 Follow the steps below to solve this problem:
@@ -112,13 +120,13 @@ Follow the steps below to solve this problem:
 1.  Make sure you have `libcurl4-openssl-dev` installed in your system.
 2.  Try reinstalling the latest CMake from source with `--system-curl` option:
 
-   ```shell
-   $ ./bootstrap --system-curl
-   $ make
-   $ sudo make install
-   ```
+```shell
+$ ./bootstrap --system-curl
+$ make
+$ sudo make install
+```
 
-   If the `--system-curl` command doesn't work, you can also reinstall CMake in **Ubuntu Software** on your local computer.
+If the `--system-curl` command doesn't work, you can also reinstall CMake in **Ubuntu Software** on your local computer.
 
 #### Error message: `internal compiler error`
 

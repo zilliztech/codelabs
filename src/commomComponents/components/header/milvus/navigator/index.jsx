@@ -32,7 +32,7 @@ export const Navigator = props => {
 
     return (
       <>
-        <button onClick={handleClick} className={styles.menuItem} disableRipple>
+        <button onClick={handleClick} className={styles.menuItem}>
           {title}
         </button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

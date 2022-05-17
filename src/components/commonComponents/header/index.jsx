@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-import milvusLogo from "../../images/milvus_logo.svg";
+import milvusLogo from "../images/milvus_logo.svg";
 import GitHubButton from "../githubButton";
-import { getGithubStatis } from "../../http";
+import { getGithubStatis } from "../http";
 import * as styles from "./index.module.less";
 
 import { Navigator, MobileNavigator } from "./navigator";

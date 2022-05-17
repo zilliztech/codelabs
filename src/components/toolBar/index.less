@@ -1,6 +1,11 @@
+@import "../../assets//styles/responsive.less";
 .toolbar-wrapper {
   display: flex;
   align-items: center;
+
+  @media @phone {
+    display: none;
+  }
 
   .input-wrapper {
     margin-right: 16px;

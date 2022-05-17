@@ -1,31 +1,45 @@
 // get env in vite
+let isExternal;
+const isExternalProject = import.meta.env.VITE_IS_EXXTERNAL_LINK;
 const isDev = import.meta.env.MODE === "development";
 
+if (isExternalProject) {
+  isExternal = true;
+} else {
+  isExternal = !isDev;
+}
+
+console.log(isExternal);
 export const MENU = [
   {
     label: "Docs",
-    href: isDev ? "/docs" : "https://milvus.io/docs",
-    isExternal: false,
+    href: !isExternal ? "/docs" : "https://milvus.io/docs",
+    isExternal: isExternal,
   },
+  // {
+  //   label: "Tutorials",
+  //   subMenu: [
+  //     {
+  //       label: "Bootcamp",
+  //       href: !isExternal ? "/bootcamp" : "https://milvus.io/bootcamp",
+  //       isExternal: isExternal,
+  //     },
+  //     {
+  //       label: "Demo",
+  //       href: !isExternal ? "/milvus-demos" : "https://milvus.io/milus-demos",
+  //       isExternal: isExternal,
+  //     },
+  //     {
+  //       label: "Video",
+  //       href: "https://www.youtube.com/c/MilvusVectorDatabase",
+  //       isExternal: true,
+  //     },
+  //   ],
+  // },
   {
-    label: "Tutorials",
-    subMenu: [
-      {
-        label: "Bootcamp",
-        href: isDev ? "/bootcamp" : "https://milvus.io/bootcamp",
-        isExternal: false,
-      },
-      {
-        label: "Demo",
-        href: isDev ? "/milvus-demos" : "https://milvus.io/milus-demos",
-        isExternal: false,
-      },
-      {
-        label: "Video",
-        href: "https://www.youtube.com/c/MilvusVectorDatabase",
-        isExternal: true,
-      },
-    ],
+    label: "Codelabs",
+    href: "#",
+    isExternal: false,
   },
   {
     label: "Tools",
@@ -42,19 +56,19 @@ export const MENU = [
       },
       {
         label: "sizing",
-        href: isDev ? "/tools/sizing" : "https://milvus.io/tools/sizing",
-        isExternal: false,
+        href: !isExternal ? "/tools/sizing" : "https://milvus.io/tools/sizing",
+        isExternal: isExternal,
       },
     ],
   },
   {
     label: "Blog",
-    href: isDev ? "/blog" : "https://milvus.io/blog",
-    isExternal: false,
+    href: !isExternal ? "/blog" : "https://milvus.io/blog",
+    isExternal: isExternal,
   },
   {
     label: "Community",
-    href: isDev ? "/community" : "https://milvus.io/community",
-    isExternal: false,
+    href: !isExternal ? "/community" : "https://milvus.io/community",
+    isExternal: isExternal,
   },
 ];

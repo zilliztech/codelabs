@@ -1,12 +1,12 @@
-import MilvusHeader from "../../commomComponents/components/header/milvus";
-import MilvusFooter from "../../commomComponents/components/footer/milvus";
+import Header from "../commonComponents/components/header";
+import Footer from "../commonComponents/components/footer";
 
 export default function Layout(props) {
   return (
     <>
-      <MilvusHeader />
+      <Header />
       {props.children}
-      <MilvusFooter darkMode={true} />
+      <Footer darkMode={true} />
     </>
   );
 }

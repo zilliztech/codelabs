@@ -18,7 +18,7 @@ export const LINK_JSON = [
     ],
   },
   {
-    title: "Tutorials",
+    title: "Codelabs",
     children: [
       { name: "Bootcamp", trans: true, to: "https://milvus.io/bootcamp" },
       { name: "Demo", trans: true, to: "https://milvus.io/milvus-demos" },

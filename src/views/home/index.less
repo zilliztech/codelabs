@@ -1,10 +1,16 @@
+@import (reference) "../../components/commonComponents/css/mixins.less";
+
 .home-container {
   color: #5c5c5c;
   font-family: Inter;
-  letter-spacing: -0.05;
+  letter-spacing: -0.05em;
   margin-bottom: 48px;
+  min-height: 700px;
 
   .inner {
+    .col-4;
+    .col-8;
+    .col-12;
     width: 90vw;
     max-width: 1600px;
     margin: 0 auto;
@@ -20,7 +26,7 @@
       font-size: 50px;
       font-weight: 300;
       font-family: Inter;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.05em;
     }
 
     p {

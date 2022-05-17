@@ -1,5 +1,5 @@
-import Header from "../commonComponents/components/header";
-import Footer from "../commonComponents/components/footer";
+import Header from "../commonComponents/header";
+import Footer from "../commonComponents/footer";
 
 export default function Layout(props) {
   return (

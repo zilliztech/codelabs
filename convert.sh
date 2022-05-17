@@ -1,6 +1,6 @@
 #!/bin/bash
 # go to codelabs
-cd milvus-tutorials
+cd codelabs
 # get all files
 # FILES=find . -name '*.md'
 set -e

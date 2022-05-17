@@ -4,40 +4,33 @@ import Link from "@mui/material/Link";
 import * as styles from "./index.module.less";
 import { Github, Slack, Twitter, Youtube } from "./icons";
 
-const iconMap = {
-  github: Github,
-  slcak: Slack,
-  twitter: Twitter,
-  youtube: Youtube,
-};
-
-const footerJson = [
+export const LINK_JSON = [
   {
-    title: "resources",
+    title: "Resources",
     children: [
-      { name: "Docs", trans: false, to: "/docs" },
+      { name: "Docs", trans: false, to: "https://milvus.io/docs" },
       {
         name: "Blog",
         trans: false,
-        to: "/blog",
+        to: "https://milvus.io/blog",
       },
       { name: "Learn", trans: false, to: "https://zilliz.com/learn" },
     ],
   },
   {
-    title: "tutorials",
+    title: "Tutorials",
     children: [
-      { name: "bootcamp", trans: true, to: "/bootcamp" },
-      { name: "demo", trans: true, to: "/milvus-demos" },
+      { name: "Bootcamp", trans: true, to: "https://milvus.io/bootcamp" },
+      { name: "Demo", trans: true, to: "https://milvus.io/milvus-demos" },
       {
-        name: "video",
+        name: "Video",
         trans: true,
         to: "https://www.youtube.com/c/MilvusVectorDatabase",
       },
     ],
   },
   {
-    title: "tools",
+    title: "Tools",
     children: [
       { name: "Attu", trans: false, to: "https://github.com/zilliztech/attu" },
       {
@@ -45,40 +38,48 @@ const footerJson = [
         trans: false,
         to: "https://github.com/zilliztech/milvus_cli",
       },
-      { name: "Sizing Tool", trans: false, to: "/tools/sizing" },
+      {
+        name: "Sizing Tool",
+        trans: false,
+        to: "https://milvus.io/tools/sizing",
+      },
     ],
   },
   {
-    title: "community",
+    title: "Community",
     children: [
-      { name: "getinvolved", trans: true, to: "/community" },
+      { name: "Get involved", trans: true, to: "https://milvus.io/community" },
       { name: "Slack", trans: false, to: "https://slack.milvus.io" },
       {
         name: "Github",
         trans: false,
         to: "https://github.com/milvus-io/milvus",
       },
-      { name: "forum", trans: true, to: "https://discuss.milvus.io/" },
+      { name: "Forum", trans: true, to: "https://discuss.milvus.io/" },
     ],
   },
 ];
 
-const socialJson = [
+export const SOCIAL_JSON = [
   {
     icon: Github,
     link: "https://github.com/milvus-io/milvus",
+    alt: "GitHub",
   },
   {
     icon: Slack,
     link: "https://slack.milvus.io/",
+    alt: "Slack",
   },
   {
     icon: Twitter,
     link: "https://twitter.com/milvusio",
+    alt: "Twitter",
   },
   {
     icon: Youtube,
     link: "https://www.youtube.com/channel/UCMCo_F7pKjMHBlfyxwOPw-g",
+    alt: "YouTube",
   },
 ];
 
@@ -94,36 +95,22 @@ const Footer = ({ darkMode = true, className }) => {
         className={clsx(styles.container, { [`col-4 col-8 col-12`]: darkMode })}
       >
         <div className={`${styles.footContentWrapper} `}>
-          {footerJson.map(f => (
+          {LINK_JSON.map(f => (
             <div key={f.title} className={`${styles.footerItem} col-2`}>
               <span className={styles.itemTitle}>{f.title}</span>
 
-              {f.children.map((c, index) => {
-                if (c.to.startsWith("http")) {
-                  return (
-                    <Link
-                      key={`${index}-c.name`}
-                      className={styles.itemEntry}
-                      href={c.to}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="none"
-                    >
-                      {c.name}
-                    </Link>
-                  );
-                }
-                return (
-                  <Link
-                    key={`${index}-c.name`}
-                    className={styles.itemEntry}
-                    href={c.to}
-                    underline="none"
-                  >
-                    {c.name}
-                  </Link>
-                );
-              })}
+              {f.children.map((c, index) => (
+                <Link
+                  key={`${index}-c.name`}
+                  className={styles.itemEntry}
+                  href={c.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
+                >
+                  {c.name}
+                </Link>
+              ))}
             </div>
           ))}
         </div>
@@ -131,17 +118,17 @@ const Footer = ({ darkMode = true, className }) => {
           <span>{`Milvus. ${new Date().getFullYear()} All rights reserved.`}</span>
 
           <div className={styles.social}>
-            {socialJson.map(s => {
+            {SOCIAL_JSON.map(s => {
               const Icon = s.icon;
               return (
-                <a
+                <Link
                   key={s.link}
                   href={s.link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Icon />
-                </a>
+                </Link>
               );
             })}
           </div>

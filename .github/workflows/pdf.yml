@@ -16,7 +16,7 @@ jobs:
           ./convert.sh
 
       - name: Generate articles
-        id: gen articles
+        id: gen-articles
         run: |
           node gernerate.js
-          
+

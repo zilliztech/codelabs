@@ -35,4 +35,4 @@ jobs:
       - name: Generate articles
         id: gen-articles
         run: |
-          node gernerate.js
+          node generate.js

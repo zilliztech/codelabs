@@ -72,12 +72,6 @@ jobs:
       - name: Installing dependencies
         run: yarn install
 
-      - name: Convert codelabs
-        id: build-image
+      - name: Prepare markdown
         run: |
-          ./convert.sh
-
-      - name: Generate articles
-        id: gen-articles
-        run: |
-          node generate.js
+          node .github/script/prepareMarkdown.js

@@ -37,6 +37,12 @@ paths.forEach(path => {
   child_process.spawn("cp", ["-r", path, "./src/components/commonComponents"]);
 });
 
+function get(state, line) {
+  const pos = state.bMarks[line];
+  const max = state.eMarks[line];
+  return state.src.substr(pos, max - pos);
+}
+
 // insert html to article-template via ejs
 const decorateArticle = article => {
   const html = ejs.render(template, {

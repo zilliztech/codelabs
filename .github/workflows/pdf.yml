@@ -10,18 +10,13 @@ jobs:
       - name: "Checkout Github Action"
         uses: actions/checkout@master
 
-      - name: Build image
+      - name: Convert codelabs
         id: build-image
         run: |
           ./convert.sh
 
-      # - name: Push image to Harbor
-      #   id: build-image
-      #   run: |
-      #     docker push harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }}
-
-      # - name: Deploy to cluster
-      #   run: |
-      #     echo ${{ secrets.kubeconfig }} > config64
-      #     base64 -d config64 > kubeconfig
-      #     kubectl set image deployment/milvus-tutorials milvus-tutorials=harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }} -n ued --kubeconfig=kubeconfig
+      - name: Generate articles
+        id: gen articles
+        run: |
+          node gernerate.js
+          

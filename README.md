@@ -15,7 +15,11 @@ yarn install
 ## preview server
 
 ```
-yarn dev
+# preview milvus codelab 
+yarn milvus
+
+# preview towhee codelab 
+yarn towhee
 ```
 
 ## Suuported syntax

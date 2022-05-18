@@ -20,42 +20,27 @@ const codelabs = [];
 const categories = {};
 
 // get project name via args.env
-const project = args.env;
+const project = args.env || "milvus";
+const template = fs.readFileSync(TEMPLAT_DIR, "utf-8", err => {
+  console.log(err);
+});
 
 // copy milvus header and footer to components
 // new folder path is src/component/commonComponents
-if (project === "milvus") {
-  const paths = fs
-    .readdirSync("./src/commonComponents/milvus")
-    .map(path => `./src/commonComponents/milvus/${path}`)
-    .filter(v => !v.includes(".DS_Store"));
 
-  paths.forEach(path => {
-    child_process.spawn("cp", [
-      "-r",
-      path,
-      "./src/components/commonComponents",
-    ]);
-  });
-}
+const paths = fs
+  .readdirSync(`./src/commonComponents/${project}`)
+  .map(path => `./src/commonComponents/${project}/${path}`)
+  .filter(v => !v.includes(".DS_Store"));
+
+paths.forEach(path => {
+  child_process.spawn("cp", ["-r", path, "./src/components/commonComponents"]);
+});
 
 // insert html to article-template via ejs
 const decorateArticle = article => {
-  let articleString = article;
-  articleString = articleString.split("</h1>")[1];
-
-  const paragraphArr = articleString.split("\n").map(paragrap => {
-    if (paragrap.includes("Duration:")) return "";
-    return paragrap;
-  });
-  // console.log("paragraphArr---", paragraphArr);
-
-  const tmp = fs.readFileSync(TEMPLAT_DIR, "utf-8", err => {
-    console.log(err);
-  });
-
-  const html = ejs.render(tmp, {
-    content: paragraphArr.join("\n"),
+  const html = ejs.render(template, {
+    content: article,
   });
   return html;
 };
@@ -112,6 +97,76 @@ const md = new Remarkable({
 
     return ""; // use external default escaping
   },
+});
+// use plugins
+md.use(md => {
+  // parser
+  md.block.ruler.before(
+    "heading", // before code
+    "frontmatter", // rule name: meta
+    // parser
+    function (state, start, end) {
+      // only starting from the 0 line
+      if (start !== 0) return false;
+
+      const frontmatter = [];
+
+      for (let line = start + 1; line < end; line++) {
+        const str = get(state, line);
+        // if the line is a headding line or an empty line
+        if (str.startsWith("#") || str === "") {
+          // update state line
+          state.line = line;
+          // update token
+          state.tokens.push({
+            type: "frontmatter", // token name, should be the same as in the renderer.rules
+            level: state.level,
+            lines: [0, line - 1],
+          });
+          break;
+        }
+        // if (state.tShift[line] < 0) break;
+        frontmatter.push(str);
+      }
+
+      md.frontmatter = frontmatter;
+      return true;
+    },
+    { alt: [] }
+  );
+
+  // parser
+  md.block.ruler.before(
+    "heading", // before code
+    "frontmatter", // rule name: meta
+    // parser
+    function (state, start) {
+      const str = get(state, start);
+      if (!str.startsWith("Duration")) return false;
+
+      // update state line
+      state.line = start + 1;
+      // update token
+      state.tokens.push({
+        type: "duration", // token name, should be the same as in the renderer.rules
+        level: state.level,
+        lines: [start, start],
+      });
+
+      return true;
+    },
+    { alt: [] }
+  );
+
+  // renderer
+  // frontmatter, just render empty string
+  md.renderer.rules.frontmatter = () => {
+    return "";
+  };
+  // duration, just render empty string
+  md.renderer.rules.duration = () => {
+    return "";
+  };
 });
 
 // combine json files

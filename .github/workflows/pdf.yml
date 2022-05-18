@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-gen-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Github Action"
+        uses: actions/checkout@master
+
+      - name: Build image
+        id: build-image
+        run: |
+          ./convert.sh
+
+      # - name: Push image to Harbor
+      #   id: build-image
+      #   run: |
+      #     docker push harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }}
+
+      # - name: Deploy to cluster
+      #   run: |
+      #     echo ${{ secrets.kubeconfig }} > config64
+      #     base64 -d config64 > kubeconfig
+      #     kubectl set image deployment/milvus-tutorials milvus-tutorials=harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }} -n ued --kubeconfig=kubeconfig

@@ -17,5 +17,5 @@ for f in $(find . -name "*.pdf.md"); do
   echo "Generating PDF $newfile ..."
   echo "The script you are running has basename $(basename "$0"), dirname $(dirname "$0")"
   echo "The present working directory is $(pwd)"
-  pandoc $f --template ../../pdf-template/Eisvogel/eisvogel.latex --listing -o $newfile --resource-path=$resource_path
+  pandoc $f --template pdf-template/Eisvogel/eisvogel.latex --listing -o $newfile --resource-path=$resource_path
 done

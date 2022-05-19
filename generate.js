@@ -156,11 +156,6 @@ function parseCodelabMetadata(filepath) {
   meta.mainCategory = meta.category[0] || DEFAULT_CATEGORY;
   meta.categoryClass = categoryClass(meta);
   meta.url = path.join(CODELABS_NAMESPACE, meta.id, "index.html");
-  meta.articleUrl = path.join(
-    CODELABS_DIR,
-    CODELABS_NAMESPACE,
-    meta.id,
-    "article.html"
-  );
+
   return meta;
 }

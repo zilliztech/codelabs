@@ -26,7 +26,7 @@ Duration: 1
 | Component           | Recommended configuration                              |
 | ------------------- | ------------------------------------------------------ |
 | CPU                 | Intel CPU Sandy Bridge or higher.                      |
-| CPU instruction set | <li>SSE42</li><li>AVX</li><li>AVX2</li><li>AVX512</li> |
+| CPU instruction set | SSE42 / AVX / AVX2 / AVX512|
 | RAM                 | 8 GB or more (depends on the data volume)              |
 | Hard drive          | SATA 3.0 SSD or higher                                 |
 

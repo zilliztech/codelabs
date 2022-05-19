@@ -49,7 +49,7 @@ function array2Obj(arr) {
   const res = {};
   arr.forEach(item => {
     const [key, value] = item.split(':');
-    res[key] = value;
+    res[key] = value.trim();
   });
   return res;
 }

@@ -1,6 +1,6 @@
-import React from "react";
-import { convertMkdToHtml } from "../utils/common";
-import Layout from "../components/layout";
+import React from 'react';
+import { convertMkdToHtml } from '../utils/common';
+import Layout from '../components/layout';
 
 export default function ArticleDetail(props) {
   return (
@@ -11,7 +11,7 @@ export default function ArticleDetail(props) {
 }
 
 export const getServerSideProps = ({ params }) => {
-  const fs = require("fs");
+  const fs = require('fs');
   const { id } = params;
   // get meta
   const meta = JSON.parse(

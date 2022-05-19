@@ -17,8 +17,7 @@ for (let i = 0; i < mdFiles.length; i++) {
   let frontmatter_set = false;
 
   lines.forEach((line, index) => {
-    // console.log(`Line from file: ${line}`);
-
+    // remove durations and frontmatter
     if (frontmatter_set) {
       if (!line.startsWith('Duration:')) {
         newMarkdownContent.push(line);
@@ -27,11 +26,12 @@ for (let i = 0; i < mdFiles.length; i++) {
       frontmatter.push(line);
       const nextLine = lines[index + 1];
       frontmatter_set = nextLine.startsWith('# ') || nextLine === '';
-      console.log('frontmatter_set', mdFileContents);
     }
+
+    
   });
 
-  console.log(frontmatter);
+  console.log(`new pdf.md saved`, newFile, frontmatter);
 
   // save article to disk
   fs.writeFile(

@@ -74,4 +74,4 @@ jobs:
 
       - name: Prepare markdown
         run: |
-          node .github/script/prepareMarkdown.js
+          node scripts/prepareMarkdown.js

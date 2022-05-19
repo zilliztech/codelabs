@@ -1,14 +1,16 @@
 #!/bin/bash
+# setup file path
 parent_path=$(
   cd "$(dirname "${BASH_SOURCE[0]}")"
   pwd -P
 )
 template="$parent_path/pdf-template/Eisvogel/eisvogel.latex"
-echo "using template ${template} ... done"
+output="$parent_path/../pdf"
+echo "Preparing template ${template} ... done"
 
-# make pdf directory
-echo "Creating pdf folder if exists ... done"
-mkdir -p pdf
+# ensure pdf directory
+echo "Preparing out $output if exists ... done"
+mkdir -p $output
 
 # go to codelabs
 cd codelabs
@@ -18,10 +20,13 @@ set -e
 # convert md to codelabs format
 for f in $(find . -name "*.pdf.md"); do
   resource_path="$(dirname $f)"
-  newfile="$(echo $f | sed -e 's/\.pdf.md/.pdf/')"
+  filename="$(basename $f)"
+  newfile="$output/$(echo $filename | sed -e 's/\.pdf.md/.pdf/')"
 
-  echo "using resource path = $resource_path ... done"
+  # echo "using resource path = $resource_path ... done"
   echo "Generating PDF $newfile ..."
-  pandoc $f --template $template --listing -o $newfile --resource-path=$resource_path
-  echo "done."
+  # pandoc $f --template $template --listing -o $newfile --resource-path=$resource_path
+  echo "Done."
 done
+
+ls $output

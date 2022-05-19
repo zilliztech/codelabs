@@ -34,3 +34,4 @@ yarn-error.log*
 *.pdf.md
 public
 dist
+codelab.json

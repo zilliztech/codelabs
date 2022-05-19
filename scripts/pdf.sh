@@ -6,10 +6,11 @@ parent_path=$(
 )
 template="$parent_path/pdf-template/Eisvogel/eisvogel.latex"
 output="$parent_path/../pdf"
-echo "Preparing template ${template} ... done"
+# echo "Preparing template ${template} ... done"
 
 # ensure pdf directory
-echo "Preparing out $output if exists ... done"
+# echo "Preparing out $output if exists ... done"
+rm $output > /dev/null 2>&1
 mkdir -p $output
 
 # go to codelabs
@@ -29,4 +30,5 @@ for f in $(find . -name "*.pdf.md"); do
   echo "Done."
 done
 
-ls $output
+echo "List PDF files"
+ls -h $output

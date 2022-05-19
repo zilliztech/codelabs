@@ -25,7 +25,7 @@ for f in $(find . -name "*.pdf.md"); do
 
   # echo "using resource path = $resource_path ... done"
   echo "Generating PDF $newfile ..."
-  # pandoc $f --template $template --listing -o $newfile --resource-path=$resource_path
+  pandoc $f --template $template --listing -o $newfile --resource-path=$resource_path
   echo "Done."
 done
 

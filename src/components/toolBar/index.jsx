@@ -1,8 +1,5 @@
 import {
-  Input,
   Box,
-  FormControl,
-  InputLabel,
   Select,
   MenuItem,
   OutlinedInput,
@@ -10,7 +7,6 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import { useState } from "react";
 import classes from "./index.module.less";
 
 const SearchIcon = () => (

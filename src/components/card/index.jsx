@@ -1,4 +1,4 @@
-import { Link, Typography, Stack, Button, Box } from "@mui/material";
+import { Link, Typography, Stack, Box } from "@mui/material";
 import { format } from "date-fns";
 import classes from "./index.module.less";
 import Image from "next/image";

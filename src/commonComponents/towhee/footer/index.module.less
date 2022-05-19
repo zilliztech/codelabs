@@ -1,7 +1,4 @@
-@import (reference) "../css/responsive.less";
-@import (reference) "../css/variables.css";
-
-.footerWrapper {
+.custom-footer-content {
   border-top: 1px solid #c2c8d0;
   padding-top: 56px;
 
@@ -17,7 +14,7 @@
     padding-top: 42px;
   }
 
-  .logoWrapper {
+  .logo-wrapper {
     margin-right: 42px;
 
     @media @phone {
@@ -37,7 +34,7 @@
     }
   }
 
-  .topContent {
+  .content-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,7 +117,7 @@
   }
 
   .content-bottom {
-    .footNav {
+    .foot-nav {
       display: none;
       margin-top: 40px;
 
@@ -157,14 +154,14 @@
       }
     }
 
-    .copyrightSection {
+    .copyright-section {
       margin-top: 24px;
 
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
 
-      .blocksWrapper {
+      .blocks-wrapper {
         @media @tablet {
           display: flex;
           align-items: flex-end;
@@ -185,7 +182,7 @@
           }
         }
 
-        .blueRectangle {
+        .rectangle-2 {
           path {
             fill: var(--color-brand-blue);
           }

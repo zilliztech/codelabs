@@ -7,7 +7,7 @@ export default function TowheeFooter() {
   return (
     <footer className={classes.footerWrapper}>
       <div className={classes.topContent}>
-        <a href="https://towhee.io" className={classes.logoWrapper}>
+        <a href="https://towhee.io" className="logo-wrapper">
           <img src={logo} alt="logo" />
         </a>
 
@@ -37,7 +37,7 @@ export default function TowheeFooter() {
           </ul>
         </nav>
 
-        <ul className={classes.socials}>
+        <ul className="socials">
           <li>
             <a href="https://slack.towhee.io" target="_blank">
               <Slack />
@@ -57,7 +57,7 @@ export default function TowheeFooter() {
       </div>
 
       <div className={classes.btmContent}>
-        <nav className={classes.footNav}>
+        <nav className="foot-nav">
           <ul>
             <li>
               <a href="https://github.com/towhee-io/towhee" target="_blank">
@@ -83,16 +83,16 @@ export default function TowheeFooter() {
           </ul>
         </nav>
 
-        <div className={classes.copyrightSection}>
-          <div className={classes.blocksWrapper}>
+        <div className="copyright-section">
+          <div className="blocks-wrapper">
             <span className="rectangle-1">
               <RectAngle />
             </span>
-            <span className={classes.blueRectangle}>
+            <span className="rectangle-2">
               <RectAngle />
             </span>
           </div>
-          <p className={classes.copyright}>
+          <p className="copyright">
             © {new Date().getFullYear()} Towhee. All rights reserved.
           </p>
         </div>

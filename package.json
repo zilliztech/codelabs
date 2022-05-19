@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev-milvus": "node generate.js --env milvus & vite",
+    "dev-tohi": "node generate.js --env towhee & vite",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -24,6 +25,7 @@
     "react": "^18.0.0",
     "react-cookie-consent": "^7.4.1",
     "react-dom": "^18.0.0",
+    "react-github-btn": "^1.2.2",
     "react-i18next": "^11.16.9",
     "remarkable": "^2.0.1",
     "yargs": "^17.5.0"

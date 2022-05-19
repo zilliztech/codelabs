@@ -999,6 +999,11 @@ get-caller-file@^2.0.5:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
+github-buttons@^2.21.1:
+  version "2.21.1"
+  resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.21.1.tgz#9e55eb83b70c9149a21c235db2e971c53d4d98a2"
+  integrity sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==
+
 glob@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/glob/-/glob-8.0.1.tgz#00308f5c035aa0b2a447cd37ead267ddff1577d3"
@@ -1363,6 +1368,13 @@ react-dom@^18.0.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.22.0"
+
+react-github-btn@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-github-btn/-/react-github-btn-1.2.2.tgz#9aab2498ff311b9f9c448a2d2b902d0277037d5c"
+  integrity sha512-X4IcX2qwaLciSa4wcUsrFgF2PcT+ukMbZZRBT50ZvO2HJMyqQJNYNHErCN2R0sgZfSFQHUuUHlGndF15VQUhPA==
+  dependencies:
+    github-buttons "^2.21.1"
 
 react-i18next@^11.16.9:
   version "11.16.9"

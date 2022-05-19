@@ -1,34 +1,99 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Codelabs
 
-## Getting Started
+## Install dependencies
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Convert codelabs markdown to html
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+./convert.sh
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## preview server
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+# preview milvus codelab 
+yarn dev-milvus
 
-## Learn More
+# preview towhee codelab (not yet)
+yarn dev-towhee
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Suuported syntax
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Markdown meta
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Each markdown must contain meta information at the head of the document, so that the web system can recognize it as a tutorial
 
-## Deploy on Vercel
+summary: How to use milvus and vgg to implement a reverse image search application
+id: how-to-do-reverse-image-search
+categories: milvus
+tags: demo
+status: Published
+authors: Brother Long
+Feedback Link: https://milvus.io
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Info Boxes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Plain Text followed by green and yellow info boxes
+
+```md
+Negative
+: If you're using Windows make sure to set your text editor to use UNIX line endings!
+```
+
+```md
+Positive
+: This will appear in a green info box.
+```
+
+You created info boxes!
+
+### Bullets
+
+Plain Text followed by bullets
+
+```md
+- Hello
+- CodeLab
+- World
+```
+
+You created bullets!
+
+### Numbered List
+
+```md
+1. List
+1. Using
+1. Numbers
+```
+
+You created a numbered list!
+
+### Embed an iframe
+
+```md
+![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg "Try Me Publisher")
+```
+
+### Youtube video
+
+```html
+<video id="mdmtWPqTf-w"></video>
+```
+
+### Code block
+
+```python
+# Run `python3` in your terminal to operate in the Python interactive mode.
+from pymilvus import connections
+connections.connect(
+  alias="default",
+  host='localhost',
+  port='19530'
+)
+```

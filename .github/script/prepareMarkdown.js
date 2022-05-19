@@ -8,7 +8,6 @@ const mdFiles = glob.sync(`${CODELABS_DIR}/*/index.md`);
 for (let i = 0; i < mdFiles.length; i++) {
   const mdFile = mdFiles[i];
   const mdFileContents = fs.readFileSync(mdFile, 'utf-8');
-  const newFile = mdFile.replace(`index.md`, `pdf.md`);
 
   const newMarkdownContent = [];
   const frontmatter = [];
@@ -27,12 +26,13 @@ for (let i = 0; i < mdFiles.length; i++) {
       const nextLine = lines[index + 1];
       frontmatter_set = nextLine.startsWith('# ') || nextLine === '';
     }
-
-    
   });
 
-  console.log(`new pdf.md saved`, newFile, frontmatter);
+  frontmatterObj = array2Obj(frontmatter);
 
+  const newFile = mdFile.replace(`index.md`, `${frontmatterObj.id}.pdf.md`);
+
+  console.log(`Formatting ${newFile} ...`);
   // save article to disk
   fs.writeFile(
     newFile,
@@ -43,4 +43,13 @@ for (let i = 0; i < mdFiles.length; i++) {
       }
     }
   );
+}
+
+function array2Obj(arr) {
+  const res = {};
+  arr.forEach(item => {
+    const [key, value] = item.split(':');
+    res[key] = value;
+  });
+  return res;
 }

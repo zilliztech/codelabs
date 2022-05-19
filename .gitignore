@@ -32,6 +32,10 @@ yarn-error.log*
 .vercel
 
 *.pdf.md
-public
 dist
 codelab.json
+
+public/*
+!public/images
+public/images/*
+!public/images/milvus.svg

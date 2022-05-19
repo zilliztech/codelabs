@@ -1,8 +1,15 @@
 #!/bin/bash
+parent_path=$(
+  cd "$(dirname "${BASH_SOURCE[0]}")"
+  pwd -P
+)
+template="$parent_path/pdf-template/Eisvogel/eisvogel.latex"
+echo "using template ${template} ... done"
+
 # make pdf directory
-echo "Create pdf folder if exists"
+echo "Creating pdf folder if exists ... done"
 mkdir -p pdf
-pwd
+
 # go to codelabs
 cd codelabs
 # get all files
@@ -13,9 +20,8 @@ for f in $(find . -name "*.pdf.md"); do
   resource_path="$(dirname $f)"
   newfile="$(echo $f | sed -e 's/\.pdf.md/.pdf/')"
 
-  echo "$resource_path"
+  echo "using resource path = $resource_path ... done"
   echo "Generating PDF $newfile ..."
-  echo "The script you are running has basename $(basename "$0"), dirname $(dirname "$0")"
-  echo "The present working directory is $(pwd)"
-  pandoc $f --template pdf-template/Eisvogel/eisvogel.latex --listing -o $newfile --resource-path=$resource_path
+  pandoc $f --template $template --listing -o $newfile --resource-path=$resource_path
+  echo "done."
 done

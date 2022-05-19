@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-142992812-1",
+  "updated": "2022-05-19T14:36:07+08:00",
+  "id": "how-to-install-cpu-only-milvus-in-minutes",
+  "duration": 13,
+  "title": "How to Install CPU-only Milvus in minutes",
+  "authors": "Brother Long",
+  "summary": "How to install cpu-only milvus in minutes",
+  "source": "./install-milvus-cpu/index.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "milvus"
+  ],
+  "tags": [
+    "installation"
+  ],
+  "feedback": "https://github.com/milvus-io/milvus",
+  "url": "how-to-install-cpu-only-milvus-in-minutes"
+}

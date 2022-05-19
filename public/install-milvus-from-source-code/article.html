@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>template</title>
+  <link rel="stylesheet" href="../../src/assets/styles/global.css">
+</head>
+
+<body>
+  <h1>Install Milvus from Source Code</h1>
+<h2>Requirements</h2>
+<ul>
+<li><p>Operating system</p>
+<ul>
+<li>Ubuntu 18.04 or higher</li>
+<li>CentOS 7</li>
+</ul></li>
+<li><p>GCC 7.0 or higher to support C++ 17</p></li>
+<li><p>CMake 3.14 or higher</p></li>
+<li><p>Git</p></li>
+</ul>
+<p>For GPU-enabled version, you will also need:</p>
+<ul>
+<li><p><a href="https://developer.nvidia.com/cuda-downloads">CUDA 10.0 or higher</a></p></li>
+<li><p><a href="https://www.nvidia.com/Download/index.aspx">NVIDIA driver 418 or higher</a></p></li>
+</ul>
+<h2>Download milvus source from GitHub</h2>
+<pre><code class="language-shell">git clone https://github.com/milvus-io/milvus
+</code></pre>
+<h2>Install dependencies</h2>
+<h3>Install in Ubuntu</h3>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> [Milvus root path]/core</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">./ubuntu_build_deps.sh</span>
+</code></pre>
+<h3>Install in CentOS</h3>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> [Milvus root path]/core</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">./centos7_build_deps.sh</span>
+</code></pre>
+<h2>Build from source</h2>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> [Milvus root path]/core</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">./build.sh -t Debug</span>
+</code></pre>
+<p>or</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./build.sh -t Release</span>
+</code></pre>
+<p>By default, it will build CPU-only version. To build GPU version, add <code>-g</code> option.</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./build.sh -g</span>
+</code></pre>
+<p>If you want to know the complete build options, run the following command.</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$</span><span class="language-bash">./build.sh -h</span>
+</code></pre>
+<p>When the build is completed, everything that you need in order to run Milvus will be installed under <code>[Milvus root path]/core/milvus</code>.</p>
+<h2>Launch Milvus server</h2>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> [Milvus root path]/core/milvus</span>
+</code></pre>
+<p>Add <code>lib/</code> directory to <code>LD_LIBRARY_PATH</code></p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:[Milvus root path]/core/milvus/lib</span>
+</code></pre>
+<p>Then start Milvus server:</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> scripts</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">./start_server.sh</span>
+</code></pre>
+<p>To stop Milvus server, run:</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./stop_server.sh</span>
+</code></pre>
+<h2>Troubleshooting</h2>
+<h4>Error message: <code>protocol https not supported or disabled in libcurl</code></h4>
+<p>Follow the steps below to solve this problem:</p>
+<ol>
+<li>Make sure you have <code>libcurl4-openssl-dev</code> installed in your system.</li>
+<li>Try reinstalling the latest CMake from source with <code>--system-curl</code> option:</li>
+</ol>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">./bootstrap --system-curl</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">make</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo make install</span>
+</code></pre>
+<p>If the <code>--system-curl</code> command doesn't work, you can also reinstall CMake in <strong>Ubuntu Software</strong> on your local computer.</p>
+<h4>Error message: <code>internal compiler error</code></h4>
+<p>Try increasing the memory allocated to Docker. If this doesn't work, you can reduce the number of threads in CMake build in <code>[Milvus root path]/core/build.sh</code>.</p>
+<pre><code class="language-shell">make -j 8 install || exit 1 # The default number of threads is 8.
+</code></pre>
+<p>Note: You might also need to configure CMake build for faiss in <code>[Milvus root path]/core/src/index/thirdparty/faiss</code>.</p>
+<h4>Error message: <code>error while loading shared libraries: libmysqlpp.so.3</code></h4>
+<p>Follow the steps below to solve this problem:</p>
+<ol>
+<li>Check whether <code>libmysqlpp.so.3</code> is correctly installed.</li>
+<li>If <code>libmysqlpp.so.3</code> is installed, check whether it is added to <code>LD_LIBRARY_PATH</code>.</li>
+</ol>
+<h4>CMake version is not supported</h4>
+<p>Follow the steps below to install a supported version of CMake:</p>
+<ol>
+<li><p>Remove the unsupported version of CMake.</p></li>
+<li><p>Get CMake 3.14 or higher. Here we get CMake 3.14.</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">wget https://cmake.org/files/v3.14/cmake-3.14.7-Linux-x86_64.tar.gz</span>
+</code></pre></li>
+<li><p>Extract the file and install CMake.</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">tar zxvf cmake-3.14.7-Linux-x86_64.tar.gz</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">mv</span> cmake-3.14.7-Linux-x86_64 /opt/cmake-3.14.7</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">ln</span> -sf /opt/cmake-3.14.7/bin/* /usr/bin/</span>
+</code></pre></li>
+</ol>
+
+</body>
+
+</html>

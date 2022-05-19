@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>template</title>
+  <link rel="stylesheet" href="../../src/assets/styles/global.css">
+</head>
+
+<body>
+  <h1>How to Install CPU-only Milvus in minutes</h1>
+<h2>Prerequisites</h2>
+<h3>Operating system requirements</h3>
+<table>
+<thead>
+<tr><th style="text-align:left">Operating system</th><th style="text-align:left">Supported versions</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:left">CentOS</td><td style="text-align:left">7.5 or higher</td></tr>
+<tr><td style="text-align:left">Ubuntu LTS</td><td style="text-align:left">18.04 or higher</td></tr>
+<tr><td style="text-align:left">Windows</td><td style="text-align:left">Windows 10 64-bit: Pro, Enterprise, or Education (Build 15063 or later)</td></tr>
+<tr><td style="text-align:left">macOS</td><td style="text-align:left">10.13 or higher</td></tr>
+</tbody>
+</table>
+<h3>Hardware requirements</h3>
+<table>
+<thead>
+<tr><th>Component</th><th>Recommended configuration</th></tr>
+</thead>
+<tbody>
+<tr><td>CPU</td><td>Intel CPU Sandy Bridge or higher.</td></tr>
+<tr><td>CPU instruction set</td><td><li>SSE42</li><li>AVX</li><li>AVX2</li><li>AVX512</li></td></tr>
+<tr><td>RAM</td><td>8 GB or more (depends on the data volume)</td></tr>
+<tr><td>Hard drive</td><td>SATA 3.0 SSD or higher</td></tr>
+</tbody>
+</table>
+<h2>Install Docker</h2>
+<ul>
+<li>If you're using Ubuntu or CentOS, <a href="https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/">Install Docker</a> 19.03 or higher on your local host machine.</li>
+<li>If you're installing Milvus on Windows, install <a href="https://docs.docker.com/docker-for-windows/install/">Docker Desktop</a>, and make certain configurations in <strong>Settings &gt; Advanced</strong>. Make sure the Memory available to Docker Engine exceeds the sum of <code>insert_buffer_size</code> and <code>cpu_cache_capacity</code> you set in the <code>server_config.yaml</code> file.</li>
+<li>If you're installing Milvus on macOS, install <a href="https://docs.docker.com/docker-for-mac/install/">Docker Desktop for Mac</a>, and make certain configurations in <strong>Settings &gt; Advanced</strong>. Make sure the Memory available to Docker Engine exceeds the sum of <code>insert_buffer_size</code> and <code>cpu_cache_capacity</code> you set in the <code>server_config.yaml</code> file.</li>
+</ul>
+<h2>Confirm Docker status</h2>
+<p>Confirm that the Docker daemon is running in the background:</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker info</span>
+</code></pre>
+<p>If you do not see the server listed, start the <strong>Docker</strong> daemon.</p>
+<blockquote>
+<p>Note: On Linux, Docker needs sudo privileges. To run Docker command without <code>sudo</code>, create the <code>docker</code> group and add your user. For details, see the <a href="https://docs.docker.com/install/linux/linux-postinstall/">post-installation steps for Linux</a>.</p>
+</blockquote>
+<h2>Select Milvus version from Docker hub</h2>
+<p>Go to <a href="https://hub.docker.com/r/milvusdb/milvus/tags">dockerhub</a>, ensure which version of milvus are you going to install. Click the copy button. Full docker pull command will be copied.</p>
+<p><img src="pic/pic.png" alt="dockerhub-milvus" /></p>
+<h2>Pull Milvus Image</h2>
+<p>Paste the command in your console window</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker pull milvusdb/milvus:1.0.0-cpu-d030521-1ea92e</span>
+</code></pre>
+<h2>Create Milvus directories</h2>
+<p>Create 4 directories for milvus, we will mount these directories into the container later, you can place these folder anywhere, now, we put it at home directory.</p>
+<ul>
+<li>db: vectors will be stored in this directory</li>
+<li>logs: any milvus running logs will be here</li>
+<li>wal: wal will be stored in this directory</li>
+<li>conf: configuration files will be stored in this directory</li>
+</ul>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">mkdir</span> -p /home/<span class="hljs-variable">$USER</span>/milvus/db</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">mkdir</span> -p /home/<span class="hljs-variable">$USER</span>/milvus/logs</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">mkdir</span> -p /home/<span class="hljs-variable">$USER</span>/milvus/wal</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">mkdir</span> -p /home/<span class="hljs-variable">$USER</span>/milvus/conf</span>
+</code></pre>
+<h2>Download configuration files</h2>
+<p>Download the standard milvus configuration file, place it in the conf directory you just created.</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> /home/<span class="hljs-variable">$USER</span>/milvus/conf</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">wget https://raw.githubusercontent.com/milvus-io/milvus/v1.0.0/core/conf/demo/server_config.yaml</span>
+</code></pre>
+<blockquote>
+<p>Note: In case you encounter problems downloading configuration files using <code>wget</code> command, you can also create <code>server_config.yaml</code> under <code>/home/$USER/milvus/conf</code>, then copy and paste the content from <a href="https://github.com/milvus-io/milvus/blob/v1.0.0/core/conf/demo/server_config.yaml">server config file</a>.</p>
+</blockquote>
+<h2>Start Milvus</h2>
+<p>Run the docker that we just pulled. We will map the ports and mounts directories we just created.</p>
+<ul>
+<li>Milvus default port is 19530</li>
+<li>Milvus default http port is 19121</li>
+</ul>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run --name milvus_cpu_1.0.0 \
+-p 19530:19530 \
+-p 19121:19121 \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/db:/var/lib/milvus/db \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/conf:/var/lib/milvus/conf \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/logs:/var/lib/milvus/logs \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/wal:/var/lib/milvus/wal \
+milvusdb/milvus:1.0.0-cpu-d030521-1ea92e</span>
+</code></pre>
+<p>You can see someting like this, and we are done
+<img src="pic/done.png" alt="dockerhub-milvus" /></p>
+<p>If you want run milvus in the background, add option '-d'</p>
+<pre><code class="language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run -d --name milvus_cpu_1.0.0 \
+-p 19530:19530 \
+-p 19121:19121 \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/db:/var/lib/milvus/db \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/conf:/var/lib/milvus/conf \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/logs:/var/lib/milvus/logs \
+-v /home/<span class="hljs-variable">$USER</span>/milvus/wal:/var/lib/milvus/wal \
+milvusdb/milvus:1.0.0-cpu-d030521-1ea92e</span>
+</code></pre>
+<h3>Next</h3>
+<ul>
+<li>You can <a href="https://milvus.io/docs/v1.0.0/example_code.md">Try an example program</a></li>
+<li>Learn more <a href="https://milvus.io/docs/about_milvus/overview.md">about milvus</a></li>
+<li><a href="https://github.com/milvus-io/milvus">Give milvus a star if you like it</a></li>
+</ul>
+
+</body>
+
+</html>

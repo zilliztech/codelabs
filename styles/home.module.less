@@ -1,0 +1,63 @@
+@import (reference) "./mixins.less";
+
+.homeContainer {
+  color: #5c5c5c;
+  font-family: Inter;
+  letter-spacing: -0.05em;
+  margin-bottom: 48px;
+  flex: 1;
+
+  .inner {
+    .col-4;
+    .col-8;
+    .col-12;
+    width: 90vw;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .welcome {
+    background-color: #fff;
+    padding-top: 40px;
+    padding-bottom: 48px;
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 50px;
+      font-weight: 300;
+      font-family: Inter;
+      letter-spacing: -0.05em;
+
+      @media @phone {
+        font-size: 28px;
+        letter-spacing: -0.08em;
+      }
+    }
+
+    p {
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      font-family: Inter;
+      letter-spacing: -0.01em;
+
+      a {
+        color: #5c5c5c;
+        text-decoration-color: #5c5c5c;
+        font-family: Inter;
+      }
+    }
+  }
+
+  .tabBar {
+    padding: 24px 0;
+    font-family: Inter;
+  }
+
+  .cardLayout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+}

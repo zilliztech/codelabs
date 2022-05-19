@@ -12,8 +12,6 @@ const project = args.env || 'milvus';
 // new folder path is src/component/commonComponents
 copyComponents();
 
-generateCodelabsJson();
-
 copyPics();
 
 // copy common component

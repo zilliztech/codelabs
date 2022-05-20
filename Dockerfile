@@ -8,6 +8,7 @@ RUN yarn
 WORKDIR /site
 COPY . .
 
+RUN ./convert.sh
 RUN yarn build
 
 # => Run container

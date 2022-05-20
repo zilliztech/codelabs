@@ -4,7 +4,6 @@ import Link from "@mui/material/Link";
 import GitHubButton from "../githubButton";
 import { getGithubStatis } from "../http";
 import * as styles from "./index.module.less";
-import Image from "next/image";
 
 const MilvusLogo = () => (
   <svg

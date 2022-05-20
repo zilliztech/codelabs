@@ -3,8 +3,8 @@ let isExternal = true;
 
 export const MENU = [
   {
-    label: "Docs",
-    href: !isExternal ? "/docs" : "https://milvus.io/docs",
+    label: 'Docs',
+    href: !isExternal ? '/docs' : 'https://milvus.io/docs',
     isExternal: isExternal,
   },
   // {
@@ -28,38 +28,38 @@ export const MENU = [
   //   ],
   // },
   {
-    label: "Codelabs",
-    href: "#",
+    label: 'Codelabs',
+    href: '/',
     isExternal: false,
   },
   {
-    label: "Tools",
+    label: 'Tools',
     subMenu: [
       {
-        label: "attu",
-        href: "https://github.com/zilliztech/attu",
+        label: 'attu',
+        href: 'https://github.com/zilliztech/attu',
         isExternal: true,
       },
       {
-        label: "Milvus_Cli",
-        href: "https://github.com/zilliztech/milvus_cli",
+        label: 'Milvus_Cli',
+        href: 'https://github.com/zilliztech/milvus_cli',
         isExternal: true,
       },
       {
-        label: "sizing",
-        href: !isExternal ? "/tools/sizing" : "https://milvus.io/tools/sizing",
+        label: 'sizing',
+        href: !isExternal ? '/tools/sizing' : 'https://milvus.io/tools/sizing',
         isExternal: isExternal,
       },
     ],
   },
   {
-    label: "Blog",
-    href: !isExternal ? "/blog" : "https://milvus.io/blog",
+    label: 'Blog',
+    href: !isExternal ? '/blog' : 'https://milvus.io/blog',
     isExternal: isExternal,
   },
   {
-    label: "Community",
-    href: !isExternal ? "/community" : "https://milvus.io/community",
+    label: 'Community',
+    href: !isExternal ? '/community' : 'https://milvus.io/community',
     isExternal: isExternal,
   },
 ];

@@ -9,6 +9,7 @@ import TutorialCard from '../components/card';
 import classes from '../../styles/home.module.less';
 import ToolBar from '../components/toolBar';
 import { useRouter } from 'next/router';
+import axiosInstance from '../http/axios';
 
 export default function HomePage({ data }) {
   const { pathname } = useRouter();
@@ -131,56 +132,12 @@ export default function HomePage({ data }) {
   );
 }
 
-export const getServerSideProps = () => {
-  const glob = require('glob');
-  const CODELABS_DIR = 'public';
-
-  const codelabs = [];
-  const categories = {};
-  // get all codelab.json from claat generated files
-  const metaFiles = glob.sync(`${CODELABS_DIR}/*/codelab.json`);
-
-  // loop metaFiles
-  for (let i = 0; i < metaFiles.length; i++) {
-    // get meta data
-    const meta = parseCodelabMetadata(metaFiles[i]);
-
-    // store meta files
-    codelabs.push(meta);
-    // update categories
-    categories[meta.mainCategory] = true;
-  }
+export const getStaticProps = async () => {
+  const res = await axiosInstance.get('/codelabs');
 
   return {
     props: {
-      data: codelabs,
+      data: res.data,
     },
   };
 };
-
-// get category
-function categoryClass(codelab, level) {
-  const name = codelab.mainCategory;
-  if (level > 0) {
-    name += ' ' + codelab.category[level];
-  }
-  return name.toLowerCase().replace(/\s/g, '-');
-}
-
-// parse codelab meta data
-function parseCodelabMetadata(filepath) {
-  const fs = require('fs');
-  const path = require('path');
-  const meta = JSON.parse(fs.readFileSync(filepath));
-
-  meta.category = meta.category || [];
-  if (!Array.isArray(meta.category)) {
-    meta.category = [meta.category];
-  }
-
-  meta.mainCategory = meta.category[0] || DEFAULT_CATEGORY;
-  meta.categoryClass = categoryClass(meta);
-  meta.url = path.join(meta.id, 'index.html');
-
-  return meta;
-}

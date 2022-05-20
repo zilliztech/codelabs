@@ -1,7 +1,7 @@
-import Header from "../commonComponents/header";
-import Footer from "../commonComponents/footer";
-import classes from "./index.module.less";
-import Head from "next/head";
+import Header from '../commonComponents/header';
+import Footer from '../commonComponents/footer';
+import classes from './index.module.less';
+import Head from 'next/head';
 
 export default function Layout(props) {
   return (

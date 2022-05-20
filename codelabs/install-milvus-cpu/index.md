@@ -58,7 +58,7 @@ Duration: 4
 
 Go to [dockerhub](https://hub.docker.com/r/milvusdb/milvus/tags), ensure which version of milvus are you going to install. Click the copy button. Full docker pull command will be copied.
 
-![dockerhub-milvus](pic/pic.png 'dockerhub-milvus')
+![dockerhub-milvus](img/pic.png 'dockerhub-milvus')
 
 ## Pull Milvus Image
 
@@ -120,7 +120,7 @@ milvusdb/milvus:1.0.0-cpu-d030521-1ea92e
 ```
 
 You can see someting like this, and we are done
-![dockerhub-milvus](pic/done.png 'dockerhub-milvus')
+![dockerhub-milvus](img/done.png 'dockerhub-milvus')
 
 If you want run milvus in the background, add option '-d'
 

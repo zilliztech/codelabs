@@ -1,18 +1,12 @@
 const fs = require('fs');
 const args = require('yargs').argv;
 
-// Basic config
-const CODELABS_SOURCE_DIR = './codelabs';
-const MD_PICS_BASE_DIR = './public/images';
-
 // get project name via args.env
 const project = args.env || 'milvus';
 
 // copy milvus header and footer to components
 // new folder path is src/component/commonComponents
 copyComponents();
-
-copyPics();
 
 // copy common component
 function copyComponents() {
@@ -62,36 +56,5 @@ function copyComponents() {
   }
   paths.forEach(({ srcPath, tarPath }) => {
     copyFile(srcPath, tarPath);
-  });
-}
-
-function copyPics() {
-  const articlePicsPaths = fs.readdirSync(CODELABS_SOURCE_DIR).map(path => ({
-    path: `${CODELABS_SOURCE_DIR}/${path}/pic`,
-    id: path,
-  }));
-
-  articlePicsPaths.forEach(({ path, id }) => {
-    const isPicFolderExist = fs.existsSync(path);
-    if (isPicFolderExist) {
-      fs.readdirSync(path).forEach(picPath => {
-        const pic = fs.readFileSync(`${path}/${picPath}`, 'binary');
-
-        isnewPicFolderExist = fs.existsSync(`${MD_PICS_BASE_DIR}/${id}`);
-        if (!isnewPicFolderExist) {
-          fs.mkdirSync(`${MD_PICS_BASE_DIR}/${id}`);
-        }
-        fs.writeFileSync(
-          `${MD_PICS_BASE_DIR}/${id}/${picPath}`,
-          pic,
-          'binary',
-          err => {
-            if (err) {
-              console.log(err);
-            }
-          }
-        );
-      });
-    }
   });
 }

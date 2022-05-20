@@ -15,26 +15,42 @@ yarn install
 ## preview server
 
 ```
-# preview milvus codelab 
-yarn milvus
+# preview milvus codelab
+yarn dev-milvus
 
-# preview towhee codelab 
+# preview towhee codelab
 yarn towhee
 ```
 
 ## Suuported syntax
 
-### Markdown meta
+### Markdown frontmatter
 
-Each markdown must contain meta information at the head of the document, so that the web system can recognize it as a tutorial
+Each markdown must contain meta information at the head of the document, so that the web system can recognize it as a codelabs
 
-summary: How to use milvus and vgg to implement a reverse image search application
-id: how-to-do-reverse-image-search
+```
+summary: How to install cpu-only milvus in minutes
+id: how-to-install-cpu-only-milvus-in-minutes
 categories: milvus
-tags: demo
+tags: installation
 status: Published
 authors: Brother Long
-Feedback Link: https://milvus.io
+Feedback Link: https
+```
+
+#### PDF meta
+
+These fields are used to generate PDF documents, it will generated automatically, you can overwrite them in the frontmatter of the markdown
+
+```
+author: "@Zilliz.com"
+date: 5/20/2022
+titlepage: true
+titlepage-color: 175FFF
+titlepage-text-color: FFFFFF
+titlepage-rule-color: FFFFFF
+title: How to install cpu-only milvus in minutes
+```
 
 ### Info Boxes
 
@@ -77,7 +93,7 @@ You created a numbered list!
 ### Embed an iframe
 
 ```md
-![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg "Try Me Publisher")
+![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg 'Try Me Publisher')
 ```
 
 ### Youtube video

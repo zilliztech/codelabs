@@ -57,7 +57,7 @@ for (let i = 0; i < metaFiles.length; i++) {
 }
 
 // write json file to src folder
-fs.writeFile("./src/codelab.json", JSON.stringify(codelabs), err => {
+fs.writeFile("./src/assets/codelab.json", JSON.stringify(codelabs), err => {
   if (err) {
     throw err;
   }

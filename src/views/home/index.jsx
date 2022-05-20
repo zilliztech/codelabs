@@ -1,5 +1,5 @@
 import Layout from "../../components/layout";
-import data from "../../codelab.json";
+import data from "../../assets/codelab.json";
 import { useMemo, useState } from "react";
 import TabList from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -57,7 +57,9 @@ export default function HomePage() {
   const formatData = useMemo(() => {
     let tempData = data.slice();
     if (keyWord) {
-      tempData = tempData.filter(({ title }) => title.includes(keyWord));
+      tempData = tempData.filter(({ title }) => {
+        return title.toLocaleLowerCase().includes(keyWord.toLowerCase());
+      });
     }
 
     if (categoryVal !== "all") {
@@ -90,7 +92,6 @@ export default function HomePage() {
               <Typography component="p">
                 {t("home.welcome.content.lineOne")}
               </Typography>
-              
             </Box>
           </Box>
         </Box>

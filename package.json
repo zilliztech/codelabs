@@ -5,7 +5,7 @@
   "scripts": {
     "dev-milvus": "node generate.js --env milvus & vite",
     "dev-tohi": "node generate.js --env towhee & vite",
-    "build": "vite build",
+    "build": "node generate.js --env milvus & vite build",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -9,7 +9,6 @@ if (isExternalProject) {
   isExternal = !isDev;
 }
 
-console.log(isExternal);
 export const MENU = [
   {
     label: "Docs",
@@ -38,7 +37,7 @@ export const MENU = [
   // },
   {
     label: "Codelabs",
-    href: "#",
+    href: "/",
     isExternal: false,
   },
   {

@@ -1,11 +1,16 @@
 import React from 'react';
 import { convertMkdToHtml } from '../utils/common';
 import Layout from '../components/layout';
+import classes from '../../styles/article.module.less';
+import 'highlight.js/styles/stackoverflow-light.css';
 
 export default function ArticleDetail(props) {
   return (
     <Layout>
-      <div className="" dangerouslySetInnerHTML={{ __html: props.html }}></div>
+      <div
+        className={classes.article}
+        dangerouslySetInnerHTML={{ __html: props.html }}
+      ></div>
     </Layout>
   );
 }

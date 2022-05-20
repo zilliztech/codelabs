@@ -1,4 +1,4 @@
-@import (reference) "../css/mixins.less";
+@import (reference) '../css/mixins.less';
 
 .header {
   align-items: center;
@@ -10,6 +10,7 @@
   width: 100%;
   z-index: 100;
   will-change: opacity, transform;
+  font-family: 'Inter';
   .flexcenter;
 
   &.posSticky {
@@ -32,7 +33,7 @@
 
     .logoSection {
       .lfaiLogo {
-        background-image: url("../images/lf_logo_light.svg");
+        background-image: url('../images/lf_logo_light.svg');
       }
     }
 
@@ -157,7 +158,7 @@
   }
 
   .lfaiLogo {
-    background-image: url("../images/lf_logo_dark.svg");
+    background-image: url('../images/lf_logo_dark.svg');
     background-size: contain;
     display: block;
     height: 30px;
@@ -165,7 +166,7 @@
     width: 55px;
 
     @media @phone, @tablet {
-      background-image: url("../images/lf_logo_light.svg");
+      background-image: url('../images/lf_logo_light.svg');
     }
 
     @media @phone {
@@ -189,6 +190,7 @@
   .hover;
   color: var(--color-black);
   box-sizing: border-box;
+  font-family: 'Inter';
 
   @media @phone, @tablet {
     background: unset;

@@ -55,7 +55,7 @@ export const Navigator = props => {
         return (
           <li key={v.label}>
             {v.href ? (
-              <Link href="/docs" className={styles.menuItem} underline="none">
+              <Link href={v.href} className={styles.menuItem} underline="none">
                 {v.label}
               </Link>
             ) : (

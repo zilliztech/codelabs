@@ -26,7 +26,7 @@ Duration: 1
 | Component           | Recommended configuration                              |
 | ------------------- | ------------------------------------------------------ |
 | CPU                 | Intel CPU Sandy Bridge or higher.                      |
-| CPU instruction set | <li>SSE42</li><li>AVX</li><li>AVX2</li><li>AVX512</li> |
+| CPU instruction set | SSE42 / AVX / AVX2 / AVX512|
 | RAM                 | 8 GB or more (depends on the data volume)              |
 | Hard drive          | SATA 3.0 SSD or higher                                 |
 
@@ -58,7 +58,7 @@ Duration: 4
 
 Go to [dockerhub](https://hub.docker.com/r/milvusdb/milvus/tags), ensure which version of milvus are you going to install. Click the copy button. Full docker pull command will be copied.
 
-<img src="pic/pic.png" alt="dockerhub-milvus" />
+![dockerhub-milvus](pic/pic.png 'dockerhub-milvus')
 
 ## Pull Milvus Image
 
@@ -120,7 +120,7 @@ milvusdb/milvus:1.0.0-cpu-d030521-1ea92e
 ```
 
 You can see someting like this, and we are done
-<img src="pic/done.png" alt="dockerhub-milvus" />
+![dockerhub-milvus](pic/done.png 'dockerhub-milvus')
 
 If you want run milvus in the background, add option '-d'
 

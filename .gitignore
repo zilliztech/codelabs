@@ -27,3 +27,4 @@ dist-ssr
 public/*
 
 codelab.json
+*.pdf.md

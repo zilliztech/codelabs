@@ -41,10 +41,10 @@ jobs:
       #     username: ${{ secrets.harbor_name }}
       #     password: ${{ secrets.harbor_password }}
 
-      - name: Build image
-        id: build-image
-        run: |
-          docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }}
+      # - name: Build image
+      #   id: build-image
+      #   run: |
+      #     docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t harbor-us1.zilliz.cc/ued/milvus-tutorials:${{ github.sha }}
 
       # - name: Push image to Harbor
       #   id: build-image

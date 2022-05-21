@@ -1,23 +1,23 @@
-import Layout from "../../components/layout";
-import data from "../../assets/codelab.json";
-import { useMemo, useState } from "react";
-import TabList from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import TutorialCard from "../../components/card";
-import { useTranslation } from "react-i18next";
-import "./index.less";
-import ToolBar from "../../components/toolBar";
+import Layout from '../../components/layout';
+import data from '../../assets/codelab.json';
+import { useMemo, useState } from 'react';
+import TabList from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import TutorialCard from '../../components/card';
+import { useTranslation } from 'react-i18next';
+import './index.less';
+import ToolBar from '../../components/toolBar';
 
 export default function HomePage() {
   const { pathname } = window.location;
   const { t } = useTranslation();
 
-  const [keyWord, setKeyWord] = useState("");
-  const [categoryVal, setCategoryVal] = useState("all");
-  const [sortWay, setSortWay] = useState("a-z");
+  const [keyWord, setKeyWord] = useState('');
+  const [categoryVal, setCategoryVal] = useState('all');
+  const [sortWay, setSortWay] = useState('a-z');
 
   const handleChange = (e, value) => {
     setSortWay(value);
@@ -34,8 +34,8 @@ export default function HomePage() {
 
     return [
       {
-        value: "all",
-        label: "All",
+        value: 'all',
+        label: 'All',
         id: 0,
       },
       ...options.map((v, i) => ({
@@ -62,22 +62,22 @@ export default function HomePage() {
       });
     }
 
-    if (categoryVal !== "all") {
+    if (categoryVal !== 'all') {
       tempData = tempData.filter(({ category }) =>
         category.includes(categoryVal)
       );
     }
     switch (sortWay) {
-      case "a-z":
+      case 'a-z':
         return tempData.sort(
           (x, y) => x.title.charCodeAt(0) - y.title.charCodeAt(0)
         );
-      case "recent":
+      case 'recent':
         return tempData.sort(
           (x, y) =>
             new Date(x.updated).getTime() - new Date(y.updated).getTime()
         );
-      case "duration":
+      case 'duration':
         return tempData.sort((x, y) => x.duration - y.duration);
     }
   }, [sortWay, pathname, keyWord, categoryVal]);
@@ -87,10 +87,10 @@ export default function HomePage() {
       <section className="home-container">
         <Box className="welcome">
           <Box className="inner">
-            <Typography component="h2">{t("home.welcome.title")}</Typography>
+            <Typography component="h2">{t('home.welcome.title')}</Typography>
             <Box>
               <Typography component="p">
-                {t("home.welcome.content.lineOne")}
+                {t('home.welcome.content.lineOne')}
               </Typography>
             </Box>
           </Box>
@@ -101,17 +101,8 @@ export default function HomePage() {
               direction="row"
               justifyContent="space-between"
               alignItems="center"
+              className="toolbar-container"
             >
-              <TabList
-                value={sortWay}
-                onChange={handleChange}
-                className="tab-bar"
-              >
-                <Tab label="A-Z" value="a-z" />
-                <Tab label={t("home.tab.recent")} value="recent" />
-                <Tab label={t("home.tab.duration")} value="duration" />
-              </TabList>
-
               <ToolBar
                 keyWord={keyWord}
                 handleKeyWordChange={handleSearchChange}
@@ -119,6 +110,15 @@ export default function HomePage() {
                 handleSelectorChange={handleSelectorChange}
                 options={categoryOptions}
               />
+              <TabList
+                value={sortWay}
+                onChange={handleChange}
+                className="tab-bar"
+              >
+                <Tab label="A-Z" value="a-z" />
+                <Tab label={t('home.tab.recent')} value="recent" />
+                <Tab label={t('home.tab.duration')} value="duration" />
+              </TabList>
             </Stack>
 
             <Box className="card-layout">

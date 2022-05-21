@@ -1,17 +1,15 @@
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import { useState, useMemo } from "react";
+import Link from '@mui/material/Link';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import { useState, useMemo } from 'react';
 
-import { MENU } from "../constants.js";
+import { MENU } from '../constants.js';
 
 export const Navigator = props => {
   const { styles } = props;
@@ -80,7 +78,7 @@ export const MobileNavigator = props => {
     setCheck(v => !v);
   };
 
-  const CollapseMenu = () => {
+  const CollapseMenu = props => {
     const { subMenu, title, styles } = props;
     return (
       <>
@@ -100,7 +98,7 @@ export const MobileNavigator = props => {
                       className={styles.mobileMenuLink}
                       underline="none"
                       key={v.label}
-                      target={v.isExternal ? "_blank" : "_self"}
+                      target={v.isExternal ? '_blank' : '_self'}
                     >
                       {v.label}
                     </Link>
@@ -116,7 +114,7 @@ export const MobileNavigator = props => {
 
   return (
     <List
-      sx={{ width: "100%" }}
+      sx={{ width: '100%' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >

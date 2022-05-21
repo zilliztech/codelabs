@@ -1,11 +1,46 @@
+const fs = require('fs');
+const path = require('path');
+const ejs = require('ejs');
 const { Remarkable } = require('remarkable');
 const hljs = require('highlight.js'); // https://highlightjs.org/
 
-const TEMPLAT_DIR = './template.html';
 const CODELABS_SOURCE_DIR = './codelabs';
+const TEMPLAT_DIR = './template.html';
 const template = fs.readFileSync(TEMPLAT_DIR, 'utf-8', err => {
   console.log(err);
 });
+
+// get all codelab.json from claat generated files
+const metaFile = fs.readFileSync(`src/assets/codelab.json`).toString();
+const metaObjs = JSON.parse(metaFile);
+
+// combine json files
+console.log('codelab meta files---', metaObjs);
+// loop metaFiles
+for (let i = 0; i < metaObjs.length; i++) {
+  // get meta data
+  const meta = metaObjs[i];
+
+  // compute markdown filename
+  const mdFilename = path.join(CODELABS_SOURCE_DIR, meta.source);
+  // get markdown file
+  const originMD = fs.readFileSync(mdFilename);
+  // markdown -> html
+  const article = convertMkdToHtml(originMD.toString());
+  fs.writeFile(meta.articleUrl, decorateArticle(article), err => {
+    if (err) {
+      throw err;
+    }
+  });
+}
+
+// insert html to article-template via ejs
+function decorateArticle(article) {
+  const html = ejs.render(template, {
+    content: article,
+  });
+  return html;
+}
 
 function get(state, line) {
   const pos = state.bMarks[line];
@@ -101,44 +136,15 @@ function convertMkdToHtml(originMD) {
     md.renderer.rules.duration = () => {
       return '';
     };
+
+    const originImgRul = md.renderer.rules.image;
+    // img
+    md.renderer.rules.image = function (tokens, idx, options /*, env */) {
+      tokens[idx].src = path.join(`img`, path.basename(tokens[idx].src));
+      return originImgRul(tokens, idx, originMD);
+    };
   });
 
   const article = md.render(originMD.toString());
   return article;
-}
-
-// get all codelab.json from claat generated files
-const metaFiles = glob.sync(`${CODELABS_DIR}/*/codelab.json`);
-
-// combine json files
-console.log('codelab meta files---', metaFiles);
-// loop metaFiles
-for (let i = 0; i < metaFiles.length; i++) {
-  // get meta data
-  const meta = parseCodelabMetadata(metaFiles[i]);
-  // compute markdown filename
-  const mdFilename = path.join(CODELABS_SOURCE_DIR, meta.source);
-  // get markdown file
-  const originMD = fs.readFileSync(mdFilename);
-  // markdown -> html
-  const article = convertMkdToHtml(originMD.toString());
-  // save article to disk
-  fs.writeFile(meta.articleUrl, decorateArticle(article), err => {
-    if (err) {
-      throw err;
-    }
-  });
-
-  // store meta files
-  codelabs.push(meta);
-  // update categories
-  categories[meta.mainCategory] = true;
-}
-
-// insert html to article-template via ejs
-function decorateArticle(article) {
-  const html = ejs.render(template, {
-    content: article,
-  });
-  return html;
 }

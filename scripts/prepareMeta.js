@@ -15,6 +15,8 @@ exports.prepareMeta = ({ CODELABS_DIR, DEFAULT_CATEGORY }) => {
   for (let i = 0; i < metaFiles.length; i++) {
     // get meta data
     const meta = parseCodelabMetadata(metaFiles[i], DEFAULT_CATEGORY);
+    // article url
+    meta.articleUrl = path.join(CODELABS_DIR, meta.id, 'article.html');
     // store meta files
     codelabs.push(meta);
     // update categories

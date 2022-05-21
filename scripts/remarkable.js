@@ -5,8 +5,8 @@ const { Remarkable } = require('remarkable');
 const hljs = require('highlight.js'); // https://highlightjs.org/
 
 const CODELABS_SOURCE_DIR = './codelabs';
-const TEMPLAT_DIR = './template.html';
-const template = fs.readFileSync(TEMPLAT_DIR, 'utf-8', err => {
+const ARTICLE_TEMPLATE = './scripts/article-template/milvus.html';
+const template = fs.readFileSync(ARTICLE_TEMPLATE, 'utf-8', err => {
   console.log(err);
 });
 
@@ -15,7 +15,7 @@ const metaFile = fs.readFileSync(`src/assets/codelab.json`).toString();
 const metaObjs = JSON.parse(metaFile);
 
 // combine json files
-console.log('codelab meta files---', metaObjs);
+// console.log('codelab meta files---', metaObjs);
 // loop metaFiles
 for (let i = 0; i < metaObjs.length; i++) {
   // get meta data
@@ -27,7 +27,8 @@ for (let i = 0; i < metaObjs.length; i++) {
   const originMD = fs.readFileSync(mdFilename);
   // markdown -> html
   const article = convertMkdToHtml(originMD.toString());
-  fs.writeFile(meta.articleUrl, decorateArticle(article), err => {
+  console.info(`Writing article: ${meta.articleUrl}`);
+  fs.writeFile(meta.articleUrl, decorateArticle({ article, meta }), err => {
     if (err) {
       throw err;
     }
@@ -35,8 +36,9 @@ for (let i = 0; i < metaObjs.length; i++) {
 }
 
 // insert html to article-template via ejs
-function decorateArticle(article) {
+function decorateArticle({ article, meta }) {
   const html = ejs.render(template, {
+    meta,
     content: article,
   });
   return html;

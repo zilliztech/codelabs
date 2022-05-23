@@ -1,6 +1,6 @@
 export const RectAngle = () => (
   <svg
-    class="svg rectangle"
+    className="svg rectangle"
     width="148"
     height="148"
     viewBox="0 0 148 148"

@@ -1,23 +1,31 @@
+@import (reference) '../css/responsive.less';
+
 .headerWrapper {
   background: #fff;
-  font-family: "Inter";
+  font-family: 'Inter';
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .headerContent {
   padding: 24px 0;
   display: flex;
-  max-width: 1440px;
   margin: 0 auto;
   justify-content: space-between;
-
-  width: calc(100% - 200px);
+  .col-4;
+  .col-8;
+  .col-12;
 }
 .leftPart {
   display: flex;
   align-items: center;
 
-  & img {
+  img {
     height: 32px;
+
+    @media @tablet, @phone {
+      height: 20px;
+    }
   }
 }
 .linkBtn {
@@ -27,7 +35,7 @@
   display: flex;
   align-items: center;
 
-  & .git-btn {
+  .git-btn {
     margin-right: 16px;
     display: flex;
     align-items: center;
@@ -35,38 +43,61 @@
 }
 .navList {
   display: flex;
+  flex-direction: row;
 
-  & li {
-    display: flex;
-    align-items: center;
-
-    &:hover {
-      background: #f7f8f9;
-
-      & > a {
-        text-decoration: none;
-      }
+  &.desktopNav {
+    @media @tablet, @phone {
+      display: none;
     }
   }
 
-  & a {
-    font-family: "Inter";
+  @media @tablet, @phone {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    font-family: 'Inter';
     font-weight: 600;
     color: #010e29;
     font-size: 14px;
     line-height: 16px;
     display: inline-block;
     padding: 8px 16px;
+
+    &:hover {
+      background-color: transparent;
+      text-decoration: underline;
+    }
   }
 
   & > li {
     margin-right: 16px;
+
+    @media @tablet, @phone {
+      margin-right: 0px;
+      margin-bottom: 16px;
+    }
   }
 }
 .loginBtn {
   border: 1px solid #000;
   border-radius: 4px;
   padding: 8px 16px;
+
+  @media @tablet, @phone {
+    padding: 4px 12px;
+
+    a {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
 
   &:hover {
     background: #f7f8f9;
@@ -77,12 +108,15 @@
     color: #010e29;
   }
 }
-.githubBtn {
-}
+
 .menuWrapper {
   cursor: pointer;
   display: none;
   margin-left: 24px;
+
+  @media @tablet, @phone {
+    display: block;
+  }
 }
 .menuMask {
   position: absolute;
@@ -107,10 +141,4 @@
   border-style: solid;
   border-color: #eee;
   box-shadow: 3px 3px 5px #eee;
-
-  & > ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 }

@@ -1,27 +1,55 @@
-import Link from "@mui/material/Link";
-import { NAV_LIST } from "./constants";
-import GitHubButton from "react-github-btn";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useEffect, useRef } from "react";
-import classes from "./index.module.less";
-import logo from "../images/logo-title.png";
+import Link from '@mui/material/Link';
+import { NAV_LIST } from './constants';
+import GitHubButton from 'react-github-btn';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState, useRef } from 'react';
+import classes from './index.module.less';
+import logo from '../images/logo-title.png';
+import clsx from 'clsx';
 
 const Header = () => {
-  const menuMask = useRef(null);
   const content = useRef(null);
 
+  const [openMask, setOPenMask] = useState(false);
+
   const handleToggleMobileMenu = () => {
-    menuMask.current.classList.toggle("active");
+    setOPenMask(v => !v);
   };
 
   const handleClickOutside = e => {
     if (e.target.contains(content.current) && e.target !== content.current) {
-      menuMask.current.classList.remove("active");
+      setOPenMask(false);
     }
   };
 
+  const NavSection = ({ navList, styles, isDeskTop = true }) => (
+    <ul
+      className={clsx(styles.navList, {
+        [styles.desktopNav]: isDeskTop,
+      })}
+    >
+      <li key="github">
+        <GitHubButton
+          href="https://github.com/towhee-io/towhee"
+          data-size="large"
+          data-show-count="true"
+          aria-label="Star towhee-io/towhee on GitHub"
+        >
+          Star
+        </GitHubButton>
+      </li>
+      {navList.map(v => (
+        <li key={v.label}>
+          <Link href={v.href} target="_blank" underline="none">
+            {v.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <header className={classes.headerWrapper}>
+    <section className={classes.headerWrapper}>
       <div className={classes.headerContent}>
         <div className={classes.leftPart}>
           <Link href="https://towhee.io/" className={classes.linkBtn}>
@@ -29,25 +57,7 @@ const Header = () => {
           </Link>
         </div>
         <div className={classes.rightPart}>
-          <ul className={classes.navList}>
-            <li key="github">
-              <GitHubButton
-                href="https://github.com/towhee-io/towhee"
-                data-size="large"
-                data-show-count="true"
-                aria-label="Star towhee-io/towhee on GitHub"
-              >
-                Star
-              </GitHubButton>
-            </li>
-            {NAV_LIST.map(v => (
-              <li key={v.label}>
-                <Link href={v.href} target="_blank">
-                  {v.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <NavSection navList={NAV_LIST} styles={classes} />
           <div className={classes.loginBtn} key="signIn">
             <a href="https://towhee.io/user/login" target="_blank">
               Sign In
@@ -58,32 +68,17 @@ const Header = () => {
           </div>
         </div>
         <div
-          className={classes.menuMask}
-          ref={menuMask}
+          className={clsx(classes.menuMask, {
+            [classes.active]: openMask,
+          })}
           onClick={handleClickOutside}
         >
           <div className={classes.menuContent} ref={content}>
-            <ul className={classes.navList}>
-              <li key="github">
-                <GitHubButton
-                  href="https://github.com/towhee-io/towhee"
-                  data-size="large"
-                  data-show-count="true"
-                  aria-label="Star towhee-io/towhee on GitHub"
-                >
-                  Star
-                </GitHubButton>
-              </li>
-              {NAV_LIST.map(v => (
-                <li key={v.label}>
-                  <Link href={v.href}>{v.label}</Link>
-                </li>
-              ))}
-            </ul>
+            <NavSection navList={NAV_LIST} styles={classes} isDeskTop={false} />
           </div>
         </div>
       </div>
-    </header>
+    </section>
   );
 };
 

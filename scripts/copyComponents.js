@@ -4,7 +4,7 @@ const ejs = require('ejs');
 // copy common component
 exports.copyComponents = project => {
   // update page title
-  ModifyHtlTitle(project);
+  ModifyPageTitle(project);
 
   const [baseSrcDir, baseTarDir] = [
     './src/commonComponents',
@@ -55,7 +55,7 @@ exports.copyComponents = project => {
   });
 };
 
-function ModifyHtlTitle(project = 'milvus') {
+function ModifyPageTitle(project = 'milvus') {
   const template = fs.readFileSync('./template.html', 'utf-8');
   const newTitle = project.toString();
   const [firstLetter, otherLetters] = [newTitle[0], newTitle.substring(1)];

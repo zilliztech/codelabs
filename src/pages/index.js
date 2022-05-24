@@ -9,7 +9,6 @@ import TutorialCard from '../components/card';
 import classes from '../../styles/home.module.less';
 import ToolBar from '../components/toolBar';
 import { useRouter } from 'next/router';
-import axiosInstance from '../http/axios';
 import { getCodelabsJson } from '../utils/common';
 
 export default function HomePage({ data = [] }) {
@@ -77,7 +76,7 @@ export default function HomePage({ data = [] }) {
       case 'duration':
         return tempData.sort((x, y) => x.duration - y.duration);
     }
-  }, [sortWay, pathname, keyWord, categoryVal]);
+  }, [data, sortWay, pathname, keyWord, categoryVal]);
 
   return (
     <Layout>

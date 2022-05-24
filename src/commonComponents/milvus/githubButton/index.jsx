@@ -1,6 +1,6 @@
-import React from "react";
-import Divider from "@mui/material/Divider";
-import * as styles from "./index.module.less";
+import React from 'react';
+import Divider from '@mui/material/Divider';
+import * as styles from './index.module.less';
 
 const ForkIcon = () => (
   <svg
@@ -29,24 +29,19 @@ const GitHubIcon = () => (
 );
 
 const GitHubButton = ({
-  type = "star", // star or fork
+  type = 'star', // star or fork
   href,
-  className = "",
+  className = '',
   children,
   stat,
 }) => {
-  const isStar = type === "star";
+  const isStar = type === 'star';
 
   const sublink = isStar ? `${href}/stargazers` : `${href}/network/members`;
 
   return (
     <div className={`${styles.gitBtnWrapper} ${className}`}>
-      <a
-        href={href}
-        className={styles.link}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={href} className={styles.link} target="_blank" rel="noreferrer">
         {isStar ? <GitHubIcon /> : <ForkIcon />}
         <span className={styles.iconText}>{children}</span>
       </a>
@@ -55,7 +50,7 @@ const GitHubButton = ({
         href={sublink}
         className={`${styles.link} ${styles.num} `}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noreferrer"
       >
         <span className={styles.stat}>{isStar ? stat.star : stat.forks}</span>
       </a>

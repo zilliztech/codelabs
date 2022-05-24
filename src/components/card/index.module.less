@@ -1,5 +1,5 @@
 .tutorialCardWrapper {
-  border-bottom: 2px solid #4fc4f9;
+  border-bottom: 2px solid #00a1ea;
   border-radius: 3px;
   background: #fff;
   display: inline-block;
@@ -17,8 +17,15 @@
     line-height: 24px;
     color: #212121;
     font-family: Inter;
+    a {
+      color: #212121;
+    }
   }
-
+  .date {
+    font-size: 12px;
+    line-height: 24px;
+    font-family: Inter;
+  }
   .cardDuration {
     display: flex;
     align-items: center;
@@ -27,12 +34,6 @@
     mix-blend-mode: initial;
     justify-content: space-between;
 
-    & > span {
-      font-size: 12px;
-      line-height: 24px;
-      font-family: Inter;
-    }
-
     img {
       opacity: 0.24;
     }
@@ -40,18 +41,13 @@
 
   .cardFooter {
     padding: 8px 0;
-    position: relative;
-    svg {
-      position: absolute;
-      right: 72px;
-      top: 10px;
-      fill: #999;
-      &:hover {
-        fill: #4fc4f9;
-      }
+    .pdf {
+      width: 32px;
+      height: 32px;
     }
-    .linkBtn {
-      background-color: #4fc4f9;
+
+    .linkButton {
+      background-color: #00a1ea;
       padding: 8px 16px;
       color: #fff;
       border-radius: 3px;
@@ -63,6 +59,11 @@
     img {
       width: 32px;
       height: 32px;
+    }
+
+    & > .MuiButton-root {
+      background-color: #00a1ea;
+      text-transform: capitalize;
     }
   }
 }

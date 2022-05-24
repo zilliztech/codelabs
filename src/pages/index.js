@@ -10,8 +10,9 @@ import classes from '../../styles/home.module.less';
 import ToolBar from '../components/toolBar';
 import { useRouter } from 'next/router';
 import axiosInstance from '../http/axios';
+import { getCodelabsJson } from '../utils/common';
 
-export default function HomePage({ data }) {
+export default function HomePage({ data = [] }) {
   const { pathname } = useRouter();
   const [keyWord, setKeyWord] = useState('');
   const [categoryVal, setCategoryVal] = useState('all');
@@ -133,11 +134,12 @@ export default function HomePage({ data }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axiosInstance.get('/codelabs');
+  // const res = await axiosInstance.get('/codelabs');
+  const data = getCodelabsJson();
 
   return {
     props: {
-      data: res.data,
+      data,
     },
   };
 };

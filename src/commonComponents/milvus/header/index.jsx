@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import Divider from "@mui/material/Divider";
-import Link from "@mui/material/Link";
-import GitHubButton from "../githubButton";
-import { getGithubStatis } from "../http";
-import * as styles from "./index.module.less";
+import React, { useState, useRef, useEffect } from 'react';
+import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
+import GitHubButton from '../githubButton';
+import { getGithubStatis } from '../http';
+import * as styles from './index.module.less';
 
 const MilvusLogo = () => (
   <svg
@@ -52,9 +52,9 @@ const MilvusLogo = () => (
   </svg>
 );
 
-import { Navigator, MobileNavigator } from "./navigator";
+import { Navigator, MobileNavigator } from './navigator';
 
-const Header = ({ darkMode = false, className = "" }) => {
+const Header = ({ darkMode = false, className = '' }) => {
   const [isLightHeader, setIsLightHeader] = useState(!darkMode);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTutOpen, setIsTutOpen] = useState(false);
@@ -63,7 +63,7 @@ const Header = ({ darkMode = false, className = "" }) => {
   const [stat, setStat] = useState({ star: 0, forks: 0 });
   const headerRef = useRef(null);
   let isDesktop = true;
-  if (typeof navigator !== "undefined") {
+  if (typeof navigator !== 'undefined') {
     isDesktop =
       !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(
         navigator.userAgent
@@ -101,8 +101,8 @@ const Header = ({ darkMode = false, className = "" }) => {
         headerRef.current.classList.add(styles.showHeader);
       }
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, [isLightHeader, darkMode]);
 
   const openTutorial = open => {
@@ -123,7 +123,7 @@ const Header = ({ darkMode = false, className = "" }) => {
 
   const handleMenuLinkClick = e => {
     const link = e.target?.children[0];
-    if (link && link.tagName.toLowerCase() === "a") {
+    if (link && link.tagName.toLowerCase() === 'a') {
       e.preventDefault();
       e.stopPropagation();
       link.click();
@@ -139,15 +139,15 @@ const Header = ({ darkMode = false, className = "" }) => {
       <Divider
         variant="middle"
         sx={{
-          margin: "0 13px",
-          opacity: "0.3",
-          border: "1px solid #d1d1d1",
-          transform: "scaleX(0.5)",
-          "@media(max-width: 1024px)": {
-            margin: "0 10px",
+          margin: '0 13px',
+          opacity: '0.3',
+          border: '1px solid #d1d1d1',
+          transform: 'scaleX(0.5)',
+          '@media(max-width: 1024px)': {
+            margin: '0 10px',
           },
-          "@media(max-width: 744px)": {
-            margin: "0 6px",
+          '@media(max-width: 744px)': {
+            margin: '0 6px',
           },
         }}
       />
@@ -156,7 +156,7 @@ const Header = ({ darkMode = false, className = "" }) => {
         href="https://lfaidata.foundation/projects/"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ display: "inline-block", lineHeight: 0 }}
+        style={{ display: 'inline-block', lineHeight: 0 }}
       >
         <span className={styles.lfaiLogo} />
       </a>
@@ -188,8 +188,8 @@ const Header = ({ darkMode = false, className = "" }) => {
   const header = (
     <header
       className={`${styles.header} ${
-        isLightHeader ? styles.light : ""
-      } ${className} ${!darkMode ? styles.posSticky : ""}`}
+        isLightHeader ? styles.light : ''
+      } ${className} ${!darkMode ? styles.posSticky : ''}`}
       ref={headerRef}
     >
       <div className={`${styles.headerContainer} headerContainer`}>
@@ -212,7 +212,7 @@ const Header = ({ darkMode = false, className = "" }) => {
         </div>
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className={`${styles.hamburg} ${isMenuOpen ? styles.active : ""}`}
+          className={`${styles.hamburg} ${isMenuOpen ? styles.active : ''}`}
         >
           <span className={styles.top}></span>
           <span className={styles.middle}></span>
@@ -220,7 +220,7 @@ const Header = ({ darkMode = false, className = "" }) => {
         </button>
       </div>
       {!isDesktop && (
-        <div className={`${styles.overlay}  ${isMenuOpen ? styles.open : ""}`}>
+        <div className={`${styles.overlay}  ${isMenuOpen ? styles.open : ''}`}>
           <nav className={`${styles.nav} col-4 col-8 col-12`}>
             <MobileNavigator styles={styles} />
 
@@ -228,7 +228,7 @@ const Header = ({ darkMode = false, className = "" }) => {
 
             <Divider
               variant="fullwidth"
-              sx={{ position: "absolute", bottom: "78px", width: "100%" }}
+              sx={{ position: 'absolute', bottom: '78px', width: '100%' }}
             />
             <Link
               href="https://milvus.io/docs/install_standalone-docker.md"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { convertMkdToHtml } from '../../utils/common';
+import { convertMkdToHtml, getCodelabsJson } from '../../utils/common';
 import Layout from '../../components/layout';
 import classes from '../../../styles/article.module.less';
 import 'highlight.js/styles/stackoverflow-light.css';
@@ -17,8 +17,8 @@ export default function ArticleDetail(props) {
 }
 
 export const getStaticPaths = async () => {
-  const res = await axiosInstance.get('/paths');
-  const paths = res.data.map(v => ({ params: { id: v.id } }));
+  const json = getCodelabsJson();
+  const paths = json.map(v => ({ params: { id: v.id } }));
   return { paths, fallback: false };
 };
 

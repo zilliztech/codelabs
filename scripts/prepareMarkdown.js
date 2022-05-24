@@ -1,13 +1,21 @@
-const fs = require("fs");
-const glob = require("glob");
+const fs = require('fs');
+const glob = require('glob');
 
-const CODELABS_DIR = "codelabs";
+const CODELABS_DIR = 'codelabs';
+const DEFAULT_PDF_SETTINGS = {
+  author: '"@Milvus.io"',
+  date: new Date().toLocaleDateString(),
+  titlepage: true,
+  'titlepage-color': '175FFF',
+  'titlepage-text-color': 'FFFFFF',
+  'titlepage-rule-color': 'FFFFFF',
+};
 // get all codelab.json from claat generated files
 const mdFiles = glob.sync(`${CODELABS_DIR}/*/index.md`);
 
 for (let i = 0; i < mdFiles.length; i++) {
   const mdFile = mdFiles[i];
-  const mdFileContents = fs.readFileSync(mdFile, "utf-8");
+  const mdFileContents = fs.readFileSync(mdFile, 'utf-8');
 
   const newMarkdownContent = [];
   const frontmatter = [];
@@ -18,25 +26,30 @@ for (let i = 0; i < mdFiles.length; i++) {
   lines.forEach((line, index) => {
     // remove durations and frontmatter
     if (frontmatter_set) {
-      if (!line.startsWith("Duration:")) {
+      if (!line.startsWith('Duration:')) {
         newMarkdownContent.push(line);
       }
     } else {
       frontmatter.push(line);
       const nextLine = lines[index + 1];
-      frontmatter_set = nextLine.startsWith("# ") || nextLine === "";
+      frontmatter_set = nextLine.startsWith('# ') || nextLine === '';
     }
   });
 
-  frontmatterObj = array2Obj(frontmatter);
+  // formatOBJ
+  const frontmatterObj = array2Obj(frontmatter);
+  const newFrontmatter = obj2Array(
+    decorateFrontmatter(frontmatterObj, DEFAULT_PDF_SETTINGS)
+  );
 
+  // new file name
   const newFile = mdFile.replace(`index.md`, `${frontmatterObj.id}.pdf.md`);
 
   console.log(`Formatting ${newFile} ...`);
   // save article to disk
   fs.writeFile(
     newFile,
-    ["---", ...frontmatter, "---", ...newMarkdownContent].join("\n"),
+    ['---', ...newFrontmatter, '---', ...newMarkdownContent].join('\n'),
     err => {
       if (err) {
         throw err;
@@ -48,8 +61,29 @@ for (let i = 0; i < mdFiles.length; i++) {
 function array2Obj(arr) {
   const res = {};
   arr.forEach(item => {
-    const [key, value] = item.split(":");
+    const [key, value] = item.split(':');
     res[key] = value.trim();
   });
+  return res;
+}
+
+function decorateFrontmatter(obj, defaultObj) {
+  const res = { ...obj };
+  for (const key in defaultObj) {
+    if (typeof res[key] === 'undefined') {
+      res[key] = defaultObj[key];
+    }
+  }
+  if (typeof res.title === 'undefined') {
+    res.title = res.summary;
+  }
+  return res;
+}
+
+function obj2Array(obj) {
+  const res = [];
+  for (const key in obj) {
+    res.push(`${key}: ${obj[key]}`);
+  }
   return res;
 }

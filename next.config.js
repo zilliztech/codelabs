@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
-const withLess = require("next-with-less");
+const withLess = require('next-with-less');
 
-module.exports = withLess({
-  lessLoaderOptions: {},
-});
+module.exports = {
+  ...withLess({
+    lessLoaderOptions: {},
+  }),
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
+};

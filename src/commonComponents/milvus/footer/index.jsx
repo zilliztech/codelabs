@@ -1,61 +1,61 @@
-import React from "react";
-import clsx from "clsx";
-import Link from "@mui/material/Link";
-import * as styles from "./index.module.less";
-import { Github, Slack, Twitter, Youtube } from "./icons";
+import React from 'react';
+import clsx from 'clsx';
+import Link from '@mui/material/Link';
+import * as styles from './index.module.less';
+import { Github, Slack, Twitter, Youtube } from './icons';
 
 export const LINK_JSON = [
   {
-    title: "Resources",
+    title: 'Resources',
     children: [
-      { name: "Docs", trans: false, to: "https://milvus.io/docs" },
+      { name: 'Docs', trans: false, to: 'https://milvus.io/docs' },
       {
-        name: "Blog",
+        name: 'Blog',
         trans: false,
-        to: "https://milvus.io/blog",
+        to: 'https://milvus.io/blog',
       },
-      { name: "Learn", trans: false, to: "https://zilliz.com/learn" },
+      { name: 'Learn', trans: false, to: 'https://zilliz.com/learn' },
     ],
   },
   {
-    title: "Codelabs",
+    title: 'Codelabs',
     children: [
-      { name: "Bootcamp", trans: true, to: "https://milvus.io/bootcamp" },
-      { name: "Demo", trans: true, to: "https://milvus.io/milvus-demos" },
+      { name: 'Bootcamp', trans: true, to: 'https://milvus.io/bootcamp' },
+      { name: 'Demo', trans: true, to: 'https://milvus.io/milvus-demos' },
       {
-        name: "Video",
+        name: 'Video',
         trans: true,
-        to: "https://www.youtube.com/c/MilvusVectorDatabase",
+        to: 'https://www.youtube.com/c/MilvusVectorDatabase',
       },
     ],
   },
   {
-    title: "Tools",
+    title: 'Tools',
     children: [
-      { name: "Attu", trans: false, to: "https://github.com/zilliztech/attu" },
+      { name: 'Attu', trans: false, to: 'https://github.com/zilliztech/attu' },
       {
-        name: "Milvus_CLI",
+        name: 'Milvus_CLI',
         trans: false,
-        to: "https://github.com/zilliztech/milvus_cli",
+        to: 'https://github.com/zilliztech/milvus_cli',
       },
       {
-        name: "Sizing Tool",
+        name: 'Sizing Tool',
         trans: false,
-        to: "https://milvus.io/tools/sizing",
+        to: 'https://milvus.io/tools/sizing',
       },
     ],
   },
   {
-    title: "Community",
+    title: 'Community',
     children: [
-      { name: "Get involved", trans: true, to: "https://milvus.io/community" },
-      { name: "Slack", trans: false, to: "https://slack.milvus.io" },
+      { name: 'Get involved', trans: true, to: 'https://milvus.io/community' },
+      { name: 'Slack', trans: false, to: 'https://slack.milvus.io' },
       {
-        name: "Github",
+        name: 'Github',
         trans: false,
-        to: "https://github.com/milvus-io/milvus",
+        to: 'https://github.com/milvus-io/milvus',
       },
-      { name: "Forum", trans: true, to: "https://discuss.milvus.io/" },
+      { name: 'Forum', trans: true, to: 'https://discuss.milvus.io/' },
     ],
   },
 ];
@@ -63,23 +63,23 @@ export const LINK_JSON = [
 export const SOCIAL_JSON = [
   {
     icon: Github,
-    link: "https://github.com/milvus-io/milvus",
-    alt: "GitHub",
+    link: 'https://github.com/milvus-io/milvus',
+    alt: 'GitHub',
   },
   {
     icon: Slack,
-    link: "https://slack.milvus.io/",
-    alt: "Slack",
+    link: 'https://slack.milvus.io/',
+    alt: 'Slack',
   },
   {
     icon: Twitter,
-    link: "https://twitter.com/milvusio",
-    alt: "Twitter",
+    link: 'https://twitter.com/milvusio',
+    alt: 'Twitter',
   },
   {
     icon: Youtube,
-    link: "https://www.youtube.com/channel/UCMCo_F7pKjMHBlfyxwOPw-g",
-    alt: "YouTube",
+    link: 'https://www.youtube.com/channel/UCMCo_F7pKjMHBlfyxwOPw-g',
+    alt: 'YouTube',
   },
 ];
 
@@ -106,8 +106,6 @@ const Footer = ({ darkMode = true, className }) => {
                   key={`${index}-c.name`}
                   className={styles.itemEntry}
                   href={c.to}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   underline="none"
                 >
                   {c.name}
@@ -123,12 +121,7 @@ const Footer = ({ darkMode = true, className }) => {
             {SOCIAL_JSON.map(s => {
               const Icon = s.icon;
               return (
-                <Link
-                  key={s.link}
-                  href={s.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link key={s.link} href={s.link}>
                   <Icon />
                 </Link>
               );

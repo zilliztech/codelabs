@@ -1,8 +1,9 @@
 import React from 'react';
-import { convertMkdToHtml } from '../utils/common';
-import Layout from '../components/layout';
-import classes from '../../styles/article.module.less';
+import { convertMkdToHtml, getCodelabsJson } from '../../utils/common';
+import Layout from '../../components/layout';
+import classes from '../../../styles/article.module.less';
 import 'highlight.js/styles/stackoverflow-light.css';
+import axiosInstance from '../../http/axios';
 
 export default function ArticleDetail(props) {
   return (
@@ -15,10 +16,16 @@ export default function ArticleDetail(props) {
   );
 }
 
-export const getServerSideProps = ({ params }) => {
+export const getStaticPaths = async () => {
+  const json = getCodelabsJson();
+  const paths = json.map(v => ({ params: { id: v.id } }));
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params }) => {
   const fs = require('fs');
   const { id } = params;
-  // get meta
+
   const meta = JSON.parse(
     fs.readFileSync(`public/${id}/codelab.json`).toString()
   );
@@ -27,7 +34,7 @@ export const getServerSideProps = ({ params }) => {
   const md = fs.readFileSync(`./codelabs/${meta.source}`);
 
   // build html
-  const html = convertMkdToHtml(md, id);
+  const html = convertMkdToHtml(md);
 
   return {
     props: {

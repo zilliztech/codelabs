@@ -6,10 +6,10 @@ const project = args.env || 'milvus';
 
 // copy milvus header and footer to components
 // new folder path is src/component/commonComponents
-copyComponents();
+copyComponents(project);
 
 // copy common component
-function copyComponents() {
+function copyComponents(project) {
   const [baseSrcDir, baseTarDir] = [
     './src/commonComponents',
     './src/components/commonComponents',

@@ -1,7 +1,11 @@
 const fs = require('fs');
+const ejs = require('ejs');
 
 // copy common component
 exports.copyComponents = project => {
+  // update page title
+  ModifyPageTitle(project);
+
   const [baseSrcDir, baseTarDir] = [
     './src/commonComponents',
     './src/components/commonComponents',
@@ -50,3 +54,12 @@ exports.copyComponents = project => {
     copyFile(srcPath, tarPath);
   });
 };
+
+function ModifyPageTitle(project = 'milvus') {
+  const template = fs.readFileSync('./template.html', 'utf-8');
+  const newTitle = project.toString();
+  const [firstLetter, otherLetters] = [newTitle[0], newTitle.substring(1)];
+  const title = `${firstLetter.toUpperCase()}${otherLetters}`;
+  const html = ejs.render(template, { title });
+  fs.writeFileSync('./index.html', html);
+}

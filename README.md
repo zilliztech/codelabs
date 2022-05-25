@@ -15,11 +15,19 @@ yarn install
 ## preview server
 
 ```
-# preview milvus codelab 
+# preview milvus codelab
 yarn dev-milvus
 
 # preview towhee codelab (not yet)
 yarn dev-towhee
+```
+
+## Update Codelabs
+
+Once you have finished modifying codelabs, you need to re-convert them to html, then, just refresh your browser
+
+```
+./convert.sh
 ```
 
 ## Suuported syntax
@@ -77,7 +85,7 @@ You created a numbered list!
 ### Embed an iframe
 
 ```md
-![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg "Try Me Publisher")
+![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg 'Try Me Publisher')
 ```
 
 ### Youtube video

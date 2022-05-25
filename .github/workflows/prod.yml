@@ -7,7 +7,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout Github Action"
+      - name: 'Checkout Github Action'
         uses: actions/checkout@master
 
       - name: Install OpenVPN and kubectl
@@ -24,7 +24,7 @@ jobs:
         uses: golfzaptw/action-connect-ovpn@master
         id: connect_vpn
         with:
-          FILE_OVPN: ".github/workflows/client.ovpn"
+          FILE_OVPN: '.github/workflows/client.ovpn'
         env:
           CA_CRT: ${{ secrets.VPN_CA}}
           USER_CRT: ${{ secrets.VPN_CRT }}
@@ -39,7 +39,7 @@ jobs:
       - name: Build image
         id: build-image
         run: |
-          docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t harbor-us1.zilliz.cc/ued/milvus-codelabs:${{ github.sha }}
+          ./convert.sh && docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t harbor-us1.zilliz.cc/ued/milvus-codelabs:${{ github.sha }}
 
       - name: Push image to Harbor
         id: push-image

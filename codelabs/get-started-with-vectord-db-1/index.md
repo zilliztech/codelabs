@@ -8,9 +8,11 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 # Getting Started with Vector Databases - What is a Vector Database?
 
-In the previous tutorial, we took a quick look at the ever-increasing amount of data that is being generated on a daily basis. We then covered how these bits of data can be split into structured/semi-structured and unstructured data, the differences between them, and how modern machine learning can be used to understand unstructured data through embeddings. Finally, we briefly touched upon unstructured data processing via ANN search. Through all of this information, it's now clear that the ever-increasing amount of unstructured data requires a paradigm shift and a new category of database management system - the vector database.
-
 ## Vector databases from 1000 feet
+
+Duration: 5
+
+In the previous tutorial, we took a quick look at the ever-increasing amount of data that is being generated on a daily basis. We then covered how these bits of data can be split into structured/semi-structured and unstructured data, the differences between them, and how modern machine learning can be used to understand unstructured data through embeddings. Finally, we briefly touched upon unstructured data processing via ANN search. Through all of this information, it's now clear that the ever-increasing amount of unstructured data requires a paradigm shift and a new category of database management system - the vector database.
 
 Armed with this knowledge, it's now clear what vector databases are used for: searching across images, video, text, audio, and other forms of unstructured data via their _content_ rather than keywords or tags (which are often input manually by users or curators). When combined with powerful machine learning models, vector databases such as Milvus have the ability to revolutionize e-commerce solutions, recommendation systems, computer security, pharmaceuticals, and many other industries.
 
@@ -24,6 +26,8 @@ As mentioned in the previous section, a vector database is a fully managed, no-f
 In the next two sections, we'll compare vector databases versus vector search libraries and vector search plugins, respectively.
 
 ## Vector databases versus vector search libraries
+
+Duration: 4
 
 A common misconception is that vector databases are merely wrappers around ANN search indices. A vector database is, at its core, a full-fledged solution for unstructured data. As we've already seen in the previous section, this means that user-specific features present in today's database management systems for structured/semi-structured data - cloud-nativity, multi-tenancy, scalability, etc - should also be attributes for a mature vector database as well.
 
@@ -113,6 +117,8 @@ While both Elasticsearch and Milvus have methods for creating indexes, inserting
 
 ## Technical challenges
 
+Duration: 3
+
 Earlier in this tutorial, we listed the desired features a vector database should implement, before comparing vector databases to vector search libraries and vector search plugins, respectively. Armed with this knowledge, let's briefly go over some high-level technical challenges associated with modern vector databases. In future tutorials, we'll provide an overview of how Milvus tackles each of these, in addition to how these technical decisions improve Milvus' performance over other open-source vector databases.
 
 Like traditional databases, vector databases are composed of a number of evolving components. Roughly speaking, these can be broken down into the storage, the index, the service. Although these three components are tightly integrated[^2], companies such as Snowflake have shown the broader storage industry that hybrid database architectures are arguably superior to the traditional "shared storage" cloud database models. Thus, the first technical challenge associated with vector databases is _designing a flexible and scalable data model_.
@@ -124,6 +130,8 @@ The third primary technical challenge associated with vector database developmen
 Note how each of the three components corresponds to a primary technical challenge. With that being said, there is no one-size-fits-all architecture for vector databases. The best vector databases will fulfill all of these technical challenges by focusing on delivering the features mentioned in the first section.
 
 ## Wrapping up
+
+Duration: 2
 
 In this tutorial, we took a quick tour of vector databases. Specifically, we looked at 1) what features go into a mature vector database, 2) how a vector database differs from vector search libraries, 3) how a vector database differs from vector search plugins in traditional databases or search systems, and 4) the key challenges associated with building a vector database.
 

@@ -2,7 +2,7 @@ const { Remarkable } = require('remarkable');
 const hljs = require('highlight.js'); // https://highlightjs.org/
 const glob = require('glob');
 // Basic config
-const CODELABS_DIR = process.env.NODE_ENV === 'development' ? './public' : '.';
+const CODELABS_DIR = './public';
 const DEFAULT_CATEGORY = 'Default';
 
 function get(state, line) {

@@ -12,7 +12,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ## Introduction
 
-Welcome to Milvus codelabs. This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. We know, we know, doesn't sound like a very sexy topic, but before you press that little x button on your browser tab, hear us out.
+Welcome to Milvus codelabs. This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, I know, doesn't sound like a very sexy topic, but before you press that little x button on your browser tab, hear us out.
 
 New data is being generated every day, and is undoubtedly a key driver of both worldwide integration as well as the global economy. From heart rate monitors worn on wrists to GPS positions of a vehicle fleet to videos uploaded to social media, data is being generated at an exponentially increasing rate. The importance of this ever-increasing amount of data cannot be understated; data can help better serve existing customers, identify supply chain weaknesses, pinpoint workforce inefficiencies, and help companies identify and break into new markets, all factors that can enable a company (and you) to generate more $$$.
 
@@ -106,7 +106,7 @@ Excited yet? Excellent. But before we dive headfirst into vector databases and M
 >>> document = collection.find_one({'Author': 'Bill Bryson'})
 ```
 
-This type of querying methodology is not dissimilar to that of traditional relational databases, which rely on SQL statements to filter and fetch data. The concept is the same: databases for structured/semi-structured data perform filtering and querying using mathematical (e.g. `<=`, string distance) or logical (e.g. `EQUALS`, `NOT`) operators across numerical values and/or strings. For traditional relational databases, this is called _relational algebra_; for those of you unfamiliar with it, trust us when we say it's much worse than linear algebra. You may have seen examples of extremely complex filters being constructed through relational algebra, but the core concept remains the same - traditional databases are _deterministic_ systems that always return exact matches for a given set of filters.
+This type of querying methodology is not dissimilar to that of traditional relational databases, which rely on SQL statements to filter and fetch data. The concept is the same: databases for structured/semi-structured data perform filtering and querying using mathematical (e.g. `<=`, string distance) or logical (e.g. `EQUALS`, `NOT`) operators across numerical values and/or strings. For traditional relational databases, this is called _relational algebra_; for those of you unfamiliar with it, trust me when I say it's much worse than linear algebra. You may have seen examples of extremely complex filters being constructed through relational algebra, but the core concept remains the same - traditional databases are _deterministic_ systems that always return exact matches for a given set of filters.
 
 Unlike databases for structured/semi-structured data, vector database queries are done by specifying an input _query vector_ as opposed to SQL statement or data filters (such as `{'Author': 'Bill Bryson'}`). This vector is the embedding-based representation of the unstructured data. As a quick example, this can be done in Milvus with the following snippet (using `pymilvus`):
 
@@ -131,7 +131,7 @@ Thanks for making it this far! Here are the key takewaways for this tutorial:
 - Searching and analyzing unstructured data is done through ANN search, a process that is inherently probabilistic. Querying across structured/semi-structured data, on the other hand, is deterministic.
 - Unstructured data processing is very different from semi-structured data processing, and requires a complete paradigm shift. This naturally necessiates a new type of database - the vector database.
 
-This concludes part one of our introductory series - for those of you new to vector databases, welcome to Milvus! In the next tutorial, we'll cover vector databases in more detail:
+This concludes part one of this introductory series - for those of you new to vector databases, welcome to Milvus! In the next tutorial, we'll cover vector databases in more detail:
 - We'll first provide a birds-eye view of the the Milvus vector database.
 - We'll then follow it up with how Milvus differs from vector search libraries (FAISS, ScaNN, DiskANN, etc).
 - We'll also discuss how vector databases differ from vector search plugins (for traditional databases and search systems).

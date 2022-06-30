@@ -28,14 +28,14 @@ Phew. That was quite a bit of info, so we'll summarize it right here: a vector d
 
 ## Vector databases versus vector search libraries
 
-A common misconception that we hear around the industry is that vector databases are merely wrappers around ANN search algorithms. This could not be further from the truth! A vector database is, at its core, a full-fledged solution for unstructured data. As we've already seen in the previous section, this means that user-friendly features present in today's database management systems for structured/semi-structured data - cloud-nativity, multi-tenancy, scalability, etc - should also be attributes for a mature vector database as well. All of these features will become clear as we dive deeper into this tutorial.
+A common misconception that I hear around the industry is that vector databases are merely wrappers around ANN search algorithms. This could not be further from the truth! A vector database is, at its core, a full-fledged solution for unstructured data. As we've already seen in the previous section, this means that user-friendly features present in today's database management systems for structured/semi-structured data - cloud-nativity, multi-tenancy, scalability, etc - should also be attributes for a mature vector database as well. All of these features will become clear as we dive deeper into this tutorial.
 
 On ther other hand, projects such as FAISS, ScaNN, and HNSW are lightweight _ANN libraries_ rather than managed solutions. The intention of these libraries is to aid in the construction of vector indices - data structures designed to significantly speed up nearest neighbor search for multi-dimensional vectors[^1]. If your dataset is small and limited, these libraries can prove to be sufficient for unstructured data processing, even for systems running in production. However, as dataset sizes increase and more users are onboarded, the problem of scale becomes increasingly difficult to solve.
 
 <div align="center">
   <img align="center" src="./pic/architecture_diagram.png">
 </div>
-<p style="text-align:center"><sub>High-level overview of Milvus's architecture. It looks confusing, we know, but don't worry, we'll dive into each component in the next tutorial.</sub></p>
+<p style="text-align:center"><sub>High-level overview of Milvus's architecture. It looks confusing, I know, but don't worry, we'll dive into each component in the next tutorial.</sub></p>
 
 Vector databases also operate in a totally different layer of abstraction from vector search libraries - vector databases are full-fledged services, while ANN libraries are meant to be integrated into the application that you're developing. In this sense, ANN libraries are one of the many components that vector databases are built on top of, similar to how Elasticsearch is built on top of Apache Lucene. To give an example of why this abstraction is so important, let's take a look at inserting a new unstructured data element into a vector database. This is super easy in Milvus:
 
@@ -53,7 +53,7 @@ Great, now that we've established the difference between vector search libraries
 
 An increasing number of traditional databases and search systems such as Clickhouse and Elasticsearch are including built-in vector search plugins. Elasticsearch 8.0, for example, includes vector insertion and ANN search functionality that can be called via restful API endpoints. The problem with vector search plugins should be clear as night and day - these solutions do not take a full-stack approach to embedding management and vector search. Instead, these plugins are meant to be enhancements on top of existing architectures, thereby making them limited and unoptimized. Developing an unstructured data application atop a traditional database would be like trying to fit lithium batteries and electric motors inside a the frame of a gas-powered car - not a great idea!
 
-To illustrate why this is, let's go back to the list of features that a vector database should implement (from the first section). Vector search plugins are missing two of these features - tunability and user-friendly APIs/SDKs. We'll continue to use Elasticsearch's ANN engine as an example; other vector search plugins operate very similarly so we won't go too much further into detail. Elasticsearch supports vector storage via the `dense_vector` data field type and allows for querying via the `_knn_search` endpoint:
+To illustrate why this is, let's go back to the list of features that a vector database should implement (from the first section). Vector search plugins are missing two of these features - tunability and user-friendly APIs/SDKs. I'll continue to use Elasticsearch's ANN engine as an example; other vector search plugins operate very similarly so I won't go too much further into detail. Elasticsearch supports vector storage via the `dense_vector` data field type and allows for querying via the `_knn_search` endpoint:
 
 ```json
 PUT index
@@ -88,7 +88,7 @@ GET index/_knn_search
 }
 ```
 
-Elasticsearch's ANN plugin supports only one indexing algorithm: Hierarchical Navigable Small Worlds, also known as HNSW (we like to think that the creator was ahead of Marvel when it came to popularizing the multiverse). On top of that, only L2/Euclidean distance is supported as a distance metric. This is an okay start, but let's compare it to Milvus, a full-fledged vector database. Using `pymilvus`:
+Elasticsearch's ANN plugin supports only one indexing algorithm: Hierarchical Navigable Small Worlds, also known as HNSW (I like to think that the creator was ahead of Marvel when it came to popularizing the multiverse). On top of that, only L2/Euclidean distance is supported as a distance metric. This is an okay start, but let's compare it to Milvus, a full-fledged vector database. Using `pymilvus`:
 
 ```python
 >>> field1 = FieldSchema(name='id', dtype=DataType.INT64, description='int64', is_primary=True)
@@ -119,7 +119,7 @@ We just blew through quite a bit of content. This section was admittedly fairly 
 
 ## Technical challenges
 
-Earlier in this tutorial, we listed the desired features a vector database should implement, before comparing vector databases to vector search libraries and vector search plugins. Now, let's briefly go over some high-level technical challenges associated with modern vector databases. In future tutorials, we'll provide an overview of how Milvus tackles each of these, in addition to how these technical decisions improve Milvus' performance over other open-source vector databases.
+Earlier in this tutorial, I listed the desired features a vector database should implement, before comparing vector databases to vector search libraries and vector search plugins. Now, let's briefly go over some high-level technical challenges associated with modern vector databases. In future tutorials, we'll provide an overview of how Milvus tackles each of these, in addition to how these technical decisions improve Milvus' performance over other open-source vector databases.
 
 Picture an airplane. The airplane itself contains a number of interconnected mechanical, electrical, and embedded systems, all working on harmony to provide us with a smooth and pleasurable in-flight experience. Likewise, vector databases are composed of a number of evolving software components. Roughly speaking, these can be broken down into the storage, the index, and the service. Although these three components are tightly integrated[^2], companies such as Snowflake have shown the broader storage industry that "shared nothing" database architectures are arguably superior to the traditional "shared storage" cloud database models. Thus, the first technical challenge associated with vector databases is _designing a flexible and scalable data model_.
 

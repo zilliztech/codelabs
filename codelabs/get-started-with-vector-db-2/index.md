@@ -100,8 +100,6 @@ In the next several tutorials, we'll provide a series of _Milvus quickstarts_, d
 
 Lastly, we at the Milvus community have provided [a short video](https://www.youtube.com/watch?v=nQkmgCtVz5k) introducing Milvus in 2.5 minutes, narrated by yours truly. Grab a cup of coffee and enjoy a front-row seat for the video!
 
-See you in the next couple of tutorials.
-
 ---
 
 [^1]: These libraries include ANNOY, FAISS, ScaNN, DiskANN, and others.

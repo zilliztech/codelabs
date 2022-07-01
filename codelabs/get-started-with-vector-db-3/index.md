@@ -1,5 +1,5 @@
 summary: Getting started with Milvus - the world's most popular open-source vector database.
-id: getting-started-with-vector-databases-introduction-to-milvus
+id: getting-started-with-vector-databases-milvus-quickstart
 categories: Getting Started
 tags: getting-started
 status: Published

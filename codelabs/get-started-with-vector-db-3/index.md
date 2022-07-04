@@ -35,11 +35,11 @@ $ wget https://github.com/milvus-io/milvus/releases/download/v2.0.2/milvus-stand
     Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.108.133|:443... connected.
     HTTP request sent, awaiting response... 200 OK
     Length: 1303 (1.3K) [application/octet-stream]
-    Saving to: ‘docker-compose.yml’
+    Saving to: docker-compose.yml
 
     docker-compose.yml  100%[===================>]   1.27K  --.-KB/s    in 0s
 
-    2022-06-29 13:58:49 (113 MB/s) - ‘docker-compose.yml’ saved [1303/1303]
+    2022-06-29 13:58:49 (113 MB/s) - docker-compose.yml saved [1303/1303]
 ```
 
 Alternatively, if you're on MacOS, make sure you have [Docker Desktop](https://docs.docker.com/desktop/mac/install/) installed first. I recommend using `brew`:
@@ -131,7 +131,7 @@ Now, let's grab the latest Milvus chart from the `milvus-io/milvus-helm` reposit
 ```shell
     Hang tight while we grab the latest from your chart repositories...
     ...Successfully got an update from the "milvus" chart repository
-    Update Complete. ⎈Happy Helming!⎈
+    Update Complete. Happy Helming
 ```
 
 Great. Now that we've gotten all of the dependencies out of the way, let's install Milvus (cluster)!

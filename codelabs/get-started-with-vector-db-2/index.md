@@ -6,8 +6,6 @@ status: Published
 authors: Frank Liu
 Feedback Link: https://github.com/milvus-io/milvus
 
----
-
 # Getting Started with Vector Database - Introduction to Milvus
 
 ## Introduction

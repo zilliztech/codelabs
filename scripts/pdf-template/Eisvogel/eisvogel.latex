@@ -40,8 +40,6 @@
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 %%
 
-\UseRawInputEncoding
-
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
 \PassOptionsToPackage{hyphens}{url}

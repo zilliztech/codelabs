@@ -30,6 +30,17 @@ Let's first download the [`docker-compose.yml`](https://github.com/milvus-io/mil
 $ wget https://github.com/milvus-io/milvus/releases/download/v2.0.2/milvus-standalone-docker-compose.yml -O docker-compose.yml
 ```
 
+```shell
+    Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.108.133, 185.199.111.133, 185.199.109.133, ...
+    Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.108.133|:443... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 1303 (1.3K) [application/octet-stream]
+    Saving to: ‘docker-compose.yml’
+
+    docker-compose.yml  100%[===================>]   1.27K  --.-KB/s    in 0s
+
+    2022-06-29 13:58:49 (113 MB/s) - ‘docker-compose.yml’ saved [1303/1303]
+```
 
 Alternatively, if you're on MacOS, make sure you have [Docker Desktop](https://docs.docker.com/desktop/mac/install/) installed first. I recommend using `brew`:
 
@@ -130,14 +141,14 @@ Great. Now that we've gotten all of the dependencies out of the way, let's insta
 ```
 
 ```shell
-    W0629 16:01:00.674407   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.676536   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.678594   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.680671   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.808448   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.809339   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.809344   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
-    W0629 16:01:00.809594   21803 warnings.go:70] policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.674407   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.676536   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.678594   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.680671   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.808448   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.809339   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.809344   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+    W0629 16:01:00.809594   21803 warnings.go:70 policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
     NAME: my-release
     LAST DEPLOYED: Wed Jun 29 16:01:00 2022
     NAMESPACE: default

@@ -20,7 +20,7 @@ We offer two different modes of deployment: standalone and cluster. In Milvus st
 
 Milvus cluster is our full-fledged version of Milvus, complete with separate instances/pods for all eight microservice components along with three third-party dependencies: `MinIO`, `etcd`, and `Pulsar` (Pulsar serves as the log broker and provides log pub/sub services). If you haven't gotten the chance to take a look at the Milvus overview from the previous slide, please do so! It'll help clarify what each of these third party dependencies is used for and why we've included them in Milvus cluster.
 
-## Milvus standalone (`docker-compose`)
+## Milvus standalone (docker-compose)
 
 Milvus standalone is meant to be super easy to install. In this section, we'll go over how `docker-compose` can be used to install Milvus. You can view the recommended prerequisites [here](https://github.com/milvus-io/milvus-docs/blob/v2.0.x/site/en/getstarted/prerequisite-docker.md).
 
@@ -84,7 +84,7 @@ $ docker-compose down
 
 And that's it for Milvus standalone! Easy, right?
 
-## Milvus standalone (`apt`)
+## Milvus standalone (apt)
 
 We also provide a handy `apt` package for Debian-based distributions. Simply run:
 

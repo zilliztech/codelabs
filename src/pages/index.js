@@ -88,8 +88,8 @@ export default function HomePage({ data = [] }) {
               <Typography component="p">
                 Milvus Codelabs provide a guided, tutorial, hands-on milvus
                 integration experience. Most tutorials will step you through the
-                process of installation, building a milvus application, or
-                integrate milvus with your existing application.
+                process of installation, building a vector database application,
+                or integrate milvus with your existing application.
               </Typography>
             </Box>
           </Box>

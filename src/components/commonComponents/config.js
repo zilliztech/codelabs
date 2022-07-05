@@ -1,4 +1,4 @@
 export const config = {
   project: 'milvus',
-  title: 'Milvus Codelab',
+  title: 'Milvus codelabs',
 };

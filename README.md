@@ -15,20 +15,14 @@ yarn install
 ## preview server
 
 ```
-# preview milvus codelab
-yarn dev-milvus
+# preview codelab
+yarn dev
 
-# preview towhee codelab (not yet)
-yarn dev-towhee
 ```
 
 ## Update Codelabs
 
-Once you have finished modifying codelabs, you need to re-convert them to html, then, just refresh your browser
-
-```
-./convert.sh
-```
+Just modifies codelabs, page will get refreshed automatically
 
 ## Suuported syntax
 

@@ -7,30 +7,30 @@ export const MENU = [
     href: !isExternal ? '/docs' : 'https://milvus.io/docs',
     isExternal: isExternal,
   },
-  // {
-  //   label: "Tutorials",
-  //   subMenu: [
-  //     {
-  //       label: "Bootcamp",
-  //       href: !isExternal ? "/bootcamp" : "https://milvus.io/bootcamp",
-  //       isExternal: isExternal,
-  //     },
-  //     {
-  //       label: "Demo",
-  //       href: !isExternal ? "/milvus-demos" : "https://milvus.io/milus-demos",
-  //       isExternal: isExternal,
-  //     },
-  //     {
-  //       label: "Video",
-  //       href: "https://www.youtube.com/c/MilvusVectorDatabase",
-  //       isExternal: true,
-  //     },
-  //   ],
-  // },
   {
-    label: 'Codelabs',
-    href: '/',
-    isExternal: false,
+    label: "Tutorials",
+    subMenu: [
+      {
+        label: "Codelabs",
+        href: !isExternal ? "/codelabs" : "https://codelabs.milvus.io",
+        isExternal: isExternal,
+      },
+      {
+        label: "Bootcamp",
+        href: !isExternal ? "/bootcamp" : "https://milvus.io/bootcamp",
+        isExternal: isExternal,
+      },
+      {
+        label: "Demo",
+        href: !isExternal ? "/milvus-demos" : "https://milvus.io/milus-demos",
+        isExternal: isExternal,
+      },
+      {
+        label: "Video",
+        href: "https://www.youtube.com/c/MilvusVectorDatabase",
+        isExternal: true,
+      },
+    ],
   },
   {
     label: 'Tools',

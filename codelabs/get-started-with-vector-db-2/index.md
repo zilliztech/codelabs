@@ -12,7 +12,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ## Introduction
 
-Hey there - welcome back to Milvus codelabs. In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
+Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
 
 ## Milvus history
 

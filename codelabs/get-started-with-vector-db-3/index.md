@@ -10,7 +10,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 # Getting Started with Vector Database - Milvus Quickstart
 
-Hey there - welcome back to Milvus codelabs. In the previous tutorial, we provided a brief introduction to Milvus, Milvus' history, as well as the primary differences between Milvus 1.x and Milvus 2.x. We also took a quick tour of the architecture of Milvus 2.x and helped shine some light on how Milvus' architecture allows it to implement all of the required features of vector databases.
+Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorial, we provided a brief introduction to Milvus, Milvus' history, as well as the primary differences between Milvus 1.x and Milvus 2.x. We also took a quick tour of the architecture of Milvus 2.x and helped shine some light on how Milvus' architecture allows it to implement all of the required features of vector databases.
 
 ## Let's get started
 

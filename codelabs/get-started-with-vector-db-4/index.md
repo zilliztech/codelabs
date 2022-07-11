@@ -1,5 +1,5 @@
 summary: An introduction to the vector database.
-id: getting-started-with-vector-databases-what-is-a-vector-database
+id: getting-started-with-vector-databases-introduction-to-vector-similarity-search
 categories: Getting Started
 tags: getting-started
 status: Published
@@ -12,7 +12,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ## Introduction
 
-Hey there - welcome back to Milvus codelabs. In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
+Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
 
 In this tutorial, we'll build on that knowledge by going over a word embedding example and seeing how semantically similar pieces of unstructured data are "near" one another while dissimlar pieces of unstructured data are "far" from one another. This will lead into a semi-deep dive into _nearest neighbor search_, a computing problem that involves finding the closest vector(s) to a query vector based on a unified _distance metric_. We'll go over some well-known methods for nearest neighbor search (including my favorite - ANNOY) in addition to commonly used _distance metrics_.
 
@@ -103,7 +103,7 @@ The word "apple" can refer to both the company as well as the delicious red frui
 
 ## Nearest neighbor search
 
-Now that we've seen the power of embeddings, let's
+Now that we've seen the power of embeddings, let's take a look at some of the ways we can perform exact nearest neighbor search.
 
 __Linear search__
 
@@ -117,21 +117,21 @@ Like naïve search, space partitioning is a way of implementing NN search, guara
 
 As we've seen in the previous section, exact nearest neighbor search can be pretty expensive once
 
-__Integer quantization [ANN]__
+__Integer quantization__
 
 Quantization is a technique for reducing the total size of the database by reducing the precision of the vectors. Integer quantization works by multiplying high-precision floating point vectors with a scalar value, then casting the elements of the resultant vector to their nearest integers. This not only reduces the effective size of the entire database (e.g. by a factor of four for conversion from `float64_t` to `int16_t`), but also has the positive side-effect of speeding up vector-to-vector distance computations.
 
-__Product quantization [ANN]__
+__Product quantization__
 
-Product quantization is another quantization technique that works similar to dictionary compression. Imagine using a clustering algorithm such as k-means to cluster the vectors in the vector database. At query time, we can then fetch vectors that belong in the same cluster as the query vector. This cluster-based quantization method will may work well for small datasets and low- to medium-dimensional vectors, but large datasets will result in a more-than-manageable number of cluster centroids. This is where product quantization comes in – instead of computing centroids over all vector dimensions together, we can instead cluster subvectors, i.e. split each vector into 2 or more segments and perform clustering for each segment. A vector database indexed using subvector centroids is referred to as having an inverted multi-index. We won’t dive too deep into the math and theory behind PQ since it is a fairly deep and well-studied topic, but if you’re interested, you can check out the original PQ paper [CITATION] in addition to some of the extensions such as Optimized PQ [CITATION] and Locally Optimized PQ [CITATION].
+Product quantization is another quantization technique that works similar to dictionary compression. Imagine using a clustering algorithm such as k-means to cluster the vectors in the vector database. At query time, we can then fetch vectors that belong in the same cluster as the query vector. This cluster-based quantization method will may work well for small datasets and low- to medium-dimensional vectors, but large datasets will result in a more-than-manageable number of cluster centroids. This is where product quantization comes in – instead of computing centroids over all vector dimensions together, we can instead cluster subvectors, i.e. split each vector into 2 or more segments and perform clustering for each segment. A vector database indexed using subvector centroids is referred to as having an inverted multi-index. We won’t dive too deep into the math and theory behind PQ since it is a fairly deep and well-studied topic, but if you’re interested, you can check out the original [PQ paper](https://lear.inrialpes.fr/pubs/2011/JDS11/jegou_searching_with_quantization.pdf) in addition to some of the extensions such as [Optimized PQ](http://kaiminghe.com/publications/pami13opq.pdf) and [Locally Optimized PQ](http://image.ntua.gr/iva/files/lopq.pdf).
 
 __Hierarchical Navigable Small Worlds__
 
-Hierarchical Navigable Small Worlds (HNSW) is a graph-based indexing and retrieval algorithm. This works differently from product quantization: instead of improving the searchability of the database by reducing its effective size, HNSW creates a multi-layer graph from the original data. Upper layers contain only “long connections” while lower layers contain only “short connections” between vectors in the database (see the next section for an overview of vector distance metrics). Individual graph connections are created a-la skip lists. With this architecture in place, searching becomes fairly straightforward – we greedily traverse the uppermost graph (the one with the longest inter-vector connections) for the vector closest to our query vector. We then do the same for the second layer, using the result of the first layer search as the starting point. This continues until we complete the search at the bottommost layer, the result of which becomes the nearest neighbor of the query vector. You can check out the original HNSW paper here.
+Hierarchical Navigable Small Worlds (HNSW) is a graph-based indexing and retrieval algorithm. This works differently from product quantization: instead of improving the searchability of the database by reducing its effective size, HNSW creates a multi-layer graph from the original data. Upper layers contain only “long connections” while lower layers contain only “short connections” between vectors in the database (see the next section for an overview of vector distance metrics). Individual graph connections are created a-la skip lists. With this architecture in place, searching becomes fairly straightforward – we greedily traverse the uppermost graph (the one with the longest inter-vector connections) for the vector closest to our query vector. We then do the same for the second layer, using the result of the first layer search as the starting point. This continues until we complete the search at the bottommost layer, the result of which becomes the nearest neighbor of the query vector. You can check out the original HNSW paper [here](https://arxiv.org/abs/1603.09320).
 
 __Approximate Nearest Neighbors Oh Yeah__
 
-This is probably my favorite ANN algorithm simply due to its playful and unintunitive name. Approximate Nearest Neighbor Oh Yeah (ANNOY) is a tree-based algorithm popularized by Spotify (it’s used in their music recommendation system). Despite the strange name, the underlying concept behind ANNOY is actually fairly simple – binary trees. ANNOY works by first randomly selecting two vectors in the database and bisecting the search space along the hyperplane separating those two vectors. This is done iteratively until there are fewer than some predefined parameter NUM_MAX_ELEMS per node. Since the resulting index is essentially a binary tree, this allows us to do our search on O(log n) complexity.
+This is probably my favorite ANN algorithm simply due to its playful and unintunitive name. [Approximate Nearest Neighbors Oh Yeah](https://github.com/spotify/annoy) (ANNOY) is a tree-based algorithm popularized by Spotify (it’s used in their music recommendation system). Despite the strange name, the underlying concept behind ANNOY is actually fairly simple – binary trees. ANNOY works by first randomly selecting two vectors in the database and bisecting the search space along the hyperplane separating those two vectors. This is done iteratively until there are fewer than some predefined parameter `NUM_MAX_ELEMS` per node. Since the resulting index is essentially a binary tree, this allows us to do our search on O(log n) complexity.
 
 ## Commonly used similarity metrics
 
@@ -139,20 +139,45 @@ The very best vector databases are useless without similarity metrics – method
 
 __Floating point vector similarity metrics__
 
-The most common floating point vector similarity metrics are, in no particular order, L1 distance, L2 distance, and cosine distance. L1 distance, L2 distance, and cosine distance are all _distance metrics_: lower values imply higher similarity while higher values imply lower similarity.
+The most common floating point vector similarity metrics are, in no particular order, _L1 distance_, _L2 distance_, and _cosine similarity_. The first two values are _distance metrics_ (lower values imply more similarity while higher values imply lower similarity), while cosine similarity is a _similarity metric_ (higher values imply more simlarity).
 
-- L1 distance is also commonly referred to as Manhattan distance, aptly named after the fact that getting from point A to point B in Manhattan requires moving along one of two fixed directions. If you've ever been to Manhattan,
-- L2 distance is simply the distance between two vectors in Euclidean space.
-- Cosine distance is equivalent to the cosine of the angle between two vectors – note the equation for cosine similarity works out to be the inner product normalized versions of input vectors a and b.
+1. $$d_{l1}(\mathbf{a},\mathbf{b})=\sum_{i=1}^{N}|\mathbf{a}_i-\mathbf{b}_i|$$
+2. $$d_{l2}(\mathbf{a},\mathbf{b})=\sqrt{\sum_{i=1}^{N}(\mathbf{a}_i-\mathbf{b}_i)^2}$$
+3. $$d_{cos}(\mathbf{a},\mathbf{b})=\frac{\mathbf{a}\cdot\mathbf{b}}{|\mathbf{a}||\mathbf{b}|}$$
+
+L1 distance is also commonly referred to as Manhattan distance, aptly named after the fact that getting from point A to point B in Manhattan requires moving along one of two fixed directions. The second equation, L2 distance, is simply the distance between two vectors in Euclidean space. The third and final equation is cosine distance, equivalent to the cosine of the angle between two vectors. Note the equation for cosine similarity works out to be the dot product between normalized versions of input vectors __a__ and __b__.
+
+With a bit of math, we can also show that L2 distance and cosine similarity are effectively equivalent when it comes to similarity ranking:
+
+$$d_{l2}(\mathbf{a},\mathbf{b})=(\mathbf{a}-\mathbf{b})^T(\mathbf{a}-\mathbf{b})$$
+
+$$=\mathbf{a}^T\mathbf{a}-2\mathbf{a}^T\mathbf{b}+\mathbf{b}^T\mathbf{b}$$
+
+$$=2-2\mathbf{a}^T\mathbf{b}$$
+
+$$=2(1-d_{cos}(\mathbf{a},\mathbf{b}))$$
+
+Essentically, if you have unit norm vectors $$|\mathbf{a}|=|\mathbf{b}|=1$$, L2 distance and cosine similarity are functionally equivalent! Always remember to normalize your embeddings.
 
 __Binary vector similarity metrics__
 
-Binary vectors, as their name suggest, do not have directly computable similarity metrics a-la floating point vectors. Similarity metrics for binary vectors instead rely on either set mathematics, bit manipulation, or a combination of both (no, I don't like discrete math any more than you do). Here are the formulas for two commonly used binary vector similarity metrics:
+Binary vectors, as their name suggest, do not have metrics based in arithmetics a-la floating point vectors. Similarity metrics for binary vectors instead rely on either set mathematics, bit manipulation, or a combination of both (it's okay, I also hate discrete math). Here are the formulas for two commonly used binary vector similarity metrics:
 
+1. $$d_J(\mathbf{a},\mathbf{b})=1-\frac{\mathbf{a}\cdot\mathbf{b}}{|a|^2+|b|^2-\mathbf{a}\cdot\mathbf{b}}$$
+2. $$d_J(\mathbf{a},\mathbf{b})=\sum_{i=1}^{N}\mathbf{a}_i\oplus\mathbf{b}_i$$
 
+The first equation is called Tanimoto/Jaccard distance, and is essentially a measure of the amount of overlap between two binary vectors. The second equation is Hamming distance, and is a count of the number of vector elements in a and b which differ from each other.
 
-The first equation is called Tanimoto distance, and is essentially a measure of the amount of overlap between two binary vectors. Note the two extremes – if a and b are identical binary vectors, then the resulting value is equal to 0, whereas if a and b are exactly opposite of one another, then the resulting value is equal to 1. The second equation is Hamming distance, and is a count of the number of vector elements in a and b which differ from each other.
-Don’t worry if these don’t make much sense to you – the vast majority of applications (>90%) use L2/Euclidean distance over floating point vectors, so understanding that is more than enough in most cases.
+You can most likely safely ignore these similarity metrics, since the majority of applications use cosine similarity over floating point embeddings.
 
+## Wrapping up
 
-## Closing words
+In this tutorial, we took a look at vector similarity search, along with some common vector search algorithms and distance metrics. Here are some key takeaways:
+
+- Embedding vectors are powerful representations, both in terms of distance between the vectors and in terms of vector arithmetic. By applying a liberal quantity of vector algebra to embeddings, we can perform scalable semantic analysis using just basic mathematical operators.
+- There are a wide variety of approximate nearest neighbor search algorithms and/or index types to choose from. The most commonly one used today is HNSW, but a different indexing algorithm may work better for your particular application, depending on the total number of embeddings you have in addition to the length of each individual vector.
+- The two primary distance metrics used today are L2/Euclidean distance and cosine distance. These two metrics, when used on normalized embeddings, are functionally equivalent.
+
+Thanks for joining us for this tutorial! We covered a fairly math-heavy topic. In future tutorials, we'll be doing some deeper dives into the most commonly used ANNS algorithms - HNSW and ScaNN.
+
+See you in the next tutorial.

@@ -12,7 +12,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ## Introduction
 
-Welcome to Milvus codelabs. This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, I know, doesn't sound like a very sexy topic, but before you press that little x button on your browser tab, hear us out.
+Welcome to [Milvus codelabs](https://codelabs.milvus.io/). This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, I know, doesn't sound like a very sexy topic, but before you press that little x button on your browser tab, hear us out.
 
 New data is being generated every day, and is undoubtedly a key driver of both worldwide integration as well as the global economy. From heart rate monitors worn on wrists to GPS positions of a vehicle fleet to videos uploaded to social media, data is being generated at an exponentially increasing rate. The importance of this ever-increasing amount of data cannot be understated; data can help better serve existing customers, identify supply chain weaknesses, pinpoint workforce inefficiencies, and help companies identify and break into new markets, all factors that can enable a company (and you) to generate more $$$.
 

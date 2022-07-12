@@ -11,6 +11,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 # Getting Started with Vector Databases - Introduction to Vector Similarity Search
 
 ## Introduction
+Duration: 1
 
 Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
 
@@ -19,6 +20,7 @@ In this tutorial, we'll build on that knowledge by going over a word embedding e
 Excited yet? Great. Let's dive in.
 
 ## Comparing embeddings
+Duration: 3
 
 __Some prep work__
 
@@ -102,6 +104,7 @@ The word "apple" can refer to both the company as well as the delicious red frui
 "Droid" refers to Samsung's first 4G LTE smartphone ("Samsung" + "iPhone" - "Apple" = "Droid"), while "apple" is the 10th closest word to "fruit".
 
 ## Nearest neighbor search
+Duration: 2
 
 Now that we've seen the power of embeddings, let's take a look at some of the ways we can perform exact nearest neighbor search.
 
@@ -114,6 +117,7 @@ __Space partitioning__
 Like naïve search, space partitioning is a way of implementing NN search, guaranteeing that the closest neighbors to an input query vector are found. Space partitioning is not a single algorithm, but rather a family of algorithms that all use the same concept. KD-trees are the simplest algorithm in this family, and work by continuously bisecting the search space (splitting the vectors into “left” and “right” buckets) in a manner similar to binary search trees. Although space partitioning algorithms undoubtedly improve nearest neighbor search query tiems, performing the search can still be prohibitively expensive once database sizes become large.
 
 ## Approximate nearest neighbor search
+Duration: 3
 
 As we've seen in the previous section, exact nearest neighbor search can be pretty expensive once
 
@@ -134,6 +138,7 @@ __Approximate Nearest Neighbors Oh Yeah__
 This is probably my favorite ANN algorithm simply due to its playful and unintunitive name. [Approximate Nearest Neighbors Oh Yeah](https://github.com/spotify/annoy) (ANNOY) is a tree-based algorithm popularized by Spotify (it’s used in their music recommendation system). Despite the strange name, the underlying concept behind ANNOY is actually fairly simple – binary trees. ANNOY works by first randomly selecting two vectors in the database and bisecting the search space along the hyperplane separating those two vectors. This is done iteratively until there are fewer than some predefined parameter `NUM_MAX_ELEMS` per node. Since the resulting index is essentially a binary tree, this allows us to do our search on O(log n) complexity.
 
 ## Commonly used similarity metrics
+Duration: 3
 
 The very best vector databases are useless without similarity metrics – methods for computing the distance between two vectors. Numerous metrics exist, so we will discuss only the most commonly used subset here.
 
@@ -171,6 +176,7 @@ The first equation is called Tanimoto/Jaccard distance, and is essentially a mea
 You can most likely safely ignore these similarity metrics, since the majority of applications use cosine similarity over floating point embeddings.
 
 ## Wrapping up
+Duration: 1
 
 In this tutorial, we took a look at vector similarity search, along with some common vector search algorithms and distance metrics. Here are some key takeaways:
 

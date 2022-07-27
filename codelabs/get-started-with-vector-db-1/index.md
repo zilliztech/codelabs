@@ -11,22 +11,25 @@ Feedback Link: https://github.com/milvus-io/milvus
 # Getting Started with Vector Databases - What is a Vector Database?
 
 ## Introduction
+Duration: 1
 
-Hey there - welcome back to Milvus codelabs. In the previous tutorial, we took a quick look at the ever-increasing amount of data that is being generated on a daily basis. We then covered how these bits of data can be split into structured/semi-structured and unstructured data, the differences between them, and how modern machine learning can be used to understand unstructured data through embeddings. Finally, we briefly touched upon unstructured data processing via ANN search. Through all of this information, it's now clear that the ever-increasing amount of unstructured data requires a paradigm shift and a new category of database management system - the vector database.
+Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorial, we took a quick look at the ever-increasing amount of data that is being generated on a daily basis. We then covered how these bits of data can be split into structured/semi-structured and unstructured data, the differences between them, and how modern machine learning can be used to understand unstructured data through embeddings. Finally, we briefly touched upon unstructured data processing via ANN search. Through all of this information, it's now clear that the ever-increasing amount of unstructured data requires a paradigm shift and a new category of database management system - the vector database.
 
 ## Vector databases from 1000 feet
+Duration: 3
 
 Guess how many curators it took to label the now-famous _ImageNet_ dataset. Ready for the answer? _25000_ people (that's a lot). Being able to search across images, video, text, audio, and other forms of unstructured data via their _content_ rather than human-generated labels or tags is exactly what vector databases were meant to solve. When combined with powerful machine learning models, vector databases such as Milvus have the ability to revolutionize e-commerce solutions, recommendation systems, computer security, pharmaceuticals, and many other industries.
 
 As mentioned in the introduction, a vector database is a fully managed, no-frills solution for storing, indexing, and searching across a massive dataset of unstructured data that leverages the power of embeddings from machine learning models. But let's think about it from a user perspective. What good is a piece of technology without strong usability and a good user API? In concert with the underlying technology, multi-tenancy and usability is also an incredibly important attribute for vector databases. Let's list out all of the features a mature vector database should have (many of these features overlap with those of databases for structured/semi-structured data):
-- Scalability and tunability: As the number of unstructured data elements stored in a vector database grows into the hundreds of millions or billions, horizontal scaling across multiple nodes becomes paramount (scaling up by manually inserting sticks of RAM into a server rack every 3 months is no fun). Furthermore, differences in insert rate, query rate, and underlying hardware may result in different application needs, making overall system tunability a mandatory feature for vector databases. Milvus achieves this via a cloud-native architecture, maintaining multiple service and worker nodes behind a load balancer. Internal object storage and message passing is implemented with other cloud-native, distributed tools, allowing for easy scaling across the entire system.
-- Multi-tenancy and data isolation: Supporting multiple users is an obvious feature for all database systems. However, going guns blazing and creating a new vector database for every new user will probably turn out poorly for everyone. Parallel to this notion is data isolation - the idea that any inserts, deletes, or queries made to one collection in a database should be invisible to the rest of the system unless the collection owner explicitly wishes to share the information. Milvus implements this through the concept of _collections_, which we'll dive deeper into in a future tutorial.
-- A complete suite of APIs: A database without a full suite of APIs and SDKs is, frankly speaking, not a real database. Milvus maintains [Python](https://github.com/milvus-io/pymilvus/), [Node](https://github.com/milvus-io/milvus-sdk-node), [Go](https://github.com/milvus-io/milvus-sdk-go), and [Java](https://github.com/milvus-io/milvus-sdk-java) SDKs for communicating with and administering a Milvus database.
+- __Scalability and tunability__: As the number of unstructured data elements stored in a vector database grows into the hundreds of millions or billions, horizontal scaling across multiple nodes becomes paramount (scaling up by manually inserting sticks of RAM into a server rack every 3 months is no fun). Furthermore, differences in insert rate, query rate, and underlying hardware may result in different application needs, making overall system tunability a mandatory feature for vector databases. Milvus achieves this via a cloud-native architecture, maintaining multiple service and worker nodes behind a load balancer. Internal object storage and message passing is implemented with other cloud-native, distributed tools, allowing for easy scaling across the entire system.
+- __Multi-tenancy and data isolation__: Supporting multiple users is an obvious feature for all database systems. However, going guns blazing and creating a new vector database for every new user will probably turn out poorly for everyone. Parallel to this notion is data isolation - the idea that any inserts, deletes, or queries made to one collection in a database should be invisible to the rest of the system unless the collection owner explicitly wishes to share the information. Milvus implements this through the concept of _collections_, which we'll dive deeper into in a future tutorial.
+- __A complete suite of APIs__: A database without a full suite of APIs and SDKs is, frankly speaking, not a real database. Milvus maintains [Python](https://github.com/milvus-io/pymilvus/), [Node](https://github.com/milvus-io/milvus-sdk-node), [Go](https://github.com/milvus-io/milvus-sdk-go), and [Java](https://github.com/milvus-io/milvus-sdk-java) SDKs for communicating with and administering a Milvus database.
 - An intuitive user interface/administrative console: User interfaces can help significantly reduce the learning curve associated with vector databases. These interfaces also expose new vector database features and tools that would otherwise be inaccessible. Zilliz has open-sourced an efficient and intuitive web-based GUI for Milvus called [_Attu_](https://github.com/zilliztech/attu).
 
 Phew. That was quite a bit of info, so we'll summarize it right here: a vector database should have the following features: 1) scalability and tunability, 2) multi-tenancy and data isolatio, 3) a complete suite of APIs, and 4) an intuitive user interface/administrative console. In the next two sections, we'll follow up on this concept by comparing vector databases versus vector search libraries and vector search plugins, respectively.
 
 ## Vector databases versus vector search libraries
+Duration: 2
 
 A common misconception that I hear around the industry is that vector databases are merely wrappers around ANN search algorithms. This could not be further from the truth! A vector database is, at its core, a full-fledged solution for unstructured data. As we've already seen in the previous section, this means that user-friendly features present in today's database management systems for structured/semi-structured data - cloud-nativity, multi-tenancy, scalability, etc - should also be attributes for a mature vector database as well. All of these features will become clear as we dive deeper into this tutorial.
 
@@ -48,6 +51,7 @@ mr = collection.insert(data)
 It's really as easy as that - 3 lines of code. With a library such as FAISS or ScaNN, there is unfortunately no easy way of doing this without manually re-creating the entire index at certain checkpoints. Even if you could, vector search libraries still lack scalability and multi-tenancy, two of the most important vector database features.
 
 ## Vector search plugins for traditional databases
+Duration: 3
 
 Great, now that we've established the difference between vector search libraries and vector databases, let's take a look at how vector databases differ from _vector search plugins_.
 
@@ -118,6 +122,7 @@ While both Elasticsearch and Milvus have methods for creating indexes, inserting
 We just blew through quite a bit of content. This section was admittedly fairly long, so for those of you who skimmed it, here's a quick tl;dr: Milvus is better than vector search plugins because Milvus was built from the ground-up as a vector database, allowing for a richer set of features and an architecture more suited towards unstructured data.
 
 ## Technical challenges
+Duration: 2
 
 Earlier in this tutorial, I listed the desired features a vector database should implement, before comparing vector databases to vector search libraries and vector search plugins. Now, let's briefly go over some high-level technical challenges associated with modern vector databases. In future tutorials, we'll provide an overview of how Milvus tackles each of these, in addition to how these technical decisions improve Milvus' performance over other open-source vector databases.
 
@@ -130,6 +135,7 @@ With a data model and architecture in place, the last step is making sure your a
 Note how each of the three components corresponds to a primary technical challenge. With that being said, there is no one-size-fits-all architecture for vector databases. The best vector databases will fulfill all of these technical challenges by focusing on delivering the features mentioned in the first section.
 
 ## Wrapping up
+Duration: 1
 
 In this tutorial, we took a quick tour of vector databases. Specifically, we looked at 1) what features go into a mature vector database, 2) how a vector database differs from vector search libraries, 3) how a vector database differs from vector search plugins in traditional databases or search systems, and 4) the key challenges associated with building a vector database.
 

@@ -11,10 +11,12 @@ Feedback Link: https://github.com/milvus-io/milvus
 # Getting Started with Vector Database - Introduction to Milvus
 
 ## Introduction
+Duration: 1
 
-Hey there - welcome back to Milvus codelabs. In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
+Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
 
 ## Milvus history
+Duration: 3
 
 Milvus development began in 2018 at [_Zilliz_](https://zilliz.com), making it the world's first open-source vector database. Milvus' initial conception was infrastructure which could be used to build and scale search applications; as such, Milvus was initially intended to be a Google/Bing for unstructured data. Although vector indices and search strategies were prevalent at that time, vector databases were still a relatively unknown concept. During this process, the Milvus community discovered that Milvus had the potential to be significantly more than what we originally intended it to be.
 
@@ -27,6 +29,7 @@ That same year, our first [full-length academic paper]https://www.cs.purdue.edu/
 _Milvus_ is one of the first and foremost vector databases most developers think of when discussing vector databases. A big reason for this is Milvus' rich history - a continuously evolving history that we hope you will one day be a part of!
 
 ## Milvus 2.x
+Duration: 2
 
 We'll continue the topic of Milvus history by discussing Milvus 1.0 (1.x) and 2.0 (2.x) along with the major differences between them.
 
@@ -37,6 +40,7 @@ The first version of Milvus 2.0 was released in June 2021, the same month that M
 If you're looking for a vector database to use for your application, we strongly recommend Milvus 2.x. Milvus 2.x is a completely novel vector database system/solution (when compared with Milvus 1.x) - it is highly available, scalable, and distributed. Due to these architectural advancements, Milvus 1.x has been officially deprecated.
 
 ## Touring Milvus's architecture
+Duration: 5
 
 Now that we've covered Milvus' history as well as how Milvus 2.x differs from Milvus 1.x, let's take some time to go over Milvus 2.x's architecture. Just as a quick refresher, here are the key features a vector database should implement[^3]:
 - Scalability and tunability
@@ -80,6 +84,7 @@ The object storage layer helps put the "database" in Milvus, and is responsible 
 - Object storage: The object storage layer stores log snapshots, index files, and intermediate query processing results. Milvus supports both AWS S3 and Azure Blob Storage, in addition to MinIO, a lightweight, open-source object storage service. Due to the high access latency and billing per query of object storage services, Milvus will soon support memory/SSD-based cache pools and hot/cold data separation to improve performance and reduce costs.
 
 ## Future roadmap (endgame/long-term vision)
+Duration: 2
 
 Milvus has already been tested and trusted by thousands of corporations for use in production systems at scale. By Github statistics, Milvus is by and large the world's most popular open-source vector database, and arguably the world's most advanced as well. As mentioned in the previous sections, our accomplishments in the field of unstructured data processing has already been recognized in the industry's top-tier academic conferences ([SIGMOD 2021](https://www.cs.purdue.edu/homes/csjgwang/pubs/SIGMOD21_Milvus.pdf) and [VLDB 2022]()).
 
@@ -90,6 +95,7 @@ Our endgame vision for Milvus is to be a _complete_ database for unstructured da
 There is no doubt that Milvus has helped revolutionize unstructured data processing, and will continue to do so in the years to come.
 
 ## Wrapping up
+Duration: 1
 
 In this tutorial, we provided a brief introduction to Milvus, Milvus' history, as well as the primary differences between Milvus 1.x and Milvus 2.x. We also took a quick tour of the architecture of Milvus 2.x and helped shine some light on how Milvus' architecture allows it to implement all of the required features of vector databases.
 

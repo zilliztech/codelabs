@@ -11,8 +11,9 @@ Feedback Link: https://github.com/milvus-io/milvus
 # Getting Started with Vector Databases - Introduction to Unstructured Data
 
 ## Introduction
+Duration: 1
 
-Welcome to Milvus codelabs. This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, I know, doesn't sound like a very sexy topic, but before you press that little x button on your browser tab, hear us out.
+Welcome to [Milvus codelabs](https://codelabs.milvus.io/). This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, this doesn't sound like a very sexy topic, but before you press that little __x__ button on your browser tab, hear us out.
 
 New data is being generated every day, and is undoubtedly a key driver of both worldwide integration as well as the global economy. From heart rate monitors worn on wrists to GPS positions of a vehicle fleet to videos uploaded to social media, data is being generated at an exponentially increasing rate. The importance of this ever-increasing amount of data cannot be understated; data can help better serve existing customers, identify supply chain weaknesses, pinpoint workforce inefficiencies, and help companies identify and break into new markets, all factors that can enable a company (and you) to generate more $$$.
 
@@ -23,12 +24,14 @@ Not convinced yet? International Data Corporation - also known as _IDC_ - predic
 <p style="text-align:center"><sub>SLIDE 8 FROM ZILLIZ INFO PACK HERE.</sub></p>
 
 ## Structured/semi-structured data
+Duration: 1
 
 So what exactly is unstructured data? As the name suggests, unstructured data refers to data that cannot be stored in a pre-defined format or fit into an existing data model. Human-generated data - images, video, audio, text, etc - are great examples of unstructured data data. But there are a variety of less mundane examples of unstructured data too. Protein structures, executable file hashes, and even human-readable code are three of a near-infinite set of examples of unstructured data.
 
 Structured data, on the other hand, refers to data that can be stored in a table-based format, while semi-structured data refers to data that can be stored in single- or multi-level array/key-value stores. If none of this makes sense to you yet, don't fret. Bear with us and we'll provide examples to help solidify your understanding of data.
 
 ## Some concrete examples
+Duration: 2
 
 Still with us? Excellent - let's start by briefly describing structured/semi-structured data. In the simplest terms, traditional structured data can be stored via a relational model. Take, for example, a book database:
 
@@ -71,16 +74,20 @@ Note how the first element in our new JSON database now contains `Months` and `T
 Semi-structured data is typically stored in a _NoSQL database_ (wide-column store, object/document database, key-value store, etc), as their non-tabular nature prevents direct use in a relational database. _Cassandra_ (released in 2008), _MongoDB_ (released in 2009), and _Redis_ (released in 2009) are three of the most popular databases for semi-structured data today. Note how these popular databases for semi-structured data were released a little over a decade after popular databases for structured data - keep this in mind as we'll get to it later.
 
 ## A paradigm shift
+Duration: 1
 
 Now that we have a solid understanding of structured/semi-structured data, let's move to talking about unstructured data. Unlike structured/semi-structured data, unstructured data can take any form, be of an arbitrarily large or small size on disk, and can require vastly different runtimes to transform and index. Let's take images as an example: three front-facing successive images of the same German Shephard are _semantically the same_.
 
-_Semantically the same_? What the heck does that mean? Let's dive a bit deeper and unpack the idea of _semantic similarity_. Although these three photos may have vastly different pixel values, resolutions, file sizes, etc, all three photos are of the same German Shephard in the same environment. Think about it - all three photos have identical or near-identical content but significantly different raw pixel values. This poses a new challenge for industries and companies that uses data[^1]: how can we transform, store, and search unstructured data in a similar fashion to structured/semi-structured data?
+_Semantically the same_? What on earth does that mean? Let's dive a bit deeper and unpack the idea of _semantic similarity_. Although these three photos may have vastly different pixel values, resolutions, file sizes, etc, all three photos are of the same German Shephard in the same environment. Think about it - all three photos have identical or near-identical content but significantly different raw pixel values. This poses a new challenge for industries and companies that uses data<sup>1</sup>: how can we transform, store, and search unstructured data in a similar fashion to structured/semi-structured data?
 
 At this point, you're probably wondering: how can we search and analyze unstructured data if it has no fixed size or format? The answer: machine learning (or more specifically, deep learning). In the past decade, the combination of big data and deep neural networks has fundamentally changed the way we approach data-driven applications; tasks ranging from spam email detection to realistic text-to-video synthesis have seen incredible strides, with accuracy metrics on certain tasks reaching superhuman levels. This may sound scary (hello, Skynet), but we're still many decades away from Elon Musk's vision of AI taking over the world.
 
-## A crash course on embeddings
+<sup>1</sup><sub>In essence, this is all industries, all companies, and all inviduals. Including you!</sub>
 
-Let's get back on track. The vast majority of neural network models are capable of turning a single piece of unstructured data into a list of floating point values, also known more commonly as an _embedding_ or _embedding vector_. As it turns out, a properly trained neural network can output embeddings that represent the semantic content of the image[^2]. In a future tutorial, we'll go over a vector database use case that uses a pre-determined algorithm to generate embeddings.
+## A crash course on embeddings
+Duration: 2
+
+Let's get back on track. The vast majority of neural network models are capable of turning a single piece of unstructured data into a list of floating point values, also known more commonly as an _embedding_ or _embedding vector_. As it turns out, a properly trained neural network can output embeddings that represent the semantic content of the image<sup>2</sup>. In a future tutorial, we'll go over a vector database use case that uses a pre-determined algorithm to generate embeddings.
 
 <div align="center">
   <img align="center" src="./pic/photo-1617739680032-8ab04113d6dc.png">
@@ -98,7 +105,10 @@ As mentioned in the introduction, unstructured data will comprise a whopping 80%
 
 The solution? A database for the AI era - a _vector database_. Welcome to our world; welcome to the world of ___Milvus___.
 
+<sup>2</sup><sub>In most tutorials, we'll focus on embeddings generated by neural networks; do note, however, that embeddings can be generated through handcrafted algorithms as well.</sub>
+
 ## Unstructured data processing
+Duration: 2
 
 Excited yet? Excellent. But before we dive headfirst into vector databases and Milvus, let's take a minute to talk about how we process and analyze unstructured data. In the case of structured and semi-structured data, searching for or filtering items in the database is fairly strightforward. As a simple example, querying MongoDB for the first book from a particular author can be done with the following code snippet (using `pymongo`):
 
@@ -114,7 +124,7 @@ Unlike databases for structured/semi-structured data, vector database queries ar
 >>> results = collection.search(embedding, 'embedding', params, limit=10)
 ```
 
-Internally, queries across large collections of unstructured data are performed using a suite of algorithms collectively known as _approximate nearest neighbor search_, or _ANN search_ for short. In a nutshell, ANN search is a form of optimization that attempts to find the "closest" point or set of points to a given query vector. Note the "approximate" in ANN. By utilizing clever indexing methods, vector databases have a clear accuracy/performance tradeoff: increasing search runtimes will result in a more consistent database that performs closer to a deterministic system, always returning the absolute nearest neighbors given a query value. Conversely, reducing query times will improve throughput but may result in capturing fewer of a query's true nearest values. In this sense, unstructured data processing is a _probabilistic_ process[^3].
+Internally, queries across large collections of unstructured data are performed using a suite of algorithms collectively known as _approximate nearest neighbor search_, or _ANN search_ for short. In a nutshell, ANN search is a form of optimization that attempts to find the "closest" point or set of points to a given query vector. Note the "approximate" in ANN. By utilizing clever indexing methods, vector databases have a clear accuracy/performance tradeoff: increasing search runtimes will result in a more consistent database that performs closer to a deterministic system, always returning the absolute nearest neighbors given a query value. Conversely, reducing query times will improve throughput but may result in capturing fewer of a query's true nearest values. In this sense, unstructured data processing is a _probabilistic_ process<sup>3</sup>.
 
 <div align="center">
   <img align="center" src="./pic/maxresdefault.jpeg">
@@ -123,7 +133,10 @@ Internally, queries across large collections of unstructured data are performed 
 
 ANN search is a core component of vector databases and a massive research area in and of itself; as such, we'll dive deep into various ANN search methodologies available to you within Milvus in a future set of articles.
 
+<sup>3</sup><sub>Vector databases can be made determinstic by selecting a specific index.</sub>
+
 ## Wrapping up
+Duration: 1
 
 Thanks for making it this far! Here are the key takewaways for this tutorial:
 - Structured/semi-structured data are limited to numeric, string, or time data types. Through the power of modern machine learning, unstructured data is represented as high-dimensional vectors of numerical values.
@@ -138,11 +151,3 @@ This concludes part one of this introductory series - for those of you new to ve
 - We'll wrap up with technical challenges associated with modern vector databases.
 
 See you in the next tutorial.
-
----
-
-[^1]: In essence, this is _all industries_, _all companies_, and _all inviduals_. Including you!
-
-[^2]: In most tutorials, we'll focus on embeddings generated by neural networks; do note, however, that embeddings can be generated through handcrafted algorithms as well.
-
-[^3]: Vector databases can be made determinstic by selecting a specific index.

@@ -9,6 +9,7 @@ const DEFAULT_PDF_SETTINGS = {
   'titlepage-color': '175FFF',
   'titlepage-text-color': 'FFFFFF',
   'titlepage-rule-color': 'FFFFFF',
+  'titlepage-background': '../scripts/cover.pdf'
 };
 // get all codelab.json from claat generated files
 const mdFiles = glob.sync(`${CODELABS_DIR}/*/index.md`);

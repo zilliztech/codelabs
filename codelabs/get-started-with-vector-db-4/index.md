@@ -42,11 +42,11 @@ Before beginning, we'll need to install the `gensim` library and load a `word2ve
     Connecting to s3.amazonaws.com (s3.amazonaws.com)|52.216.20.165|:443... connected.
     HTTP request sent, awaiting response... 200 OK
     Length: 1647046227 (1.5G) [application/x-gzip]
-    Saving to: ‘GoogleNews-vectors-negative300.bin.gz’
+    Saving to: GoogleNews-vectors-negative300.bin.gz
 
     GoogleNews-vectors- 100%[===================>]   1.53G  2.66MB/s    in 11m 23s
 
-    2022-02-22 00:41:57 (2.30 MB/s) - ‘GoogleNews-vectors-negative300.bin.gz’ saved [1647046227/1647046227]
+    2022-02-22 00:41:57 (2.30 MB/s) - GoogleNews-vectors-negative300.bin.gz saved [1647046227/1647046227]
 
     gunzip: GoogleNews-vectors-negative300.bin: unknown suffix -- ignored
 

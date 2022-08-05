@@ -131,9 +131,11 @@ export function getCodelabsJson() {
   for (let i = 0; i < metaFiles.length; i++) {
     // get meta data
     const meta = parseCodelabMetadata(metaFiles[i]);
-
+    console.log(meta)
     // store meta files
-    codelabs.push(meta);
+    if (meta.status.indexOf('published') !== -1) {
+      codelabs.push(meta);
+    }
     // update categories
     categories[meta.mainCategory] = true;
   }

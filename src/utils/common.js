@@ -133,7 +133,7 @@ export function getCodelabsJson() {
     const meta = parseCodelabMetadata(metaFiles[i]);
     console.log(meta)
     // store meta files
-    if (meta.status.indexOf('published') !== -1) {
+    if (meta.status && meta.status.indexOf('published') !== -1) {
       codelabs.push(meta);
     }
     // update categories

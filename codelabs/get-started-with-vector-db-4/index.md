@@ -2,7 +2,7 @@ summary: An introduction to the vector database.
 id: getting-started-with-vector-databases-introduction-to-vector-similarity-search
 categories: Getting Started
 tags: getting-started
-status: Published
+status: Hidden
 authors: Frank Liu
 Feedback Link: https://github.com/milvus-io/milvus
 

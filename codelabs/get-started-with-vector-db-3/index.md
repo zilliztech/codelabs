@@ -2,7 +2,6 @@ summary: Getting started with Milvus - the world's most popular open-source vect
 id: getting-started-with-vector-databases-milvus-quickstart
 categories: Getting Started
 tags: getting-started
-status: Published
 authors: Frank Liu
 Feedback Link: https://github.com/milvus-io/milvus
 

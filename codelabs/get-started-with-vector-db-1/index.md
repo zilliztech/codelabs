@@ -2,7 +2,6 @@ summary: An introduction to the vector database.
 id: getting-started-with-vector-databases-what-is-a-vector-database
 categories: Getting Started
 tags: getting-started
-status: Published
 authors: Frank Liu
 Feedback Link: https://github.com/milvus-io/milvus
 

@@ -179,7 +179,7 @@ const Header = ({ darkMode = false, className = '' }) => {
           type="fork"
           href="https://github.com/milvus-io/milvus/fork"
         >
-          Forks
+          Fork
         </GitHubButton>
       </div>
     </div>

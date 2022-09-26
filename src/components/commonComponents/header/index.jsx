@@ -177,9 +177,9 @@ const Header = ({ darkMode = false, className = '' }) => {
         <GitHubButton
           stat={stat}
           type="fork"
-          href="https://github.com/milvus-io/milvus/fork"
+          href="https://github.com/milvus-io/milvus"
         >
-          Forks
+          Fork
         </GitHubButton>
       </div>
     </div>

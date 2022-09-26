@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { decode } from 'js-base64';
 
-const encryptedToken = 'Z2hwX3VhVlZqSXo2eUlPcWd1S0hDT2lwQk10dkZtYjhFVzFBeTAyWQ==';
-
 const axiosInstance = axios.create({
   baseURL: 'https://api.github.com/repos',
   timeout: 10000,
@@ -18,14 +16,9 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-
 export const getGithubStatis = async () => {
   try {
-    const res = await axiosInstance.get(`/milvus-io/milvus`, {
-      headers: {
-        Authorization: decode(encryptedToken)
-      }
-    });
+    const res = await axiosInstance.get(`/milvus-io/milvus`);
     return res.data;
   } catch (error) {
     console.log(error);

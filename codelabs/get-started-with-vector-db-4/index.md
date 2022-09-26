@@ -1,5 +1,5 @@
-summary: An introduction to the vector database.
-id: getting-started-with-vector-databases-introduction-to-vector-similarity-search
+summary: An introduction to vector similarity search.
+id: vector-database-101-introduction-to-vector-similarity-search
 categories: Getting Started
 tags: getting-started
 status: Hidden
@@ -8,13 +8,13 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ---
 
-# Getting Started with Vector Databases - Introduction to Vector Similarity Search
+# Vector Database 101 - Introduction to Vector Similarity Search
 
 ## Introduction
 
-Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
+Hey there - welcome back to [Milvus tutorials](https://codelabs.milvus.io/). In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
 
-In this tutorial, we'll build on that knowledge by going over a word embedding example and seeing how semantically similar pieces of unstructured data are "near" one another while dissimlar pieces of unstructured data are "far" from one another. This will lead into a semi-deep dive into _nearest neighbor search_, a computing problem that involves finding the closest vector(s) to a query vector based on a unified _distance metric_. We'll go over some well-known methods for nearest neighbor search (including my favorite - ANNOY) in addition to commonly used _distance metrics_.
+In this tutorial, we'll build on that knowledge by going over a word embedding example and seeing how semantically similar pieces of unstructured data are "near" one another while dissimlar pieces of unstructured data are "far" from one another. This will lead into a high-level over view of _nearest neighbor search_, a computing problem that involves finding the closest vector(s) to a query vector based on a unified _distance metric_. We'll go over some well-known methods for nearest neighbor search (including my favorite - ANNOY) in addition to commonly used _distance metrics_.
 
 Excited yet? Great. Let's dive in.
 

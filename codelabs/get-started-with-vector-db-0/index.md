@@ -1,5 +1,5 @@
 summary: A brief introduction to unstructured data.
-id: getting-started-with-vector-databases-introduction-to-unstructured-data
+id: vector-database-101-introduction-to-unstructured-data
 categories: Getting Started
 tags: getting-started
 status: Published
@@ -8,14 +8,14 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ---
 
-# Getting Started with Vector Databases - Introduction to Unstructured Data
+# Vector Database 101 - Introduction to Unstructured Data
 
 ## Introduction
 Duration: 1
 
-Welcome to [Milvus codelabs](https://codelabs.milvus.io/). This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, this doesn't sound like a very sexy topic, but before you press that little __x__ button on your browser tab, hear us out.
+Welcome to [Milvus tutorials](https://codelabs.milvus.io/). This is the first tutorial, and will be mostly a text-based overview of _unstructured data_. I know, this doesn't sound like a very sexy topic, but before you press that little __x__ button on your browser tab, hear us out.
 
-New data is being generated every day, and is undoubtedly a key driver of both worldwide integration as well as the global economy. From heart rate monitors worn on wrists to GPS positions of a vehicle fleet to videos uploaded to social media, data is being generated at an exponentially increasing rate. The importance of this ever-increasing amount of data cannot be understated; data can help better serve existing customers, identify supply chain weaknesses, pinpoint workforce inefficiencies, and help companies identify and break into new markets, all factors that can enable a company (and you) to generate more $$$.
+New data is being generated every day, and is undoubtedly a key driver of both worldwide integration as well as the global economy. From heart rate monitors worn on wrists to GPS positions of a vehicle fleet to videos uploaded to social media, data is being generated at an exponentially increasing rate. The importance of this ever-increasing amount of data cannot be understated; data can help better serve existing customers, identify supply chain weaknesses, pinpoint workforce inefficiencies, and help companies identify and break into new markets, all factors that can enable a company (and you) to generate more revenue.
 
 Not convinced yet? International Data Corporation - also known as _IDC_ - predicts that the _global datasphere_ - a measure of the total amount of new data created and stored on persistent storage all around the world - will grow to 400 zettabytes (a zettabyte = 10<sup>21</sup> bytes) by 2028. At that time, over 30% of said data will be generated in real-time, while 80% of all generated data will be _unstructured_.
 
@@ -26,7 +26,7 @@ Not convinced yet? International Data Corporation - also known as _IDC_ - predic
 ## Structured/semi-structured data
 Duration: 1
 
-So what exactly is unstructured data? As the name suggests, unstructured data refers to data that cannot be stored in a pre-defined format or fit into an existing data model. Human-generated data - images, video, audio, text, etc - are great examples of unstructured data data. But there are a variety of less mundane examples of unstructured data too. Protein structures, executable file hashes, and even human-readable code are three of a near-infinite set of examples of unstructured data.
+So what exactly is unstructured data? As the name suggests, unstructured data refers to data that cannot be stored in a pre-defined format or fit into an existing data model. Human-generated data - images, video, audio, text, etc - are great examples of unstructured data. But there are a variety of less mundane examples of unstructured data too. Protein structures, executable file hashes, and even human-readable code are three of a near-infinite set of examples of unstructured data.
 
 Structured data, on the other hand, refers to data that can be stored in a table-based format, while semi-structured data refers to data that can be stored in single- or multi-level array/key-value stores. If none of this makes sense to you yet, don't fret. Bear with us and we'll provide examples to help solidify your understanding of data.
 
@@ -78,7 +78,7 @@ Duration: 1
 
 Now that we have a solid understanding of structured/semi-structured data, let's move to talking about unstructured data. Unlike structured/semi-structured data, unstructured data can take any form, be of an arbitrarily large or small size on disk, and can require vastly different runtimes to transform and index. Let's take images as an example: three front-facing successive images of the same German Shephard are _semantically the same_.
 
-_Semantically the same_? What on earth does that mean? Let's dive a bit deeper and unpack the idea of _semantic similarity_. Although these three photos may have vastly different pixel values, resolutions, file sizes, etc, all three photos are of the same German Shephard in the same environment. Think about it - all three photos have identical or near-identical content but significantly different raw pixel values. This poses a new challenge for industries and companies that uses data<sup>1</sup>: how can we transform, store, and search unstructured data in a similar fashion to structured/semi-structured data?
+_Semantically the same_? What on earth does that mean? Let's dive a bit deeper and unpack the idea of _semantic similarity_. Although these three photos may have vastly different pixel values, resolutions, file sizes, etc, all three photos are of the same German Shephard in the same environment. Think about it - all three photos have identical or near-identical content but significantly different raw pixel values. This poses a new challenge for industries and companies that use data<sup>1</sup>: how can we transform, store, and search unstructured data in a similar fashion to structured/semi-structured data?
 
 At this point, you're probably wondering: how can we search and analyze unstructured data if it has no fixed size or format? The answer: machine learning (or more specifically, deep learning). In the past decade, the combination of big data and deep neural networks has fundamentally changed the way we approach data-driven applications; tasks ranging from spam email detection to realistic text-to-video synthesis have seen incredible strides, with accuracy metrics on certain tasks reaching superhuman levels. This may sound scary (hello, Skynet), but we're still many decades away from Elon Musk's vision of AI taking over the world.
 
@@ -97,11 +97,11 @@ Let's get back on track. The vast majority of neural network models are capable 
 The photo above provides an example of transforming a piece of unstructured data into a vector. With the preeminent ResNet-50 convolutional neural network, this image can be represented as a vector of length 2048 - here are the first three and last three elements: `[0.1392, 0.3572, 0.1988,  ..., 0.2888, 0.6611, 0.2909]`. Embeddings generated by a properly trained neural network have mathematical properties which make them easy to search and analyze. We won't go too much into detail here, but know that, generally speaking, embedding vectors for semantically similar objects are _close to each other in terms of distance_. Therefore, searching across and understanding unstructured data boils down to vector arithmetic.
 
 <div align="center">
-  <img align="center" src="./pic/12-Figure4-1.png">
+  <img align="center" src="./pic/embedding_arithmetic.jpg">
 </div>
-<p style="text-align:center"><sub>NOTE: WE SHOULD CREATE OUR OWN VERSION OF THIS, FREE OF COPYRIGHT ISSUES.</sub></p>
+<p style="text-align:center"><sub>Embedding arithmetic in action.</sub></p>
 
-As mentioned in the introduction, unstructured data will comprise a whopping 80% of all newly created data by the year 2028. This proportion will continue to increase beyond 80% as industries mature and implement methods for unstructured data processing. This impacts everybody - you, me, the companies that we work for, the organizations that we volunteer for, so on and so forth. Just as new user-facing applications from 2010 onward required databases for storing semi-structured data (as opposed to traditional tabular data), this decade necessitates databases purpose-built for indexing and searching across massive quantites (exabytes) of unstructured data.
+As mentioned in the introduction, unstructured data will comprise a whopping 80% of all newly created data by the year 2028. This proportion will continue to increase beyond 80% as industries mature and implement methods for unstructured data processing. This impacts everybody - you, me, the companies that we work for, the organizations that we volunteer for, so on and so forth. Just as new user-facing applications from 2010 onward required databases for storing semi-structured data (as opposed to traditional tabular data), this decade necessitates databases purpose-built for indexing and searching across massive quantities (exabytes) of unstructured data.
 
 The solution? A database for the AI era - a _vector database_. Welcome to our world; welcome to the world of ___Milvus___.
 
@@ -127,9 +127,9 @@ Unlike databases for structured/semi-structured data, vector database queries ar
 Internally, queries across large collections of unstructured data are performed using a suite of algorithms collectively known as _approximate nearest neighbor search_, or _ANN search_ for short. In a nutshell, ANN search is a form of optimization that attempts to find the "closest" point or set of points to a given query vector. Note the "approximate" in ANN. By utilizing clever indexing methods, vector databases have a clear accuracy/performance tradeoff: increasing search runtimes will result in a more consistent database that performs closer to a deterministic system, always returning the absolute nearest neighbors given a query value. Conversely, reducing query times will improve throughput but may result in capturing fewer of a query's true nearest values. In this sense, unstructured data processing is a _probabilistic_ process<sup>3</sup>.
 
 <div align="center">
-  <img align="center" src="./pic/maxresdefault.jpeg">
+  <img align="center" src="./pic/nearest_neighbors_example.jpg">
 </div>
-<p style="text-align:center"><sub>Approximate nearest neighbor search, visualized. NOTE: WE SHOULD CREATE OUR OWN VERSION OF THIS, FREE OF COPYRIGHT ISSUES.</sub></p>
+<p style="text-align:center"><sub>Approximate nearest neighbor search, visualized.</sub></p>
 
 ANN search is a core component of vector databases and a massive research area in and of itself; as such, we'll dive deep into various ANN search methodologies available to you within Milvus in a future set of articles.
 

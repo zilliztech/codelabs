@@ -1,5 +1,5 @@
 summary: An introduction to Milvus - the world's most popular open-source vector database.
-id: getting-started-with-vector-databases-introduction-to-milvus
+id: vector-database-101-introduction-to-milvus
 categories: Getting Started
 tags: getting-started
 status: Hidden
@@ -8,12 +8,12 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 ---
 
-# Getting Started with Vector Database - Introduction to Milvus
+# Vector Database 101 - Introduction to Milvus
 
 ## Introduction
 Duration: 1
 
-Hey there - welcome back to [Milvus codelabs](https://codelabs.milvus.io/). In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
+Hey there - welcome back to [Milvus tutorials](https://codelabs.milvus.io/). In the previous tutorial, we took a quick tour of vector databases and listed the features an ideal vector database should implement. We then compared vector databases to vector search libraries[^1] and vector search plugins[^2]. Through example code, we found that neither vector search libraries nor vector search plugins fulfill all of the features required to store, index, and search across large datasets of unstructured data. This prompted us to go over some of the technical challenges vector database developers face.
 
 ## Milvus history
 Duration: 3

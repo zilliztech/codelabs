@@ -19,10 +19,6 @@ New data is being generated every day, and is undoubtedly a key driver of both w
 
 Not convinced yet? International Data Corporation - also known as _IDC_ - predicts that the _global datasphere_ - a measure of the total amount of new data created and stored on persistent storage all around the world - will grow to 400 zettabytes (a zettabyte = 10<sup>21</sup> bytes) by 2028. At that time, over 30% of said data will be generated in real-time, while 80% of all generated data will be _unstructured_.
 
-<div align="center">
-</div>
-<p style="text-align:center"><sub>SLIDE 8 FROM ZILLIZ INFO PACK HERE.</sub></p>
-
 ## Structured/semi-structured data
 Duration: 1
 

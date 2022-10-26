@@ -9,23 +9,25 @@ Feedback Link: https://github.com/milvus-io/milvus
 ---
 
 # Vector Database 101 - Milvus Quickstart
-Duration: 1
 
-Hey there - welcome back to [Milvus tutorials](https://codelabs.milvus.io/). In the previous tutorial, we provided a brief introduction to Milvus, Milvus' history, as well as the primary differences between Milvus 1.x and Milvus 2.x. We also took a quick tour of the architecture of Milvus 2.x and helped shine some light on how Milvus' architecture allows it to implement all of the required features of vector databases.
+
+Hey there - welcome back to Vector Database 101. 
+
+In the previous tutorial, we provided a brief introduction to Milvus, Milvus' history, as well as the primary differences between Milvus 1.x and Milvus 2.x. We also took a quick tour of the architecture of Milvus 2.x and helped shine some light on how Milvus' architecture allows it to implement all of the required features of vector databases.
+
+If you haven't read the previous tutorials ([__unstructured data__](https://zilliz.com/blog/introduction-to-unstructured-data), [__vector database__](https://zilliz.com/blog/vector-database-ultimate-guide), [__Milvus introduction__](https://zilliz.com/blog/introduction-to-milvus-vector-database)), I recommend you go ahead and read them. If you have, great. Let's get started with Milvus!
+
+In this tutorial, we look at different deployments, followed with a step-by-step guide for installing your first vector database.
 
 ## Let's get started
-Duration: 2
 
-If you haven't read the previous tutorials ([unstructured data](https://codelabs.milvus.io/getting-started-with-vector-databases-introduction-to-unstructured-data/index), [vector databases](https://codelabs.milvus.io/getting-started-with-vector-databases-what-is-a-vector-database/index), [Milvus introduction](https://codelabs.milvus.io/getting-started-with-vector-databases-introduction-to-milvus/index)), I recommend you go ahead and read them. If you have, great. Let's get started with Milvus!
-
-We offer two different modes of deployment: standalone and cluster. In Milvus standalone, all nodes - coordinators, worker nodes, and forward-facing proxies - are deployed as a single instance. For persistent data and metadata, Milvus standalone relies on `MinIO` and `etcd`, respectively. In future releases, we hope to eliminate these two third-party dependencies, allowing everything to run in a single process and removing the need to install third-party dependencies.
+We offer two different modes of deployment: [standalone](https://milvus.io/docs/v2.1.x/install_standalone-docker.md) and [cluster](https://milvus.io/docs/v2.1.x/install_cluster-docker.md). In Milvus standalone, all nodes - coordinators, worker nodes, and forward-facing proxies - are deployed as a single instance. For persistent data and metadata, Milvus standalone relies on `MinIO` and `etcd`, respectively. In future releases, we hope to eliminate these two third-party dependencies, allowing everything to run in a single process and removing the need to install third-party dependencies.
 
 Milvus cluster is our full-fledged version of Milvus, complete with separate instances/pods for all eight microservice components along with three third-party dependencies: `MinIO`, `etcd`, and `Pulsar` (Pulsar serves as the log broker and provides log pub/sub services). If you haven't gotten the chance to take a look at the Milvus overview from the previous slide, please do so! It'll help clarify what each of these third party dependencies is used for and why we've included them in Milvus cluster.
 
 ## Milvus standalone (`docker-compose`)
-Duration: 3
 
-Milvus standalone is meant to be super easy to install. In this section, we'll go over how `docker-compose` can be used to install Milvus. You can view the recommended prerequisites [here](https://github.com/milvus-io/milvus-docs/blob/v2.0.x/site/en/getstarted/prerequisite-docker.md).
+Milvus standalone is meant to be super easy to install. In this section, we'll go over how `docker-compose` can be used to install Milvus. You can view the recommended prerequisites [here](https://milvus.io/docs/v2.1.x/prerequisite-docker.md).
 
 Let's first download the [`docker-compose.yml`](https://github.com/milvus-io/milvus/releases/download/v2.0.2/milvus-standalone-docker-compose.yml) configuration file needed for the standalone installation. If you're on any Debian-based Linux (including Ubuntu), you can use the following command:
 
@@ -95,7 +97,6 @@ $ docker-compose down
 And that's it for Milvus standalone! Easy, right?
 
 ## Milvus standalone (`apt`)
-Duration: 1
 
 We also provide a handy `apt` package for Debian-based distributions. Simply run:
 
@@ -115,7 +116,6 @@ $ sudo systemctl status milvus-minio
 ```
 
 ## Milvus cluster
-Duration: 3
 
 From the previous tutorial, we know that Milvus is composed of four primary components: the access layer, coordinator service, worker nodes, and object storage. Requests are sent to a cluster of proxies in the access layer, which then forwards the requests to either the coordinator layer or a streaming service for vector data. The stateful coordinator nodes within the coordinator service manage and control all of the stateless worker nodes, allowing for easy horizontal scaling. Object storage is accomplished via S3 or any "S3-like" storage layer, allowing Milvus to be run both in the cloud and on-premises via MinIO.
 
@@ -123,9 +123,9 @@ Milvus' remaining third-party dependencies, Pulsar/Kafka and etcd, are also dist
 
 ```shell
 % helm repo add milvus https://milvus-io.github.io/milvus-helm/
-```
 
 "milvus" has been added to your repositories
+```
 
 Now, let's grab the latest Milvus chart from the `milvus-io/milvus-helm` repository.
 
@@ -194,13 +194,12 @@ $ kubectl get pods
     my-release-pulsar-zookeeper-metadata-98zbr       1/1   Completed  0        2m24s
 ```
 
-That's it! You now have Milvus installed directly on your on-premises cluster. Check out our [next tutorial]() to see how to create a collection within Milvus and begin inserting and querying embeddings.
+That's it! You now have Milvus installed directly on your on-premises cluster. Check out our next tutorial to see how to create a collection within Milvus and begin inserting and querying embeddings.
 
 If you're interested in running Milvus on cloud infrastructure check out the [Milvus standalone on AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-hzmmt4xyvi7ei).
 
 ## Wrapping up
-Duration: 1
 
-In this tutorial, we took a look at how to install the standalone version of Milvus (via `docker-compose`) and the cluster version of Milvus (via `helm`) The standalone version is suitable for testing purposes, while the cluster version is suitable for internal clusters or on-premises deployments. In the next tutorial, we'll look at basic Milvus operations: connecting to a Milvus server, creating a collection (equivalent to a table in relational databases), creating a partition within the collection, inserting embedding vector data, and conducting a vector search.
+In this tutorial, we took a look at how to install the standalone version of Milvus (via `docker-compose`) and the cluster version of Milvus (via `helm`). The standalone version is suitable for testing purposes, while the cluster version is suitable for internal clusters or on-premises deployments. In the next tutorial, we'll look at basic Milvus operations: connecting to a Milvus server, creating a collection (equivalent to a table in relational databases), creating a partition within the collection, inserting embedding vector data, and conducting a vector search.
 
 See you in the next couple of tutorials.

@@ -15,19 +15,12 @@ In the previous tutorial, we went over a quick word embedding example to better 
 
 In this tutorial, we'll analyze the components of a modern indexer before going over two of the simplest and most basic indexing strategies - flat indexing and inverted file (IVF) indexes. Knowledge of these two index types will be critical as we progress into the next couple of tutorials.
 
-## Vector indexes in Milvus
-Duration: 1
-
-Milvus uses [Facebook AI Similarity Search](https://github.com/facebookresearch/faiss) (FAISS) as one of the key index-building libraries, along with [Hnswlib](https://github.com/nmslib/hnswlib) and [Annoy](https://github.com/spotify/annoy). As mentioned in the previous tutorial, Milvus builds on top of these libraries to provide a full-fledged database, complete with all the usual database features and a consistent user-level API.
-
-If you're already familiar with FAISS, many of the concepts introduced here and in the next couple of tutorials may already be familar to you.
-
 ## Indexing basics
 Duration: 2
 
 You may have noticed this after going through the previous tutorial, but there are, broadly speaking, four different types of vector search algorithms: _hash-based_ (e.g. locality-sensitive hashing), _tree-based_ (e.g. ANNOY), _cluster-based_ (e.g. product quantization), and _graph-based_ (e.g. HNSW). Different types of algorithms work better for varying types of vector data, but all of them help speed up the vector search process at the cost of a bit of accuracy/recall.
 
-One key detail that often goes overlooked with vector search is the capability to combine many vector search algorithms together. Within a vector database, a full vector index is generally composed of three distinct components:
+One key detail that often goes overlooked with vector search is the capability to combine many vector search algorithms together. Within a vector database, a full vector search index is generally composed of three distinct components:
 1) an optional __pre-processing__ step where vectors may be reduced or optimized prior to indexing,
 2) a required __primary__ step which is the core algorithm used for indexing, and
 3) an optional __secondary__ step where vectors may be quantized or hashed to further improve search speeds.
@@ -39,6 +32,10 @@ The first step simply prepares the vectors for indexing and search without actua
 The primary algorithm is the only mandatory component and forms the crux of the index. The output of this step should be a data structure which holds all information necessary to conduct an efficient vector search. Tree-based and graph-based data structures are commonly used here, but a quantization algorithm such as product quantization or locality-sensitive hashing works as well.
 
 The secondary step reduces the total size of the index by mapping all floating point values in the dataset into lower-precision integer values, i.e. `float64` -> `int8` or `float32` -> `int8`. This modification can both reduce the index size as well as improve search speeds, but generally at the cost of some precision. There are a couple different ways this can be done; we'll dive deeper into quantization and hashing in future tutorials.
+
+Using an efficient vector index can greatly speed up the nearest neighbor search process, but it unfortunately comes at the price of a bit of accuracy/recall. This turns our nearest neighbor search process into _approximate nearest neighbor_ search, or ANN search for short. Milvus uses [Facebook AI Similarity Search](https://github.com/facebookresearch/faiss) (FAISS) as one of the key libraries for building an ANN search index, along with [Hnswlib](https://github.com/nmslib/hnswlib) and [Annoy](https://github.com/spotify/annoy). As mentioned in the previous tutorial, Milvus builds on top of these libraries to provide a full-fledged database, complete with all the usual database features and a consistent user-level API.
+
+For the rest of this tutorial, let's dive into a couple of basic indexing strategies. If you're already familiar with FAISS, many of the concepts introduced here and in the next couple of tutorials may already be familar to you.
 
 ## Flat indexing
 Duration: 2
@@ -123,14 +120,16 @@ With the index in place, we can now restrict the overall search space by searchi
 
 With an `num_part` value of 16 and dataset size of 100k, we get around 150 QPS using the same hardware as before (Intel i7-9750H CPU). Bumping `num_part` to 64 nets us a whopping 650 QPS.
 
-Note that it's often pragmatic to extend our search beyond just the nearest cluster, especially for high-dimensional data (for those familiar with FAISS, this corresponds to the `nprobe` parameter when creating an IVF index). This is largely due to the _curse of dimensionality_, where each partition has a significantly larger number of edges when compared with similar data in two or three dimensions. There's no good rule of thumb for a good value of `nprobe` to use - rather, it's helpful to first experiment with your data to see the speed versus accuracy/recall tradeoffs.
+Note that it's often pragmatic to extend our search beyond just the nearest cluster, especially for high-dimensional data (for those familiar with FAISS, this corresponds to the `nprobe` parameter when creating an IVF index). This is largely due to the _curse of dimensionality_, where each partition has a significantly larger number of edges when compared with similar data in two or three dimensions. I'll leave this implementation as an exercise for the reader.
+
+There's no good rule of thumb for a good value of `nprobe` to use - rather, it's helpful to first experiment with your data to see the speed versus accuracy/recall tradeoffs. I'll leave this implementation to the 
 
 And that's it for IVF! Not too bad, right?
 
 ## Wrapping up
 Duration: 1
 
-In this tutorial, we went looked at the three individual components of a vector index along with two of the most commonly used methods - flat indexing and the inverted file index. These are two of the most basic strategies, and we'll use them as a launchpad for further deep dives into more complex indexes.
+In this tutorial, we went looked at the three individual components of a vector search index along with two of the most commonly used methods - flat indexing and the inverted file index. These are two of the most basic strategies, and we'll use them as a launchpad for further deep dives into more complex indexes.
 
 In the next tutorial, we'll continue our deep dive into indexing strategies with scalar quantization (SQ) and product quantization (PQ) - two popular quantization strategies available to Milvus users. See you in the next tutorial!
 

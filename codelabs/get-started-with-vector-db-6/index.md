@@ -148,8 +148,9 @@ class ScalarQuantizer:
         if self._dataset:
             return self._dataset
         raise ValueError("Call ScalarQuantizer.create() first")
+```
 
-
+```python
 >>> dataset = np.random.normal(size=(1000, 128))
 >>> quantizer = ScalarQuantizer(dataset)
 ```
@@ -266,8 +267,9 @@ class ProductQuantizer:
         if self._dataset:
             return self._dataset
         raise ValueError("Call ProductQuantizer.create() first")
+```
 
-
+```python
 >>> dataset = np.random.normal(size=(1000, 128))
 >>> quantizer = ProductQuantizer()
 >>> quantizer.create(dataset)

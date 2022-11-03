@@ -14,7 +14,7 @@ Feedback Link: https://github.com/milvus-io/milvus
 
 Hey there - welcome back to [Milvus tutorials](https://codelabs.milvus.io/). In the previous tutorials, we took a look at unstructured data, vector databases, and Milvus - the world's most popular open-source vector database. We also briefly touched upon the idea of _embeddings_, high-dimensional vectors which serve as awesome semantic representations of unstructured data. One key note to remember - embeddings which are "close" to one another represent semantically similar pieces of data.
 
-In this tutorial, we'll build on that knowledge by going over a word embedding example and seeing how semantically similar pieces of unstructured data are "near" one another while dissimlar pieces of unstructured data are "far" from one another. This will lead into a high-level over view of _nearest neighbor search_, a computing problem that involves finding the closest vector(s) to a query vector based on a unified _distance metric_. We'll go over some well-known methods for nearest neighbor search (including my favorite - ANNOY) in addition to commonly used _distance metrics_.
+In this tutorial, we'll build on that knowledge by going over a word embedding example and seeing how semantically similar pieces of unstructured data are "near" one another while dissimlar pieces of unstructured data are "far" from one another. This will lead into a high-level overview of _nearest neighbor search_, a computing problem that involves finding the closest vector(s) to a query vector based on a unified _distance metric_. We'll go over some well-known methods for nearest neighbor search (including my favorite - ANNOY) in addition to commonly used _distance metrics_.
 
 Let's dive in.
 
@@ -102,7 +102,7 @@ The word "apple" can refer to both the company as well as the delicious red frui
 
 ## Vector search strategies
 
-Now that we've seen the power of embeddings, let's briefly take a look at some of the ways we can speed up nearest neighbor search. This is not a comprehensive list; we'll just breifly go over some common methods in order to provide a high-level overview of how vector search is conducted at scale. Note that some of these methods are not exclusive to each other - it's possible, for example, to use quantization in conjunction with space partitioning. 
+Now that we've seen the power of embeddings, let's briefly take a look at some of the ways we can conduct nearest neighbor search. This is not a comprehensive list; we'll just breifly go over some common methods in order to provide a high-level overview of how vector search is conducted at scale. Note that some of these methods are not exclusive to each other - it's possible, for example, to use quantization in conjunction with space partitioning. 
 
 __Linear search__
 
@@ -166,7 +166,7 @@ You can most likely safely ignore these similarity metrics, since the majority o
 In this tutorial, we took a look at vector similarity search, along with some common vector search algorithms and distance metrics. Here are some key takeaways:
 
 - Embedding vectors are powerful representations, both in terms of distance between the vectors and in terms of vector arithmetic. By applying a liberal quantity of vector algebra to embeddings, we can perform scalable semantic analysis using just basic mathematical operators.
-- There are a wide variety of approximate nearest neighbor search algorithms and/or index types to choose from. The most commonly one used today is HNSW, but a different indexing algorithm may work better for your particular application, depending on the total number of embeddings you have in addition to the length of each individual vector.
+- There are a wide variety of nearest neighbor search algorithms and/or index types to choose from. The most commonly one used today is HNSW, but a different indexing algorithm may work better for your particular application, depending on the total number of embeddings you have in addition to the length of each individual vector.
 - The two primary distance metrics used today are L2/Euclidean distance and cosine distance. These two metrics, when used on normalized embeddings, are functionally equivalent.
 
 Thanks for joining us for this tutorial! Vector search is a core part of Milvus, aand it will continue to be  In future tutorials, we'll be doing some deeper dives into the most commonly used ANNS algorithms - HNSW and ScaNN.

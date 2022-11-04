@@ -10,6 +10,7 @@ import classes from '../../styles/home.module.less';
 import ToolBar from '../components/toolBar';
 import { useRouter } from 'next/router';
 import { getCodelabsJson } from '../utils/common';
+import fs from 'fs';
 
 export default function HomePage({ data = [] }) {
   const { pathname } = useRouter();
@@ -136,6 +137,21 @@ export const getStaticProps = async () => {
   // const res = await axiosInstance.get('/codelabs');
   const data = getCodelabsJson();
 
+  data.forEach(d => {
+    const file = fs.readFileSync(`./codelabs/${d.source}`, 'utf-8');
+    const lines = file.split(/\r?\n/);
+    let date = ``;
+    lines.forEach(l => {
+      if (l.startsWith(`updated:`) || l.startsWith(`Updated:`)) {
+        date = l.split(`:`)[1];
+        return;
+      }
+    });
+
+    if (typeof Date.parse(date) === 'number' && !isNaN(Date.parse(date))) {
+      d.updated = new Date(date).toString();
+    }
+  });
   return {
     props: {
       data,

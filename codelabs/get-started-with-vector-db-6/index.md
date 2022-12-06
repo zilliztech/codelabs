@@ -49,12 +49,7 @@ From the above example, we can see that scalar quantization has reduced the tota
 ## Scalar quantization
 Duration: 3
 
-So how exactly does scalar quantization work? Let's first take a look at the indexing process, i.e. turning floating point vectors into integer vectors. For each vector dimension, scalar quantization takes the maximum and minimum value of that particular dimension as seen across the entire database, and uniformly splits that dimension into bins across its entire range:
-
-<div align="center">
-  <img align="center" src="">
-</div>
-<p style="text-align:center"><sub>Scalar quantization, visualized.</sub></p>
+So how exactly does scalar quantization work? Let's first take a look at the indexing process, i.e. turning floating point vectors into integer vectors. For each vector dimension, scalar quantization takes the maximum and minimum value of that particular dimension as seen across the entire database, and uniformly splits that dimension into bins across its entire range.
 
 Let's try writing that in code. We'll first generate a dataset of a thousand 128D floating point vectors sampled from a multivariate distribution. Since this is a toy example, I'll be sampling from a Gaussian distribution; in practice, actual embeddings are rarely Gaussian distributed unless added as a constraint when training the model (such as in variational autoencoders):
 
@@ -180,7 +175,7 @@ This might sound complex, but it becomes much easier to understand if we break i
 3) With all centroids computed, we'll replace all subvectors in the original dataset with the ID of its closest centroid.
 
 <div align="center">
-  <img align="center" src="">
+  <img align="center" src="./pic/product_quantization.png">
 </div>
 <p style="text-align:center"><sub>Product quantization, visualized.</sub></p>
 

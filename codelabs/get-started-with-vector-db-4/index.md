@@ -20,6 +20,8 @@ Let's dive in.
 
 ## Comparing embeddings
 
+Let's go through a couple of word embedding examples. For the sake of simplicity, we'll use `word2vec`, an old model which uses a training methodology based on _skipgrams_. BERT and other modern transformer-based models will be able to provide you with more contextualized word embeddings, but we'll stick with `word2vec` for simplicity. Jay Alammar provides a [great tutorial on `word2vec`](https://jalammar.github.io/illustrated-word2vec/), if you're interested in learning a bit more. 
+
 __Some prep work__
 
 Before beginning, we'll need to install the `gensim` library and load a `word2vec` model.
@@ -102,27 +104,55 @@ The word "apple" can refer to both the company as well as the delicious red frui
 
 ## Vector search strategies
 
-Now that we've seen the power of embeddings, let's briefly take a look at some of the ways we can speed up nearest neighbor search. This is not a comprehensive list; we'll just breifly go over some common methods in order to provide a high-level overview of how vector search is conducted at scale. Note that some of these methods are not exclusive to each other - it's possible, for example, to use quantization in conjunction with space partitioning. 
+Now that we've seen the power of embeddings, let's briefly take a look at some of the ways we can conduct nearest neighbor search. This is not a comprehensive list; we'll just briefly go over some common methods in order to provide a high-level overview of how vector search is conducted at scale. Note that some of these methods are not exclusive to each other - it's possible, for example, to use quantization in conjunction with space partitioning.
+
+(We'll also be going over each of these methods in detail in future tutorials, so stay tuned for more.)
 
 __Linear search__
 
-The simplest but most naïve nearest neighbor search algorithm is good old linear search: computing the distance from a query vector to all other vectors in the vector database. For obvious reasons, naïve search does not work when trying to scale our vector database to tens or hundreds of millions of vectors, but when the total number of elements in the database is small, this can actually be the most efficient way to perform vector search since a separate data structure for the index is not required, while inserts and deletes can be implemented fairly easily. Due to the lack of space complexity as well as constant space overhead associated with naïve search, this method can often outperform space partitioning even when querying across a moderate number of vectors.
+The simplest but most naïve nearest neighbor search algorithm is good old linear search: computing the distance from a query vector to all other vectors in the vector database.
+
+For obvious reasons, naïve search does not work when trying to scale our vector database to tens or hundreds of millions of vectors, but when the total number of elements in the database is small, this can actually be the most efficient way to perform vector search since a separate data structure for the index is not required, while inserts and deletes can be implemented fairly easily.
+
+Due to the lack of space complexity as well as constant space overhead associated with naïve search, this method can often outperform space partitioning even when querying across a moderate number of vectors.
 
 __Space partitioning__
 
-Space partitioning is not a single algorithm, but rather a family of algorithms that all use the same concept. K-dimensional trees (kd-trees) are perhaps the most well-known in this family, and work by continuously bisecting the search space (splitting the vectors into “left” and “right” buckets) in a manner similar to binary search trees. Inverted file index (IVF) can also be considered space partitioning, and works by assigning each vector to its nearest centroid - searches are then conducted by first determining the query vector's closest centroid and conducting the search around there, significantly reducing the total number of vectors that need to be searched. IVF is a popular indexing strategy that we'll take a closer look at in the next tutorial, so stay tuned.
+Space partitioning is not a single algorithm, but rather a family of algorithms that all use the same concept. 
+
+K-dimensional trees (kd-trees) are perhaps the most well-known in this family, and work by continuously bisecting the search space (splitting the vectors into “left” and “right” buckets) in a manner similar to binary search trees.
+
+Inverted file index (IVF) is also a form of space partitioning, and works by assigning each vector to its nearest centroid - searches are then conducted by first determining the query vector's closest centroid and conducting the search around there, significantly reducing the total number of vectors that need to be searched.
 
 __Quantization__
 
-Quantization is a technique for reducing the total size of the database by reducing the precision of the vectors. Scalar quantization (SQ), for example, works by multiplying high-precision floating point vectors with a scalar value, then casting the elements of the resultant vector to their nearest integers. This not only reduces the effective size of the entire database (e.g. by a factor of eight for conversion from `float64_t` to `int8_t`), but also has the positive side-effect of speeding up vector-to-vector distance computations. Product quantization (PQ) is another quantization technique that works similar to dictionary compression. In PQ, all vectors are split into equally-sized subvectors, and each subvector is then replaced with a centroid. We'll go over both SQ and PQ in an upcoming tutorial.
+Quantization is a technique for reducing the total size of the database by reducing the precision of the vectors. 
+
+Scalar quantization (SQ), for example, works by multiplying high-precision floating point vectors with a scalar value, then casting the elements of the resultant vector to their nearest integers. This not only reduces the effective size of the entire database (e.g. by a factor of eight for conversion from `float64_t` to `int8_t`), but also has the positive side-effect of speeding up vector-to-vector distance computations.
+
+Product quantization (PQ) is another quantization technique that works similar to dictionary compression. In PQ, all vectors are split into equally-sized subvectors, and each subvector is then replaced with a centroid.
 
 __Hierarchical Navigable Small Worlds__
 
-Hierarchical Navigable Small Worlds (HNSW) is a graph-based indexing and retrieval algorithm. This works differently from product quantization: instead of improving the searchability of the database by reducing its effective size, HNSW creates a multi-layer graph from the original data. Upper layers contain only "long connections" while lower layers contain only "short connections" between vectors in the database (see the next section for an overview of vector distance metrics). Individual graph connections are created a-la skip lists. With this architecture in place, searching becomes fairly straightforward – we greedily traverse the uppermost graph (the one with the longest inter-vector connections) for the vector closest to our query vector. We then do the same for the second layer, using the result of the first layer search as the starting point. This continues until we complete the search at the bottommost layer, the result of which becomes the nearest neighbor of the query vector.
+Hierarchical Navigable Small Worlds (HNSW) is a graph-based indexing and retrieval algorithm. This works differently from product quantization: instead of improving the searchability of the database by reducing its effective size, HNSW creates a multi-layer graph from the original data. Upper layers contain only "long connections" while lower layers contain only "short connections" between vectors in the database (see the next section for an overview of vector distance metrics). Individual graph connections are created a-la skip lists. 
+
+With this architecture in place, searching becomes fairly straightforward – we greedily traverse the uppermost graph (the one with the longest inter-vector connections) for the vector closest to our query vector. We then do the same for the second layer, using the result of the first layer search as the starting point. This continues until we complete the search at the bottommost layer, the result of which becomes the nearest neighbor of the query vector.
+
+<div align="center">
+  <img align="center" src="./pic/hnsw_visualized.png">
+</div>
+<p style="text-align:center"><sub>HNSW, visualized (from https://arxiv.org/abs/1603.09320).</sub></p>
 
 __Approximate Nearest Neighbors Oh Yeah__
 
-This is probably my favorite ANN algorithm simply due to its playful and unintunitive name. [Approximate Nearest Neighbors Oh Yeah](https://github.com/spotify/annoy) (ANNOY) is a tree-based algorithm popularized by Spotify (it’s used in their music recommendation system). Despite the strange name, the underlying concept behind ANNOY is actually fairly simple – binary trees. ANNOY works by first randomly selecting two vectors in the database and bisecting the search space along the hyperplane separating those two vectors. This is done iteratively until there are fewer than some predefined parameter `NUM_MAX_ELEMS` per node. Since the resulting index is essentially a binary tree, this allows us to do our search on O(log n) complexity.
+This is probably my favorite ANN algorithm simply due to its playful and unintunitive name. [Approximate Nearest Neighbors Oh Yeah](https://github.com/spotify/annoy) (ANNOY) is a tree-based algorithm popularized by Spotify (it’s used in their music recommendation system). Despite the strange name, the underlying concept behind ANNOY is actually fairly simple – binary trees.
+
+ANNOY works by first randomly selecting two vectors in the database and bisecting the search space along the hyperplane separating those two vectors. This is done iteratively until there are fewer than some predefined parameter `NUM_MAX_ELEMS` per node. Since the resulting index is essentially a binary tree, this allows us to do our search on O(log n) complexity.
+
+<div align="center">
+  <img align="center" src="https://raw.github.com/spotify/annoy/master/ann.png">
+</div>
+<p style="text-align:center"><sub>ANNOY, visualized (from https://github.com/spotify/annoy).</sub></p>
 
 ## Commonly used similarity metrics
 
@@ -136,19 +166,28 @@ The most common floating point vector similarity metrics are, in no particular o
 2. $$d_{l2}(\mathbf{a},\mathbf{b})=\sqrt{\sum_{i=1}^{N}(\mathbf{a}_i-\mathbf{b}_i)^2}$$
 3. $$d_{cos}(\mathbf{a},\mathbf{b})=\frac{\mathbf{a}\cdot\mathbf{b}}{|\mathbf{a}||\mathbf{b}|}$$
 
-L1 distance is also commonly referred to as Manhattan distance, aptly named after the fact that getting from point A to point B in Manhattan requires moving along one of two fixed directions. The second equation, L2 distance, is simply the distance between two vectors in Euclidean space. The third and final equation is cosine distance, equivalent to the cosine of the angle between two vectors. Note the equation for cosine similarity works out to be the dot product between normalized versions of input vectors __a__ and __b__.
+L1 distance is also commonly referred to as Manhattan distance, aptly named after the fact that getting from point A to point B in Manhattan requires moving along one of two perpendicular directions. The second equation, L2 distance, is simply the distance between two vectors in Euclidean space. The third and final equation is cosine distance, equivalent to the cosine of the angle between two vectors. Note the equation for cosine similarity works out to be the dot product between normalized versions of input vectors __a__ and __b__.
 
-With a bit of math, we can also show that L2 distance and cosine similarity are effectively equivalent when it comes to similarity ranking:
+With a bit of math, we can also show that L2 distance and cosine similarity are effectively equivalent when it comes to similarity ranking for unit norm vectors:
 
 $$d_{l2}(\mathbf{a},\mathbf{b})=(\mathbf{a}-\mathbf{b})^T(\mathbf{a}-\mathbf{b})$$
-
 $$=\mathbf{a}^T\mathbf{a}-2\mathbf{a}^T\mathbf{b}+\mathbf{b}^T\mathbf{b}$$
 
+Recall that unit norm vectors have a magnitude of 1:
+
+$$\mathbf{a}^T\mathbf{a}=1$$
+
+With this, we get:
+
+$$\mathbf{a}^T\mathbf{a}-2\mathbf{a}^T\mathbf{b}+\mathbf{b}^T\mathbf{b}$$
 $$=2-2\mathbf{a}^T\mathbf{b}$$
 
+Since we have unit norm vectors, cosine distance works out to be the dot product between __a__ and __b__ (the denominator in equation 3 above works out to be 1):
+
+$$2-2\mathbf{a}^T\mathbf{b}$$
 $$=2(1-d_{cos}(\mathbf{a},\mathbf{b}))$$
 
-Essentially, if you have unit norm vectors $$|\mathbf{a}|=|\mathbf{b}|=1$$, L2 distance and cosine similarity are functionally equivalent! Always remember to normalize your embeddings.
+Essentially, for unit norm vectors, L2 distance and cosine similarity are functionally equivalent! Always remember to normalize your embeddings.
 
 __Binary vector similarity metrics__
 

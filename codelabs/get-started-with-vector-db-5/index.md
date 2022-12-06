@@ -25,7 +25,7 @@ If you're already familiar with FAISS, many of the concepts introduced here and 
 ## Indexing basics
 Duration: 2
 
-You may have noticed this after going through the previous tutorial, but there are, broadly speaking, four different types of vector search algorithms: _hash-based_ (e.g. locality-sensitive hashing), _tree-based_ (e.g. ANNOY), _cluster-based_ (e.g. product quantization), and _graph-based_ (e.g. HNSW). Different types of algorithms work better for varying types of vector data, but all of them help speed up the vector search process at the cost of a bit of accuracy/recall.
+You may have noticed this after going through the previous tutorial, but there are, broadly speaking, four different types of vector search algorithms: _hash-based_ (e.g. locality-sensitive hashing), _tree-based_ (e.g. Annoy), _cluster-based_ (e.g. product quantization), and _graph-based_ (e.g. HNSW). Different types of algorithms work better for varying types of vector data, but all of them help speed up the vector search process at the cost of a bit of accuracy/recall.
 
 One key detail that often goes overlooked with vector search is the capability to combine many vector search algorithms together. Within a vector database, a full vector index is generally composed of three distinct components:
 1) an optional __pre-processing__ step where vectors may be reduced or optimized prior to indexing,
@@ -123,7 +123,9 @@ With the index in place, we can now restrict the overall search space by searchi
 
 With an `num_part` value of 16 and dataset size of 100k, we get around 150 QPS using the same hardware as before (Intel i7-9750H CPU). Bumping `num_part` to 64 nets us a whopping 650 QPS.
 
-Note that it's often pragmatic to extend our search beyond just the nearest cluster, especially for high-dimensional data (for those familiar with FAISS, this corresponds to the `nprobe` parameter when creating an IVF index). This is largely due to the _curse of dimensionality_, where each partition has a significantly larger number of edges when compared with similar data in two or three dimensions. There's no good rule of thumb for a good value of `nprobe` to use - rather, it's helpful to first experiment with your data to see the speed versus accuracy/recall tradeoffs.
+Note that it's often pragmatic to extend our search beyond just the nearest cluster, especially for high-dimensional data (for those familiar with FAISS, this corresponds to the `nprobe` parameter when creating an IVF index). This is largely due to the _curse of dimensionality_, where each partition has a significantly larger number of edges when compared with similar data in two or three dimensions. I'll leave this implementation as an exercise for the reader.
+
+There's no good rule of thumb for a good value of `nprobe` to use - rather, it's helpful to first experiment with your data to see the speed versus accuracy/recall tradeoffs. I'll leave this implementation as an exercise for the reader :sunny:.
 
 And that's it for IVF! Not too bad, right?
 

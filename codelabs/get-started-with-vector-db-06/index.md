@@ -225,7 +225,7 @@ import numpy as np
 from scipy.cluster.vq import kmeans2
 
 
-class ProductQuantizer:
+class ProductQuantizer(object):
 
     def __init__(self, M=16, K=256):
         self.M = 16

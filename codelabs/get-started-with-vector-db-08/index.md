@@ -53,22 +53,37 @@ Let's first define a `Node` class containing left and right subtrees:
 
 ```python
 class Node(object):
+    """Initialize with a set of vectors, then call `split()`.
+    """
 
-    def __init__(vecs=[]):
+    def __init__(self, ref: np.ndarray, vecs: List[np.ndarray]):
+        self._ref = ref
         self._vecs = vecs
         self._left = None
         self._right = None
 
     @property
-    def vecs(self):
+    def ref(self) -> Optional[np.ndarray]:
+        """Reference point in n-d hyperspace. Evaluates to `False` if root node.
+        """
+        return self._ref
+
+    @property
+    def vecs(self) -> List[np.ndarray]:
+        """Vectors for this leaf node. Evaluates to `False` if not a leaf.
+        """
         return self._vecs
 
     @property
-    def left(self):
+    def left(self) -> Optional[object]:
+        """Left node.
+        """
         return self._left
 
     @property
-    def right(self):
+    def right(self) -> Optional[object]:
+        """Right node.
+        """
         return self._right
 ```
 
@@ -90,52 +105,51 @@ Now let's move to building the actual tree.
 import random
 
 
-def _split_node(node, K=64, imb=0.95):
+def split_node(node, K: int, imb: float) -> bool:
 
     # stopping condition: maximum # of vectors for a leaf node
-    if len(node.vecs) <= K:
-        return
-    node.left = Node()
-    node.right = Node()
+    if len(node._vecs) <= K:
+        return False
 
+    # continue for a maximum of 5 iterations
     for n in range(5):
+        left_vecs = []
+        right_vecs = []
 
-        # take two random indexes and swap to [0] and [1]
-        idxs = random.sample(range(len(node.vecs)), 2)
-        (node.vecs[0], node.vecs[idx[0]]) = (node.vecs[idx[0]], node.vecs[0])
-        (node.vecs[1], node.vecs[idx[1]]) = (node.vecs[idx[1]], node.vecs[1])
+        # take two random indexes and set as left and right halves
+        left_ref = node._vecs.pop(np.random.randint(len(node._vecs)))
+        right_ref = node._vecs.pop(np.random.randint(len(node._vecs)))
 
         # split vectors into halves
-        for vec in node.vecs:
-            if _is_query_in_left_half(vec, node):
-                node.left.vecs.append(vec)
+        for vec in node._vecs:
+            dist_l = np.linalg.norm(vec - left_ref)
+            dist_r = np.linalg.norm(vec - right_ref)
+            if dist_l < dist_r:
+                left_vecs.append(vec)
             else:
-                node.right.vecs.append(vec)
+                right_vecs.append(vec)
+
+        # check to make sure that the tree is mostly balanced
+        r = len(left_vecs) / len(node._vecs)
+        if r < imb and r > (1 - imb):
+            node._left = Node(left_ref, left_vecs)
+            node._right = Node(right_ref, right_vecs)
+            return True
 
         # redo tree build process if imbalance is high
-        rat = len(node.left.vecs) / len(node.vecs)
-        if rat > imb or rat < (1 - imb):
-            continue
+        node._vecs.append(left_ref)
+        node._vecs.append(right_ref)
 
-    # we're done; remove vectors from input-level node
-    # first two vectors correspond to `left` and `right`, respectively
-    del node.vecs[2:]
+    return False
 
-
-def _build_tree(node, K, imb):
-
-    _split_node(node, K=K, imb=imb)
-    if node.left and node.right:
-        _build_tree(node.left, K=K, imb=imb)
-        _build_tree(node.right, K=K, imb=imb)
-
-
-def build_tree(vecs, K=64, imb=0.95)
-
-    root = Node()
-    root.vecs = vecs
-    _build_tree(root, K=K, imb=imb)
-
+def build_tree(node, K: int, imb: float):
+    """Recurses on left and right halves to build a tree.
+    """
+    node.split(K=K, imb=imb)
+    if node.left:
+        build_tree(node.left, K=K, imb=imb)
+    if node.right:
+        build_tree(node.right, K=K, imb=imb)
 ```
 
 This is a denser block of code, so let's walk through it step-by-step. Given an already-initialized `Node`, we first randomly select two vectors and split the dataset into left and right halves. We then use the function we defined earlier to determine which of the two halves the subvectors belong to. Note that we've added in an `imb` parameter to maintain tree balance - if one side of the tree contains more than 95% of the all subvectors, we redo the split process.
@@ -145,25 +159,21 @@ With node splitting in place, the `build_tree` function will simply recursively 
 Great, so we've built a binary tree that lets us significantly reduce the scope of our search. Now let's implement querying as well. Querying is fairly straightforward; we simply traverse the tree, continuously moving along the left or right branches until we've arrived at the one we're interested in:
 
 ```python
-def query_tree(q, root):
+def _query_linear(vecs: List[np.ndarray], q: np.ndarray, k: int) -> List[np.ndarray]:
+    return sorted(vecs, key=lambda v: np.linalg.norm(q-v))[:k]
 
-    node = root
 
-    while not node.vecs:
-        # iteratively determine whether right or left node is closer
-        if _is_query_in_left_half(q, node):
-            node = node.left
-        else:
-            node = node.right
+def query_tree(root: Node, q: np.ndarray, k: int) -> List[np.ndarray]:
+    """Queries a single tree.
+    """
 
-    # find nearest neighbor in leaf node
-    (nn, m_dist) = (None, float("inf"))
-    for v in node.vecs:
-        dist = np.linalg.norm(v - q)
-        if dist < m_dist:
-            (nn, m_dist) = (v, dist)
+    while root.left and root.right:
+        dist_l = np.linalg.norm(q - node.left.ref)
+        dist_r = np.linalg.norm(q - node.right.ref)
+        root = root.left if dist_l < dist_r else root.right
 
-    return nn
+    # brute-force search the nearest neighbors
+    return _query_linear(root.vecs, q, k)
 ```
 
 This chunk of code will greedily traverse the tree, returning a single nearest neighbor (`nq = 1`). Recall, however, that we're often times interested in finding multiple nearest neighbors. Additionally, it's entirely possible for multiple nearest neighbors to live in other leaf nodes as well. How can we solve these issues?
@@ -180,95 +190,210 @@ For tree-based indexes, we face the same problem - some of our nearest neighbors
 Let's first expand on our implementation in the previous section to search both sides of a split:
 
 ```python
-
-    std::vector<S> nns;
-    while (nns.size() < (size_t)search_k && !q.empty()) {
-      const pair<T, S>& top = q.top();
-      T d = top.first;
-      S i = top.second;
-      Node* nd = _get(i);
-      q.pop();
-      if (nd->n_descendants == 1 && i < _n_items) {
-        nns.push_back(i);
-      } else if (nd->n_descendants <= _K) {
-        const S* dst = nd->children;
-        nns.insert(nns.end(), dst, &dst[nd->n_descendants]);
-      } else {
-        T margin = D::margin(nd, v, _f);
-        q.push(make_pair(D::pq_distance(d, margin, 1), static_cast<S>(nd->children[1])));
-        q.push(make_pair(D::pq_distance(d, margin, 0), static_cast<S>(nd->children[0])));
-      }
-    } 
-
-    // Get distances for all items
-    // To avoid calculating distance multiple times for any items, sort by id
-    std::sort(nns.begin(), nns.end());
-    vector<pair<T, S> > nns_dist;
-    S last = -1;
-    for (size_t i = 0; i < nns.size(); i++) {
-      S j = nns[i]; 
-      if (j == last)
-        continue;
-      last = j;
-      if (_get(j)->n_descendants == 1)  // This is only to guard a really obscure case, #284
-        nns_dist.push_back(make_pair(D::distance(v_node, _get(j), _f), j));
-    }
-
-    size_t m = nns_dist.size();
-    size_t p = n < m ? n : m; // Return this many items
-    std::partial_sort(nns_dist.begin(), nns_dist.begin() + p, nns_dist.end());
-    for (size_t i = 0; i < p; i++) {
-      if (distances)
-        distances->push_back(D::normalized_distance(nns_dist[i].first));
-      result->push_back(nns_dist[i].second);
-    }
-
-def _select_nearby(q, node, thresh=0)
-    # functions identically to _is_query_in_left_half, but can return both
-    dist_l = np.linalg.norm(q - node.vecs[0])
-    dist_r = np.linalg.norm(q - node.vecs[1])
-    diff = math.abs(dist_l - dist_r)
-    if diff < thresh:
+def _select_nearby(node: Node, q: np.ndarray, thresh: int = 0):
+    """Functions identically to _is_query_in_left_half, but can return both.
+    """
+    if not node.left or not node.right:
+        return ()
+    dist_l = np.linalg.norm(q - node.left.ref)
+    dist_r = np.linalg.norm(q - node.right.ref)
+    if np.abs(dist_l - dist_r) < thresh:
         return (node.left, node.right)
     if dist_l < dist_r:
         return (node.left,)
     return (node.right,)
 
 
-def query_tree(q, root, thresh=0.5):
+def _query_tree(root: Node, q: np.ndarray, k: int) -> List[np.ndarray]:
+    """This replaces the `query_tree` function above.
+    """
 
-    nodes = [root]
+    pq = [root]
     nns = []
+    while pq:
+        node = pq.pop(0)
+        nearby = _select_nearby(node, q, thresh=0.05)
 
-    while True:
-        # iteratively determine whether right or left node is closer
-
-        if _select_nearby(q, node):
-            node = node.left
+        # if `_select_nearby` does not return either node, then we are at a leaf
+        if nearby:
+            pq.extend(nearby)
         else:
-            node = node.right
+            nns.extend(node.vecs)
 
-    # find nearest neighbor in leaf node
-    (nn, m_dist) = (None, float("inf"))
-    for v in node.vecs:
-        dist = np.linalg.norm(v - q)
-        if dist < m_dist:
-            (nn, m_dist) = (v, dist)
+    # brute-force search the nearest neighbors
+    return _query_linear(nns, q, k)
 
-    return nn
+
+def query_forest(forest: List[Node], q, k: int = 10):
+    nns = set()
+    for root in forest:
+        # merge `nns` with query result
+        res = _query_tree(root, q, k)
+        nns.update(res)
+    return _query_linear(nns, q, k)
 ```
 
 Next, we'll add a function to allow us to build the full index as a forest of trees:
 
 ```python
-def build_index(vecs, nt=8, K=64, imb=0.95):
-    return [build_tree(vecs, K=K, imb=imb) for _ in range(nt)]
+def build_forest(vecs: List[np.ndarray], N: int = 32, K: int = 64, imb: float = 0.95) -> List[Node]:
+    """Builds a forest of `N` trees.
+    """
+    forest = []
+    for _ in range(N):
+        root = Node(None, vecs)
+        _build_tree(root, K, imb)
+        forest.append(root)
+    return forest
 ```
 
 With everything implemented, let's now put it all together, as we've done for IVF, SQ, PQ, and HNSW:
 
 ```python
+from typing import List, Optional
+import random
 
+import numpy as np
+
+
+class Node(object):
+    """Initialize with a set of vectors, then call `split()`.
+    """
+
+    def __init__(self, ref: np.ndarray, vecs: List[np.ndarray]):
+        self._ref = ref
+        self._vecs = vecs
+        self._left = None
+        self._right = None
+
+    @property
+    def ref(self) -> Optional[np.ndarray]:
+        """Reference point in n-d hyperspace. Evaluates to `False` if root node.
+        """
+        return self._ref
+
+    @property
+    def vecs(self) -> List[np.ndarray]:
+        """Vectors for this leaf node. Evaluates to `False` if not a leaf.
+        """
+        return self._vecs
+
+    @property
+    def left(self) -> Optional[object]:
+        """Left node.
+        """
+        return self._left
+
+    @property
+    def right(self) -> Optional[object]:
+        """Right node.
+        """
+        return self._right
+
+    def split(self, K: int, imb: float) -> bool:
+
+        # stopping condition: maximum # of vectors for a leaf node
+        if len(self._vecs) <= K:
+            return False
+
+        # continue for a maximum of 5 iterations
+        for n in range(5):
+            left_vecs = []
+            right_vecs = []
+
+            # take two random indexes and set as left and right halves
+            left_ref = self._vecs.pop(np.random.randint(len(self._vecs)))
+            right_ref = self._vecs.pop(np.random.randint(len(self._vecs)))
+
+            # split vectors into halves
+            for vec in self._vecs:
+                dist_l = np.linalg.norm(vec - left_ref)
+                dist_r = np.linalg.norm(vec - right_ref)
+                if dist_l < dist_r:
+                    left_vecs.append(vec)
+                else:
+                    right_vecs.append(vec)
+
+            # check to make sure that the tree is mostly balanced
+            r = len(left_vecs) / len(self._vecs)
+            if r < imb and r > (1 - imb):
+                self._left = Node(left_ref, left_vecs)
+                self._right = Node(right_ref, right_vecs)
+                return True
+
+            # redo tree build process if imbalance is high
+            self._vecs.append(left_ref)
+            self._vecs.append(right_ref)
+
+        return False
+
+
+def _select_nearby(node: Node, q: np.ndarray, thresh: int = 0):
+    """Functions identically to _is_query_in_left_half, but can return both.
+    """
+    if not node.left or not node.right:
+        return ()
+    dist_l = np.linalg.norm(q - node.left.ref)
+    dist_r = np.linalg.norm(q - node.right.ref)
+    if np.abs(dist_l - dist_r) < thresh:
+        return (node.left, node.right)
+    if dist_l < dist_r:
+        return (node.left,)
+    return (node.right,)
+
+
+def _build_tree(node, K: int, imb: float):
+    """Recurses on left and right halves to build a tree.
+    """
+    node.split(K=K, imb=imb)
+    if node.left:
+        _build_tree(node.left, K=K, imb=imb)
+    if node.right:
+        _build_tree(node.right, K=K, imb=imb)
+
+
+def build_forest(vecs: List[np.ndarray], N: int = 32, K: int = 64, imb: float = 0.95) -> List[Node]:
+    """Builds a forest of `N` trees.
+    """
+    forest = []
+    for _ in range(N):
+        root = Node(None, vecs)
+        _build_tree(root, K, imb)
+        forest.append(root)
+    return forest
+
+
+def _query_linear(vecs: List[np.ndarray], q: np.ndarray, k: int) -> List[np.ndarray]:
+    return sorted(vecs, key=lambda v: np.linalg.norm(q-v))[:k]
+
+
+def _query_tree(root: Node, q: np.ndarray, k: int) -> List[np.ndarray]:
+    """Queries a single tree.
+    """
+
+    pq = [root]
+    nns = []
+    while pq:
+        node = pq.pop(0)
+        nearby = _select_nearby(node, q, thresh=0.05)
+
+        # if `_select_nearby` does not return either node, then we are at a leaf
+        if nearby:
+            pq.extend(nearby)
+        else:
+            nns.extend(node.vecs)
+
+    # brute-force search the nearest neighbors
+    return _query_linear(nns, q, k)
+
+
+def query_forest(forest: List[Node], q, k: int = 10):
+    nns = set()
+    for root in forest:
+        # merge `nns` with query result
+        res = _query_tree(root, q, k)
+        nns.update(res)
+    return _query_linear(nns, q, k)
 ```
 
 And that's it for Annoy!

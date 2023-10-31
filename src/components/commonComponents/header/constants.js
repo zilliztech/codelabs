@@ -22,7 +22,7 @@ export const MENU = [
       },
       {
         label: "Demo",
-        href: !isExternal ? "/milvus-demos" : "https://milvus.io/milus-demos",
+        href: !isExternal ? "/milvus-demos" : "https://milvus.io/milvus-demos",
         isExternal: isExternal,
       },
       {
